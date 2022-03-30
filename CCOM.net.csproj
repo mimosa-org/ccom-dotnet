@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.XmlSerializer.Generator" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.XmlSerializer.Generator" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>
