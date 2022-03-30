@@ -1,0 +1,9 @@
+<ccom:CCOMData xmlns="http://www.mimosa.org/ccom4"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.mimosa.org/ccom4 ../XSD/CCOM.xsd"
+                xmlns:ccom="http://www.mimosa.org/ccom4">
+    <!-- Bare minimal CCOM file -->
+    <Entity xsi:type="Asset">
+        <UUID>00000000-0000-0000-0000-000000000000</UUID>
+    </Entity>
+</ccom:CCOMData>

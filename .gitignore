@@ -1,0 +1,5 @@
+XSD/Doc
+.vscode/*
+bin/**
+obj/*
+
