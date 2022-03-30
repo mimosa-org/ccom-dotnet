@@ -13,38 +13,54 @@
 // Revert to above for older C# versions.
 
 using System.Xml.Serialization;
-using ccom;
+using Ccom;
 
-Console.WriteLine("Hello, World!");
+// Serialiser for the CCOMData root element, so basically everything.
+XmlSerializer s = new XmlSerializer(typeof(CCOMData), "http://www.mimosa.org/ccom4");
 
-Asset asset = new Asset() {
-    UUID = new UUID() { Value = Guid.NewGuid().ToString() }
+Console.WriteLine("Reading/Writing example CCOM data file");
+
+CCOMData? readData = null;
+using (TextReader reader = new StreamReader("./data/example_ccom_seg_asset_props.xml")) {
+    readData = s.Deserialize(reader) as CCOMData;
+}
+
+if (readData != null) {
+    Console.WriteLine("The READ data includes {0} entities", readData.Entity.Length);
+
+    using (TextWriter writer = new StreamWriter("./data/example_writeout_test.xml")) {
+        s.Serialize(writer, readData);
+    }
+}
+else {
+    Console.WriteLine("The READ CCOMData failed to read the entities");
+}
+
+// Simple example just initialising objects. Can also create and set properties individually.
+Console.WriteLine("Creating example asset in code and writing it out.");
+
+EffectiveStatusType activeStatusType = new EffectiveStatusType {
+    UUID = new UUID() { Value = Guid.NewGuid().ToString() },
+    ShortName = new TextType[] { new TextType{Value = "Active"} },
+    InfoSource = new InfoSource {
+        UUID = new UUID() { Value = Guid.NewGuid().ToString() },
+        ShortName = new TextType[] { new TextType{Value = "Fake InfoSource"} },
+    }
 };
-// asset.UUID = new UUID();
-// asset.UUID.Value = Guid.NewGuid().ToString();
+// Don't do this: circular references break the serialisation.
+// activeStatusType.EffectiveStatus = new Entity[] { activeStatusType };
 
-Console.WriteLine("The Asset UUID is {0}", asset.UUID.Value);
+// A real SDK would provide a means of managing the references, particularly circular ones
+// However, since this is just bare bones, need to manage them manually
+activeStatusType.EffectiveStatus = new Entity[] {
+    new EffectiveStatusType {
+        // Object references in CCOM XML comprise at minimum UUID, but including ShortName is recommended.
+        UUID = activeStatusType.UUID,
+        ShortName = activeStatusType.ShortName
+    }
+};
 
-// Percentage percent = new Percentage() { Value = "80" };
-// XmlSerializer serializer = new XmlSerializer(typeof(Percentage));
-// XmlSerializer serializer = new XmlSerializer(typeof(Asset), "http://www.mimosa.org/ccom4");
-
-// TextWriter writer = new StreamWriter("test.xml");
-// serializer.Serialize(writer, asset);
-// writer.Close();
-
-// TextReader reader = new StreamReader("test.xml");
-// Asset? readAsset = serializer.Deserialize(reader) as Asset;
-// reader.Close();
-
-// if (readAsset != null) {
-//     Console.WriteLine("The READ Asset UUID is {0} which matches? {1}", readAsset.UUID.Value, readAsset.UUID.Value == asset.UUID.Value);
-// }
-// else {
-//     Console.WriteLine("The READ Asset failed to read the entity");
-// }
-
-asset = new Asset {
+Asset asset = new Asset {
     UUID = new UUID() { Value = Guid.NewGuid().ToString() },
     ShortName = new TextType[] { new TextType{Value = "Asset Tag"} },
     EffectiveStatus = new EffectiveStatus[] {
@@ -58,9 +74,7 @@ asset = new Asset {
                 UUID = new UUID() { Value = Guid.NewGuid().ToString() },
                 ShortName = new TextType[] { new TextType{Value = "Test Type"} }
             },
-            EffectiveStatus = new Entity[] {
-                new EffectiveStatusType { UUID = new UUID { Value = Guid.NewGuid().ToString() } }
-            }
+            EffectiveStatus = new Entity[] { activeStatusType.EffectiveStatus.First() }
         }
     },
     PresentLifecycleStatus = new LifecycleStatusType[] { 
@@ -73,26 +87,11 @@ asset = new Asset {
             }
         }
     },
-    LifecycleStatusHistory = new LifecycleStatusHistory[] {
-        new LifecycleStatusHistory {
-            UUID = new UUID { Value = Guid.NewGuid().ToString() },
-            Type = new LifecycleStatusType { UUID = new UUID{ Value = Guid.NewGuid().ToString() } },
-            StatusFromDate = new UTCDateTime { Value = DateTime.UtcNow.ToString("o")     } // iso8601 formatted date/time
-        }
-    },
-    Properties = new Property[] {
-        new Property { 
-            UUID = new UUID{ Value = Guid.NewGuid().ToString() },
-            ShortName = new TextType[] { new TextType{ Value = "Propertyy 1"} },
-            ValueContent = new ValueContent { Item = new TextType{ Value = "Property Value" } }
-        },
-        new Property { 
-            UUID = new UUID{ Value = Guid.NewGuid().ToString() },
-            ShortName = new TextType[] { new TextType{ Value = "Propertyy 2"} },
-            ValueContent = new ValueContent { Item = new TextType{ Value = "Another Property Value" } }
-        }
-    },
-    PropertiesElementName = new Items1ChoiceType1[]{ Items1ChoiceType1.Attribute, Items1ChoiceType1.Attribute },
+    // This lets you choose between the old and new terminology as it is a 'choice' in the XSD
+    // Always use the classes with the names 'Property...' though as the attribute variants are
+    // just empty subclasses. Should always keep it consistent too.
+    // PropertySetsName = new Items2ChoiceType1[] { Items2ChoiceType1.AttributeSetForEntity }
+    PropertySetsName = new Items2ChoiceType1[] { Items2ChoiceType1.PropertySetForEntity },
     PropertySets = new PropertySetForEntity[] {
         new PropertySetForEntity() {
             UUID = new UUID{ Value = Guid.NewGuid().ToString() },
@@ -106,7 +105,8 @@ asset = new Asset {
                         ValueContent = new ValueContent { Item = new TextType{ Value = "Property Value" } }
                     }
                 },
-                SetPropertiesName = new ItemsChoiceType6[] { ItemsChoiceType6.SetAttribute },
+                // SetPropertiesName = new ItemsChoiceType6[] { ItemsChoiceType6.SetAttribute },
+                SetPropertiesName = new ItemsChoiceType6[] { ItemsChoiceType6.SetProperty },
                 Group = new PropertyGroup[] {
                     new PropertyGroup {
                         UUID = new UUID{ Value = Guid.NewGuid().ToString() },
@@ -118,21 +118,27 @@ asset = new Asset {
                                 ValueContent = new ValueContent { Item = new TextType{ Value = "Property Value" } }
                             }
                         },
-                        SetPropertiesName = new ItemsChoiceType7[] { ItemsChoiceType7.SetAttribute },
+                        // SetPropertiesName = new ItemsChoiceType7[] { ItemsChoiceType7.SetAttribute },
+                        SetPropertiesName = new ItemsChoiceType7[] { ItemsChoiceType7.SetProperty },
                     }
                 }
             },
-            PropertySetName = ItemChoiceType2.AttributeSet
+            // PropertySetName = ItemChoiceType2.AttributeSet
+            PropertySetName = ItemChoiceType2.PropertySet
         }
-    },
-    PropertySetsName = new Items2ChoiceType1[] { Items2ChoiceType1.AttributeSetForEntity }
+    }
 };
 
-XmlSerializer s = new XmlSerializer(typeof(CCOMData), "http://www.mimosa.org/ccom4");
 MemoryStream mem = new MemoryStream();
 TextWriter w = new StreamWriter(mem);
-s.Serialize(w, new CCOMData { Entity = new Entity[] { asset, asset.EffectiveStatus.First() } });
+CCOMData writeData = new CCOMData { Entity = new Entity[] { activeStatusType, asset } };
+s.Serialize(w, writeData);
 using (StreamReader r = new StreamReader(mem)) {
     mem.Position = 0;
     Console.WriteLine("Serialized content\n{0}", r.ReadToEnd());
+
+    mem.Position = 0;
+    using (TextWriter writer = new StreamWriter("./data/simple_test.xml")) {
+        writer.WriteLine(r.ReadToEnd());
+    }
 }
