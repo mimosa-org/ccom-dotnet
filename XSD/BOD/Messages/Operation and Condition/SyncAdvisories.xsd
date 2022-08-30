@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:oa="http://www.openapplications.org/oagis/9"
+	xmlns="http://www.mimosa.org/ccom4"
+	targetNamespace="http://www.mimosa.org/ccom4"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
+	<xs:include schemaLocation="../CCOMElements.xsd"/>
+
+	<xs:element name="SyncAdvisories">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+Synchronizes information about advisories (recommendations) and their context (optional).
+This should include the Asset, AssetType, Segment, SegmentType, Model, or OrderedList to 
+which the recommendations relate to ensure adequate context is maintained across systems.
+Many recommendations can be bundled for each related entity in a single instance of the noun.
+
+Additonal context, including the events, health assessments, and measurements on which 
+the advisory is based may be provided along with the advisories themselves.
+
+Where the advisory indicates that work needs to be carried out, requests for work may be 
+included, which indicate the type of work that is required.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="oa:BusinessObjectDocumentType">
+					<xs:sequence>
+						<xs:element name="DataArea">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element ref="oa:Sync"/>
+									<xs:element name="Advisories" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:choice minOccurs="0" maxOccurs="1">
+													<xs:element name="Asset" type="Asset" minOccurs="1" maxOccurs="1"/>
+													<xs:element name="AssetType" type="AssetType" minOccurs="1" maxOccurs="1"/>
+													<xs:element name="Model" type="Model" minOccurs="1" maxOccurs="1"/>
+													<xs:element name="OrderedList" type="OrderedList" minOccurs="1" maxOccurs="1"/>
+													<xs:element name="Segment" type="Segment" minOccurs="1" maxOccurs="1"/>
+													<xs:element name="SegmentType" type="SegmentType" minOccurs="1" maxOccurs="1"/>
+												</xs:choice>
+												<xs:element name="Event" type="Event" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="HealthAssessment" type="HealthAssessment" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="Measurement" type="Measurement" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="RequestForWork" type="RequestForWork" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="Recommendation" type="Recommendation" minOccurs="1" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

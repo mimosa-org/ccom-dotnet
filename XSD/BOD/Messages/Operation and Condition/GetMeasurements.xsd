@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:oa="http://www.openapplications.org/oagis/9"
+	xmlns="http://www.mimosa.org/ccom4"
+	targetNamespace="http://www.mimosa.org/ccom4"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
+	<xs:include schemaLocation="../CCOMQuery.xsd"/>
+
+	<!-- Custom Application Area User Area elements -->
+	<xs:element name="LastNData" type="xs:nonNegativeInteger" />
+	<xs:element name="IncludeMetaData" type="BooleanFilter" />
+	<xs:element name="IncludeData" type="BooleanFilter" />
+	<xs:element name="IncludeAlarms" type="BooleanFilter" />
+	
+	<!-- Main BOD element -->
+
+	<xs:element name="GetMeasurements">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+Returns 0 to N Measurement events (and possibly related meta-data and alarms) via a ShowMeasurements response.
+
+Allows optional criteria-based filtering, otherwise all measurements will be returned.
+Criteria in the same MeasurementsCriteria noun are combined with a logical AND while criteria across different MeasurementsCriteria are combined with a logical OR.
+
+Typically, Measurement events are filtered by Measurement Location (MeasurementLocationUUID) and date/time range.
+However, a single Measurement event may be requested: typically used for retrieving full details of samples and tests.
+Other main filters include Measurement Location Type and Measurement Category.
+
+If countOnly = true, then the response only contains the number of measurements, not the data. No value is interpreted as countOnly = false.
+
+Start/End/Recorded date-times can either be a specified value, unbounded range or bounded range.
+
+Confidence can either be a specified value, unbounded range or bounded range.
+
+If AlarmUUID is specified, the response contains only the measurements that are associated to the given MeasurementLocationTriggeredRegion.
+
+If MeasurementCategory is specified, the response contains only the measurements of types relevant to the specified category as follows:
+- Simple: SingleDataMeasurement with non-binary object ValueContent
+- Dynamic: OffsetArrayMeasurement, VectorMeasurement, FFTMeasurement, TimeWaveformMeasurement, and CPBMeasurement
+- LIMS: Sample, Test, and TestComponent
+- BLOB: SingleDataMeasurement with binary object ValueContent
+If MeasurementCategory is specified as 'All' or not specified, then Measurement events of any type will be included in the response.
+
+There are several optional filters that can be specified in the ApplicationArea\UserArea that indicate the amount of detail to be included in the response, including:
+
+If LastNData is specified in the ApplicationArea\UserArea of the request, only the most recent N Measurement events are included in the response. 
+
+If IncludeMetaData = true, the response should include (if known) the contextual elements (and their types) of each Measurement event such as: 
+Asset, Segment, Transducer, MeasurementSource, MeasurementLocationType, DataQualityType, CalculationType, MaterialItem (for Tests and Samples).
+If IncludeMetaData = false or is not specified, the response need not include such contextual elements.
+
+If IncludeData = true or is not specified, the response will include the data value(s) of the Measurement event (varies depending on the type 
+ of Measurement event).
+If IncludeData = false, the data value(s) need not be included.
+
+If IncludeAlarms = true, the response will include any associated alarms, i.e., MeasurementLocationTriggeredRegion entities.
+If IncludeAlarms = false or is not specified, the response need not include the associated alarms.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="oa:BusinessObjectDocumentType">
+					<xs:sequence>
+						<xs:element name="DataArea">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element ref="oa:Get"/>
+									<xs:element name="MeasurementsCriteria" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="MeasurementUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="MeasurementLocationUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="MeasurementLocationTypeUUID" type="TypeUUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="Start" type="UTCDateTimeFilter" minOccurs="0" maxOccurs="2"/>
+												<xs:element name="End" type="UTCDateTimeFilter" minOccurs="0" maxOccurs="2"/>
+												<xs:element name="Recorded" type="UTCDateTimeFilter" minOccurs="0" maxOccurs="2"/>
+												<xs:element name="Confidence" type="NumericFilter" minOccurs="0" maxOccurs="2"/>
+												<xs:element name="AssetUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="SegmentUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="SiteUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="TransducerUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="MeasurementSourceUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="DataQualityTypeUUID" type="TypeUUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="CalculationTypeUUID" type="TypeUUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="UnitOfMeasureUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="PostScalingTypeUUID" type="TypeUUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="AlarmUUID" type="UUIDFilter" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="MeasurementCategory" type="MeasurementCategoryFilter" minOccurs="0" maxOccurs="1"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

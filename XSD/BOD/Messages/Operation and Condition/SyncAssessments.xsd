@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:oa="http://www.openapplications.org/oagis/9"
+	xmlns="http://www.mimosa.org/ccom4"
+	targetNamespace="http://www.mimosa.org/ccom4"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
+	<xs:include schemaLocation="../CCOMElements.xsd"/>
+
+	<xs:element name="SyncAssessments">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+Synchronizes information about diagnostic (health) and prognostic (remaining life) 
+assessments and their context (optional).
+This should include the Asset or Segment to which the assessments relate to ensure 
+adequate context is maintained across systems.
+Many assessments can be bundled for each Asset/Segment in a single instance of the noun.
+
+Additonal context, including roles and substantiating events (relevant to health assessments
+only), may be provided along with the assessments themselves.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="oa:BusinessObjectDocumentType">
+					<xs:sequence>
+						<xs:element name="DataArea">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element ref="oa:Sync"/>
+									<xs:element name="Assessments" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:choice minOccurs="0" maxOccurs="1">
+													<xs:element name="Asset" type="Asset" minOccurs="1" maxOccurs="1"/>
+													<xs:element name="Segment" type="Segment" minOccurs="1" maxOccurs="1"/>
+												</xs:choice>
+												<xs:element name="AgentRole" type="AgentRole" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="TimestampedEvent" type="TimestampedEvent" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="HealthAssessment" type="HealthAssessment" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="PrognosticAssessment" type="RemainingLifeAssessment" minOccurs="0" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
