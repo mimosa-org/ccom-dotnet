@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+	This is a support file to be used with xsd.exe
+	It contains an element that references each type, otherwise only those types
+	referenced in the core schema will be included.
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.openapplications.org/oagis/9" targetNamespace="http://www.openapplications.org/oagis/9" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="../XSD/BOD/OAGIS/ConfirmBOD.xsd"/>
+	
+	<xsd:element name="GenSupport">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="ConfirmBODTypeSupport" type="ConfirmBODType"></xsd:element>
+				<xsd:element name="ConfirmBODDataAreaTypeSupport" type="ConfirmBODDataAreaType"></xsd:element>
+				<xsd:element name="BODTypeSupport" type="ConfirmBODDataAreaType"></xsd:element>
+
+				<xsd:element name="BusinessObjectDocumentTypeSupport" type="BusinessObjectDocumentType"></xsd:element>
+				<xsd:element name="ApplicationAreaTypeSupport" type="ApplicationAreaType"></xsd:element>
+				<xsd:element name="SenderTypeSupport" type="SenderType"></xsd:element>
+				<xsd:element name="ReceiverTypeSupport" type="ReceiverType"></xsd:element>
+				<xsd:element name="SignatureTypeSupport" type="SignatureType"></xsd:element>
+				<xsd:element name="SuccessMessageTypeSupport" type="SuccessMessageType"></xsd:element>
+				<xsd:element name="FailureMessageTypeSupport" type="FailureMessageType"></xsd:element>
+				<xsd:element name="BODFailureMessageTypeSupport" type="BODFailureMessageType"></xsd:element>
+				<xsd:element name="BODSuccessMessageTypeSupport" type="BODSuccessMessageType"></xsd:element>
+				<xsd:element name="MessageTypeSupport" type="MessageType"></xsd:element>
+				<xsd:element name="ExpressionTypeSupport" type="ExpressionType"></xsd:element>
+				<xsd:element name="ActionExpressionTypeSupport" type="ActionExpressionType"></xsd:element>
+				<xsd:element name="ActionCriteriaTypeSupport" type="ActionCriteriaType"></xsd:element>
+				<xsd:element name="ResponseActionCriteriaTypeSupport" type="ResponseActionCriteriaType"></xsd:element>
+				<xsd:element name="ResponseExpressionTypeSupport" type="ResponseExpressionType"></xsd:element>
+				<xsd:element name="AcknowledgeTypeSupport" type="AcknowledgeType"></xsd:element>
+				<xsd:element name="CancelTypeSupport" type="CancelType"></xsd:element>
+				<xsd:element name="ChangeTypeSupport" type="ChangeType"></xsd:element>
+				<xsd:element name="ConfirmTypeSupport" type="ConfirmType"></xsd:element>
+				<xsd:element name="GetTypeSupport" type="GetType"></xsd:element>
+				<xsd:element name="LoadTypeSupport" type="LoadType"></xsd:element>
+				<xsd:element name="NotifyTypeSupport" type="NotifyType"></xsd:element>
+				<xsd:element name="PostTypeSupport" type="PostType"></xsd:element>
+				<xsd:element name="ProcessTypeSupport" type="ProcessType"></xsd:element>
+				<xsd:element name="RespondTypeSupport" type="RespondType"></xsd:element>
+				<xsd:element name="ShowTypeSupport" type="ShowType"></xsd:element>
+				<xsd:element name="SyncTypeSupport" type="SyncType"></xsd:element>
+				<xsd:element name="UpdateTypeSupport" type="UpdateType"></xsd:element>
+				<xsd:element name="VerbTypeSupport" type="VerbType"></xsd:element>
+				<xsd:element name="ActionVerbTypeSupport" type="ActionVerbType"></xsd:element>
+				<xsd:element name="RequestVerbTypeSupport" type="RequestVerbType"></xsd:element>
+				<xsd:element name="ResponseVerbTypeSupport" type="ResponseVerbType"></xsd:element>
+				<xsd:element name="ChangeStatusTypeSupport" type="ChangeStatusType"></xsd:element>
+				<xsd:element name="StatusBasisTypeSupport" type="StatusBasisType"></xsd:element>
+				<xsd:element name="StateChangeTypeSupport" type="StateChangeType"></xsd:element>
+
+				<xsd:element name="UserAreaTypeSupport" type="UserAreaType"></xsd:element>
+				<xsd:element name="CodeTypeSupport" type="CodeType"></xsd:element>
+				<xsd:element name="IdentifierTypeSupport" type="IdentifierType"></xsd:element>
+				<xsd:element name="MeasureTypeSupport" type="MeasureType"></xsd:element>
+				<xsd:element name="TextTypeSupport" type="TextType"></xsd:element>
+				<xsd:element name="NameTypeSupport" type="NameType"></xsd:element>
+				<xsd:element name="DescriptionTypeSupport" type="DescriptionType"></xsd:element>
+				<xsd:element name="NoteTypeSupport" type="NoteType"></xsd:element>
+				<xsd:element name="SequencedTextTypeSupport" type="SequencedTextType"></xsd:element>
+				<xsd:element name="ConfirmationResponseCodeTypeSupport" type="ConfirmationResponseCodeType"></xsd:element>
+				<xsd:element name="ResponseCodeTypeSupport" type="ResponseCodeType"></xsd:element>
+				<xsd:element name="StateCodeTypeSupport" type="StateCodeType"></xsd:element>
+				<xsd:element name="DateTimeTypeSupport" type="DateTimeType"></xsd:element>
+				<xsd:element name="IndicatorTypeSupport" type="IndicatorType"></xsd:element>
+				<xsd:element name="ActionCodeContentTypeSupport" type="ActionCodeContentType"></xsd:element>
+				<xsd:element name="LanguageCodeContentTypeSupport" type="LanguageCodeContentType"></xsd:element>
+				<xsd:element name="ResponseActionCodeContentTypeSupport" type="ResponseActionCodeContentType"></xsd:element>
+				<xsd:element name="ResponseCodeContentTypeSupport" type="ResponseCodeContentType"></xsd:element>
+				<xsd:element name="StateCodeContentTypeSupport" type="StateCodeContentType"></xsd:element>
+				<xsd:element name="SystemEnvironmentCodeContentTypeSupport" type="SystemEnvironmentCodeContentType"></xsd:element>
+				<xsd:element name="IntegerNumericTypeSupport" type="IntegerNumericType"></xsd:element>
+				<xsd:element name="PositiveIntegerNumericTypeSupport" type="PositiveIntegerNumericType"></xsd:element>
+				<xsd:element name="NormalizedStringTypeSupport" type="NormalizedStringType"></xsd:element>
+				<xsd:element name="StringTypeSupport" type="StringType"></xsd:element>
+				<xsd:element name="TokenTypeSupport" type="TokenType"></xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

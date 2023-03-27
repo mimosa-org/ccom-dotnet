@@ -19,6 +19,23 @@ There is lots of work left to be done if this is to be turned into an SDK for CC
 - Helper methods for instantiation, navigation, and processing as necessary.
 - etc.
 
+## Generating the classes
+
+Class generation performed by the MS 'xsd' tool:
+  https://learn.microsoft.com/en-us/dotnet/standard/serialization/xml-schema-definition-tool-xsd-exe
+
+Instructions on how to use the tool are at:
+  https://learn.microsoft.com/en-us/dotnet/standard/serialization/xml-schema-def-tool-gen
+
+```
+xsd /parameters:config/GenerateCCOMClasses.xml 
+```
+
+```
+xsd /parameters:config/GenerateOAGISClasses.xml
+```
+
+
 ## Copyright
 
 Copyright (c) 2022 Matt Selway. All Rights Reserved.

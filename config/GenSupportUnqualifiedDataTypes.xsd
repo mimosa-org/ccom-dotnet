@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+	This is a support file to be used with xsd.exe
+	It contains an element that references each type, otherwise only those types
+	referenced in the core schema will be included.
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" targetNamespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="../XSD/BOD/OAGIS/UnqualifiedDataTypes.xsd"/>
+	<xsd:import namespace="http://www.openapplications.org/oagis/9/codelists" schemaLocation="../XSD/BOD/OAGIS/CodeLists.xsd"/>
+	
+	<xsd:element name="GenSupportUnqualifiedDataTypes">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="AmountTypeSupport" type="udt:AmountType"></xsd:element>
+				<xsd:element name="BinaryObjectTypeSupport" type="udt:BinaryObjectType"></xsd:element>
+				<xsd:element name="GraphicTypeSupport" type="udt:GraphicType"></xsd:element>
+				<xsd:element name="PictureTypeSupport" type="udt:PictureType"></xsd:element>
+				<xsd:element name="SoundTypeSupport" type="udt:SoundType"></xsd:element>
+				<xsd:element name="VideoTypeSupport" type="udt:VideoType"></xsd:element>
+				<xsd:element name="CodeTypeSupport" type="udt:CodeType"></xsd:element>
+				<xsd:element name="IdentifierTypeSupport" type="udt:IdentifierType"></xsd:element>
+				<xsd:element name="MeasureTypeSupport" type="udt:MeasureType"></xsd:element>
+				<xsd:element name="QuantityTypeSupport" type="udt:QuantityType"></xsd:element>
+				<xsd:element name="TextTypeSupport" type="udt:TextType"></xsd:element>
+				<xsd:element name="NameTypeSupport" type="udt:NameType"></xsd:element>
+				<xsd:element name="DateTimeTypeSupport" type="udt:DateTimeType"></xsd:element>
+				<xsd:element name="DateTypeSupport" type="udt:DateType"></xsd:element>
+				<xsd:element name="TimeTypeSupport" type="udt:TimeType"></xsd:element>
+				<xsd:element name="IndicatorTypeSupport" type="udt:IndicatorType"></xsd:element>
+				<xsd:element name="NumericTypeSupport" type="udt:NumericType"></xsd:element>
+				<xsd:element name="ValueTypeSupport" type="udt:ValueType"></xsd:element>
+				<xsd:element name="PercentTypeSupport" type="udt:PercentType"></xsd:element>
+				<xsd:element name="RateTypeSupport" type="udt:RateType"></xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

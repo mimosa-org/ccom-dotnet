@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd xmlns="http://microsoft.com/dotnet/tools/xsd/" output="src">
+  <generateClasses language="CS" namespace="Oagis" options="properties">
+    <!-- ConfirmBOD.xs includes BOD.xsd, which includes Meta.xsd, which includes Fields.xsd -->
+    <!-- The rest get imported as there are changes in namespace -->
+    <!-- Note that the single generated file is split up and put into different C# namespaces. -->
+    <schema>XSD/BOD/OAGIS/CodeList_LanguageCode_ISO_7_04.xsd</schema>
+    <schema>XSD/BOD/OAGIS/CodeList_UnitCode_UNECE_7_04.xsd</schema>
+    <schema>XSD/BOD/OAGIS/CodeList_CurrencyCode_ISO_7_04.xsd</schema>
+    <schema>XSD/BOD/OAGIS/CodeList_MIMEMediaTypeCode_IANA_7_04.xsd</schema>
+    <!-- 
+      GenSupport... provide top-level elements for each type to ensure
+      the code is generated for them and allow independent deserialisation
+      when processing BOD fragments.
+    -->
+    <!-- <schema>XSD/BOD/OAGIS/CodeLists.xsd</schema> -->
+    <!-- <schema>XSD/BOD/OAGIS/UnqualifiedDataTypes.xsd</schema> -->
+    <!-- <schema>XSD/BOD/OAGIS/QualifiedDataTypes.xsd</schema> -->
+    <schema>config/GenSupportCodeLists.xsd</schema>
+    <schema>config/GenSupportUnqualifiedDataTypes.xsd</schema>
+    <schema>config/GenSupportQualifiedDataTypes.xsd</schema>
+    <!-- The '.\' is a trick to ensure the output .cs file is based on only this file -->
+    <schema>.\config/GenSupportOAGIS.xsd</schema>
+    <!-- <schema>.\XSD/BOD/OAGIS/ConfirmBOD.xsd</schema> -->
+  </generateClasses>
+</xsd>

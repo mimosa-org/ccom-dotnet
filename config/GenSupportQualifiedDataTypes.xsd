@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+	This is a support file to be used with xsd.exe
+	It contains an element that references each type, otherwise only those types
+	referenced in the core schema will be included.
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" targetNamespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="../XSD/BOD/OAGIS/QualifiedDataTypes.xsd"/>
+	<xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../XSD/BOD/OAGIS/UnqualifiedDataTypes.xsd"/>
+	<xsd:import namespace="http://www.openapplications.org/oagis/9/codelists" schemaLocation="../XSD/BOD/OAGIS/CodeLists.xsd"/>
+	
+	<xsd:element name="GenSupportQualifiedDataTypes">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="HexBinaryObjectTypeSupport" type="qdt:HexBinaryObjectType"></xsd:element>
+				<xsd:element name="YearDateTypeSupport" type="qdt:YearDateType"></xsd:element>
+				<xsd:element name="YearMonthDateTypeSupport" type="qdt:YearMonthDateType"></xsd:element>
+				<xsd:element name="FloatNumericTypeSupport" type="qdt:FloatNumericType"></xsd:element>
+				<xsd:element name="DoubleNumericTypeSupport" type="qdt:DoubleNumericType"></xsd:element>
+				<xsd:element name="IntegerNumericTypeSupport" type="qdt:IntegerNumericType"></xsd:element>
+				<xsd:element name="PositiveIntegerNumericTypeSupport" type="qdt:PositiveIntegerNumericType"></xsd:element>
+				<xsd:element name="NegativeIntegerNumericTypeSupport" type="qdt:NegativeIntegerNumericType"></xsd:element>
+				<xsd:element name="NonPositiveIntegerNumericTypeSupport" type="qdt:NonPositiveIntegerNumericType"></xsd:element>
+				<xsd:element name="NonNegativeIntegerNumericTypeSupport" type="qdt:NonNegativeIntegerNumericType"></xsd:element>
+				<xsd:element name="DurationMeasureTypeSupport" type="qdt:DurationMeasureType"></xsd:element>
+				<xsd:element name="StringTypeSupport" type="qdt:StringType"></xsd:element>
+				<xsd:element name="NormalizedStringTypeSupport" type="qdt:NormalizedStringType"></xsd:element>
+				<xsd:element name="TokenTypeSupport" type="qdt:TokenType"></xsd:element>
+				<xsd:element name="URITypeSupport" type="qdt:URIType"></xsd:element>
+				<xsd:element name="LanguageCodeTypeSupport" type="qdt:LanguageCodeType"></xsd:element>
+				<xsd:element name="MonthDateTypeSupport" type="qdt:MonthDateType"></xsd:element>
+				<xsd:element name="DayDateTypeSupport" type="qdt:DayDateType"></xsd:element>
+				<xsd:element name="MonthDayDateTypeSupport" type="qdt:MonthDayDateType"></xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
