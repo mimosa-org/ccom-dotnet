@@ -20,7 +20,7 @@ namespace Oagis {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="CodeType", Namespace="http://www.openapplications.org/oagis/9")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Oagis.CodeType", Namespace="http://www.openapplications.org/oagis/9")]
     [System.Xml.Serialization.XmlRootAttribute("Code", Namespace="http://www.openapplications.org/oagis/9", IsNullable=false)]
     public partial class CodeType : UnqualifiedDataTypes.CodeType {
     }
@@ -55,7 +55,7 @@ namespace Oagis {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="TextType", Namespace="http://www.openapplications.org/oagis/9")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Oagis.TextType", Namespace="http://www.openapplications.org/oagis/9")]
     public partial class TextType : UnqualifiedDataTypes.TextType {
     }
     
@@ -100,7 +100,7 @@ namespace Oagis {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="NameType", Namespace="http://www.openapplications.org/oagis/9")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Oagis.NameType", Namespace="http://www.openapplications.org/oagis/9")]
     public partial class NameType : UnqualifiedDataTypes.NameType {
         
         private string sequenceField;
@@ -512,7 +512,7 @@ namespace Oagis {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="IdentifierType", Namespace="http://www.openapplications.org/oagis/9")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Oagis.IdentifierType", Namespace="http://www.openapplications.org/oagis/9")]
     [System.Xml.Serialization.XmlRootAttribute("AuthorizationID", Namespace="http://www.openapplications.org/oagis/9", IsNullable=false)]
     public partial class IdentifierType : UnqualifiedDataTypes.IdentifierType {
     }
@@ -522,7 +522,7 @@ namespace Oagis {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="MeasureType", Namespace="http://www.openapplications.org/oagis/9")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Oagis.MeasureType", Namespace="http://www.openapplications.org/oagis/9")]
     public partial class MeasureType : UnqualifiedDataTypes.MeasureType {
         
         private string typeField;

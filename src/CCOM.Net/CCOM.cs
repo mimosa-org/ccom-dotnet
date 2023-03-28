@@ -619,7 +619,7 @@ namespace Ccom {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="CCOM.CodeType", Namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2")]
     public partial class CodeType {
         
         private string listIDField;
@@ -1057,7 +1057,7 @@ namespace Ccom {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="CCOM.TextType", Namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2")]
     public partial class TextType {
         
         private string languageIDField;
@@ -1884,7 +1884,7 @@ namespace Ccom {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="CCOM.BinaryObjectType", Namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2")]
     public partial class BinaryObjectType {
         
         private string formatField;
