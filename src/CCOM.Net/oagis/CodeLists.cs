@@ -13,7 +13,17 @@
 // 
 namespace Oagis.CodeLists {
     using System.Xml.Serialization;
+    using System.Xml.Linq;
     
+    public interface Namespace
+    {
+        const string URI = "http://www.openapplications.org/oagis/9/codelists";
+        public readonly static XNamespace XNAMESPACE;
+
+        static Namespace() {
+            XNAMESPACE = XNamespace.Get(URI);
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]

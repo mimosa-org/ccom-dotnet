@@ -16,7 +16,17 @@
 // 
 namespace Ccom {
     using System.Xml.Serialization;
-    
+    using System.Xml.Linq;
+
+    public interface Namespace
+    {
+        public const string URI = "http://www.mimosa.org/ccom4";
+        public readonly static XNamespace XNAMESPACE;
+
+        static Namespace() {
+            XNAMESPACE = XNamespace.Get(URI);
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]

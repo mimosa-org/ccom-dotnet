@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CCOM.Net\CCOM.net.csproj" />
+  </ItemGroup>
+
 </Project>
