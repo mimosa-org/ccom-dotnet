@@ -27,6 +27,18 @@ namespace Ccom {
             XNAMESPACE = XNamespace.Get(URI);
         }
     }
+
+    namespace Cct {
+        public interface Namespace
+        {
+            public const string URI = "urn:un:unece:uncefact:documentation:standard:CoreComponentType:2";
+            public readonly static XNamespace XNAMESPACE;
+
+            static Namespace() {
+                XNAMESPACE = XNamespace.Get(URI);
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]

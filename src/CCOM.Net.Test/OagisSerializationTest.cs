@@ -7,7 +7,9 @@ namespace CCOM.Net.Test;
 
 public class OagisSerializationTest
 {
-    readonly string DATA_PATH = "./../../../../../data";
+    const string DATA_PATH = "./../../../../../data";
+
+    const string BOD_SCHEMA_PATH = "./../../../../../XSD/BOD/Messages";
 
     [Fact]
     public void ReadApplicationBOD()
