@@ -1,8 +1,10 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Xml.Linq;
+using Oagis;
 
 namespace CommonBOD;
 
@@ -10,17 +12,18 @@ public class BODReader
 {
     private readonly BODReaderSettings _settings;
 
-    private XElement bod { get; init; }
+    private XDocument bodXml { get; init; }
+    private string bodText { get; init; } // keeps the original text if the BOD is invalid
 
     public bool IsValid { get; private set; } = true;
 
-    public IEnumerable<ValidationEventArgs> ValidationErrors { get; init; } = new List<ValidationEventArgs>();
+    public IEnumerable<ValidationResult> ValidationErrors { get; init; } = new List<ValidationResult>();
 
     public string SimpleName
     {
         get
         {
-            return bod.Name.LocalName;
+            return bodXml.Root?.Name?.LocalName ?? "";
         }
     }
 
@@ -28,7 +31,103 @@ public class BODReader
     {
         get
         {
-            return bod.Name;
+            return bodXml.Root?.Name ?? "";
+        }
+    }
+
+    public string ReleaseID
+    {
+        get
+        {
+            return bodXml.Root?.Attribute("releaseID")?.Value ?? "";
+        }
+    }
+
+    public string? VersionID
+    {
+        get
+        {
+            return bodXml.Root?.Attribute("versionID")?.Value;
+        }
+    }
+
+    public string SystemEnvironmentCode
+    {
+        get
+        {
+            return bodXml.Root?.Attribute("systemEnvironmentCode")?.Value ?? Oagis.CodeLists.SystemEnvironmentCodeEnumerationType.Production.ToString();
+        }
+    }
+
+    public string LanguageCode
+    {
+        get
+        {
+            return bodXml.Root?.Attribute("languageCode")?.Value ?? "en-US";
+        }
+    }
+
+    private ApplicationAreaType? _applicationArea = null;
+    public ApplicationAreaType ApplicationArea
+    {
+        get
+        {
+            return _applicationArea ??= bodXml.Root is null ? tryRecoverApplicationArea() : readApplicationArea();            
+        }
+    }
+
+    private ApplicationAreaType tryRecoverApplicationArea()
+    {
+        // Attempt to recover BOD header information by looking at at the text in the event of a syntactic error.
+        // TODO: how flexible should we be in trying to recover this info?
+        // TODO: what else should we attempt to recover?
+        var applicationArea = new ApplicationAreaType();
+        Match match;
+        var options = RegexOptions.ExplicitCapture;
+
+        match = Regex.Match(bodText, @"ApplicationArea(.|\n)+BODID[^>]*>(?<value>[^<]+)<([^:]+:)?BODID(.|\n)+ApplicationArea", options);
+        applicationArea.BODID = match.Success ? new IdentifierType() { Value = match.Groups[1].Value } : null;
+        
+        match = Regex.Match(bodText, @"ApplicationArea(.|\n)+CreationDateTime[^>]*>(?<value>[^<]+)<([^:]+:)?CreationDateTime(.|\n)+ApplicationArea", options);
+        applicationArea.CreationDateTime = match.Success ? match.Groups[1].Value : null;
+
+        match = Regex.Match(bodText, "ApplicationArea(.|\n)+Sender(.|\n)+LogicalID[^>]*>(?<value>[^<]+)<([^:]+:)?LogicalID(.|\n)+Sender(.|\n)+ApplicationArea", options);
+        if (match.Success)
+        {
+            applicationArea.Sender ??= new SenderType();
+            applicationArea.Sender.LogicalID = new IdentifierType() { Value = match.Groups[1].Value };
+        }
+
+        match = Regex.Match(bodText, "ApplicationArea(.|\n)+Sender(.|\n)+ConfirmationCode[^>]*>(?<value>[^<]+)<([^:]+:)?ConfirmationCode(.|\n)+Sender(.|\n)+ApplicationArea", options);
+        if (match.Success)
+        {
+            applicationArea.Sender ??= new SenderType();
+            applicationArea.Sender.ConfirmationCode = new ConfirmationResponseCodeType() { Value = match.Groups[1].Value };
+        }
+
+        return applicationArea;
+    }
+
+    private ApplicationAreaType readApplicationArea()
+    {
+        try
+        {
+            return new XmlSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Root!.Elements().First().CreateReader()) as ApplicationAreaType ?? new ApplicationAreaType();
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.Error.WriteLine("No ApplicationArea when BOD expected: {0}", e);
+            // Valid XML but no ApplicationArea; should already be marked invalid, so return empty application area.
+            return _applicationArea ??= new ApplicationAreaType();
+        }
+    }
+
+    public ResponseCodeType.ResponseCodeEnum RequiresConfirmation
+    {
+        get
+        {
+            return ApplicationArea.Sender?.ConfirmationCode?.ValueAsEnum()
+                    ?? ResponseCodeType.ResponseCodeEnum.Never;
         }
     }
 
@@ -39,7 +138,7 @@ public class BODReader
         XmlReaderSettings xmlSettings = new XmlReaderSettings();
         xmlSettings.ValidationType = ValidationType.Schema;
         xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => IsValid = IsValid && (e.Severity != XmlSeverityType.Error);
-        xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => ((List<ValidationEventArgs>)ValidationErrors).Add(e);
+        xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => ((List<ValidationResult>)ValidationErrors).Add(ValidationResult.FromValidationEventArgs(e));
         xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => Console.WriteLine("{0}: {1}", e.Severity.ToString(), e.Message);
 
         xmlSettings.Schemas.Add(Ccom.Cct.Namespace.URI, $"{_settings.SchemaPath}/CoreComponentType_2p0.xsd");
@@ -60,6 +159,70 @@ public class BODReader
 
         XmlReader reader = XmlReader.Create(fileUri, xmlSettings);
 
-        bod = XElement.Load(reader, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
+        try
+        {
+            bodXml = XDocument.Load(reader, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
+            bodText = "";
+        }
+        catch (XmlException e)
+        {
+            IsValid = false;
+            // We prepend syntax errors as schema validation errors may have already been added before the syntax error was reached.
+            ((List<ValidationResult>)ValidationErrors).Insert(0, 
+                new ValidationResult(XmlSeverityType.Error, e.Message, e.LineNumber, e.LinePosition)
+            );
+            bodXml = new XDocument();
+            bodText = File.ReadAllText(fileUri);
+        }
+    }
+
+    public ConfirmBODType GenerateConfirmBOD()
+    {
+        var confirmBOD = new ConfirmBODType()
+        {
+            languageCode = "en-US",
+            releaseID = "9.0",
+            systemEnvironmentCode = SystemEnvironmentCode,
+            ApplicationArea = new ApplicationAreaType()
+            {
+                BODID = new IdentifierType()
+                {
+                    Value = Guid.NewGuid().ToString()
+                },
+                CreationDateTime = DateTime.UtcNow.ToString(),
+                // TODO: sender ID, parameter or config?
+            },
+            DataArea = new ConfirmBODDataAreaType()
+            {
+                Confirm = new ConfirmType()
+                {
+                    OriginalApplicationArea = ApplicationArea
+                },
+                BOD = new BODType[] { new BODType() }
+            },
+        };
+
+        if (IsValid)
+        {
+            confirmBOD.DataArea.BOD[0].BODSuccessMessage = new BODSuccessMessageType();
+            if (ValidationErrors.Any())
+            {
+                confirmBOD.DataArea.BOD[0].BODSuccessMessage.WarningProcessMessage = ValidationErrors.Select(r => r.ToOagisMessage()).ToArray();
+            }
+        }
+        else
+        {
+            confirmBOD.DataArea.BOD[0].BODFailureMessage = new BODFailureMessageType()
+            {
+                ErrorProcessMessage = (from error in ValidationErrors
+                                       where error.IsError()
+                                       select error.ToOagisMessage()).ToArray(),
+                WarningProcessMessage = (from warning in ValidationErrors
+                                         where warning.IsWarning()
+                                         select warning.ToOagisMessage()).ToArray()
+            };
+        }
+
+        return confirmBOD;
     }
 }

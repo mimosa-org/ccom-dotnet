@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<!-- Example from the OGI Pilot Message Sequence. `12 - SyncSegments.xml` -->
+<SyncSegments languageCode="EN" releaseID="4.1.0" 
+    xmlns="http://www.mimosa.org/ccom4" 
+    xmlns:oa="http://www.openapplications.org/oagis/9" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.mimosa.org/ccom4 ../XSD/BOD/Messages/Configuration/SyncSegments.xsd" >
+  <oa:ApplicationArea
+    <oa:Sender>
+      <oa:LogicalID>ba201587-fd83-4d8a-acb3-426ac0c0b9f3</oa:LogicalID> <!-- Owner Operator SDAIR -->
+      <oa:ConfirmationCode>Always</oa:ConfirmationCode>
+    </oa:Sender>
+    <oa:CreationDateTime>2019-09-13T04:21:21Z</oa:CreationDateTime>
+    <oa:BODID>11c696bc-2a2c-4c13-bff5-1c97d55494ba</oa:BODID>
+  </oa:ApplicationArea>
+  <DataArea>
+    </oa:Sync> <!-- second syntax error -->
+    <Segments>
+      <Segment>
+        <UUID>e766da80-9453-0137-32bf-22000b499058</UUID>
+        <IDInInfoSource>SP210F1CD7D5CE4E98B3B654157EE57943</IDInInfoSource>
+        <InfoSource>
+          <UUID>793f6bbb-f299-471b-80fe-7ffcafda307d</UUID>
+          <ShortName>Intergraph SmartPlant P and ID</ShortName>
+        </InfoSource>
+        <EffectiveStatusType>
+          <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+          <ShortName>Active</ShortName>
+        </EffectiveStatusType>
+        <AttributeSetForEntity>
+          <UUID>adc5a4e0-a0fc-0137-a34e-22000a6f90e2</UUID>
+          <AttributeSet>
+            <UUID>d7f24499-b3e9-4d80-87ea-3ffec46b02fb</UUID>
+            <IDInInfoSource>d7f24499-b3e9-4d80-87ea-3ffec46b02fb</IDInInfoSource>
+            <InfoSource>
+              <UUID>15140710-f105-0136-05b6-22000a8abbb4</UUID>
+              <ShortName>Yokogawa Reference Data Library</ShortName>
+            </InfoSource>
+            <EffectiveStatusType>
+              <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+              <ShortName>Active</ShortName>
+            </EffectiveStatusType>
+            <ShortName>TIT-11122 Functional Requirements</ShortName>
+            <Type>
+              <UUID>c565d2e0-4183-0134-2e99-22000b1e87f7</UUID>
+              <ShortName>ISDD</ShortName>
+            </Type>
+            <Group>
+              <UUID>32acb202-405e-4450-bf2f-0c6b60c8f1bf</UUID>
+              <IDInInfoSource>32acb202-405e-4450-bf2f-0c6b60c8f1bf</IDInInfoSource>
+              <InfoSource>
+                <UUID>15140710-f105-0136-05b6-22000a8abbb4</UUID>
+                <ShortName>Yokogawa Reference Data Library</ShortName>
+              </InfoSource>
+              <EffectiveStatusType>
+                <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                <ShortName>Active</ShortName>
+              </EffectiveStatusType>
+              <ShortName>OPERATING PARAMETERS</ShortName>
+              <Order>1</Order>
+              <SetAttribute>
+                <UUID>b05e48d1-b5e5-4e8d-98ae-97b9129a11f7</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Project</ShortName>
+                <Type>
+                  <UUID>17ef4700-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Project</ShortName>
+                </Type>
+                <ValueContent>
+                  <Text>OGI Pilot</Text>
+                </ValueContent>
+                <Order>1</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>b1a7b0ab-4c21-465f-83b7-f7f2fd337685</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Tag no/Functional ident</ShortName>
+                <Type>
+                  <UUID>183c5590-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Tag no/Functional ident</ShortName>
+                </Type>
+                <ValueContent>
+                  <Text>TIT-11122</Text>
+                </ValueContent>
+                <Order>2</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>e270e0c8-6a61-41f4-bdc6-5b5d62c38741</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Service</ShortName>
+                <Type>
+                  <UUID>18584200-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Service</ShortName>
+                </Type>
+                <ValueContent>
+                  <Text>Process Temperature Measurement</Text>
+                </ValueContent>
+                <Order>3</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>202960c8-a8ad-4873-9bad-391f98bdba0b</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Output signal type</ShortName>
+                <Type>
+                  <UUID>1a53eaf0-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Component Output signal type</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1a1b75d0-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>analog current</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>4</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>6f9d99db-506a-4f1d-b5a3-812be8b9eafc</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Local hazardous area cl</ShortName>
+                <Type>
+                  <UUID>18f06350-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Inline hazardous area cl</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>18de61f0-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>II</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>5</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>bb5dad9d-4646-419f-acef-fa4622597a51</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Div/Zone</ShortName>
+                <Type>
+                  <UUID>192cd010-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Inline hazardous Div_Zone</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>190b3e50-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>1</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>6</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>b21c13f7-e0d3-4ba6-83fd-b599347c2665</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Inline hazardous gr</ShortName>
+                <Type>
+                  <UUID>19824310-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Inline hazardous gr</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>194fe870-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>E</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>7</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>86ca3853-acdb-4c1a-94ba-6d1a1c40d65c</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>T-Code</ShortName>
+                <Type>
+                  <UUID>1a07c6c0-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Inline T Code</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1a026f90-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>T6</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>8</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>5fbb141c-589c-4878-be75-c3bca74a5d1b</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Criticality class</ShortName>
+                <Type>
+                  <UUID>1b814760-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Criticality classification</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1b5fdca0-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>SIL 2</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>9</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>331bcfce-db58-46f9-a4fa-ce2c684cc1ba</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Minimum ambient temp</ShortName>
+                <Type>
+                  <UUID>1ba98fe0-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Minimum ambient temp</ShortName>
+                </Type>
+                <ValueContent>
+                  <Measure>
+                    <Value>6.7</Value>
+                    <UnitOfMeasure>
+                      <UUID>1b99b160-85b8-0137-32bf-22000b499058</UUID>
+                      <ShortName>°C</ShortName>
+                    </UnitOfMeasure>
+                  </Measure>
+                </ValueContent>
+                <Order>10</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>8528fbbc-d97c-4647-965e-b10cfd6a488b</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Maximum ambient temp</ShortName>
+                <Type>
+                  <UUID>1bc99b00-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Maximum ambient temp</ShortName>
+                </Type>
+                <ValueContent>
+                  <Measure>
+                    <Value>33.9</Value>
+                    <UnitOfMeasure>
+                      <UUID>1bb94750-85b8-0137-32bf-22000b499058</UUID>
+                      <ShortName>°C</ShortName>
+                    </UnitOfMeasure>
+                  </Measure>
+                </ValueContent>
+                <Order>11</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>aa314665-e72d-4bdf-ab77-24a3e315fe7c</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Avail nom power supply</ShortName>
+                <Type>
+                  <UUID>1c145fa0-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Avail nom power supply units</ShortName>
+                </Type>
+                <ValueContent>
+                  <Measure>
+                    <Value>32</Value>
+                    <UnitOfMeasure>
+                      <UUID>1c0ee160-85b8-0137-32bf-22000b499058</UUID>
+                      <ShortName>V(dc)</ShortName>
+                    </UnitOfMeasure>
+                  </Measure>
+                </ValueContent>
+                <Order>12</Order>
+                <ValueIsValidInDefinition>false</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>1d00abab-8917-434c-923f-9119617d0c27</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Number wires</ShortName>
+                <Type>
+                  <UUID>1c3729e0-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Number wires</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1c2e7750-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>3</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>13</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>00fce085-025d-4241-b067-b6c306db7714</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Testing/Listing agency</ShortName>
+                <Type>
+                  <UUID>1ce9ff20-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Testing_Listing agency</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1ca4dfd0-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>FM (US)</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>14</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>7cee6210-5e3d-465f-b2f9-1d58f181f211</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Supply loss failure mode</ShortName>
+                <Type>
+                  <UUID>1d1295c0-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Supply loss failure mode</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1d0cf070-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>deactivate output</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>15</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+              <SetAttribute>
+                <UUID>dfe60545-0786-466f-9f33-f8936df62514</UUID>
+                <EffectiveStatusType>
+                  <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+                  <ShortName>Active</ShortName>
+                </EffectiveStatusType>
+                <ShortName>Signal loss failure mode</ShortName>
+                <Type>
+                  <UUID>1d3fe750-85b8-0137-32bf-22000b499058</UUID>
+                  <ShortName>Signal loss failure mode</ShortName>
+                </Type>
+                <ValueContent>
+                  <EnumerationItem>
+                    <UUID>1d233790-85b8-0137-32bf-22000b499058</UUID>
+                    <ShortName>activate fault relay</ShortName>
+                  </EnumerationItem>
+                </ValueContent>
+                <Order>16</Order>
+                <ValueIsValidInDefinition>true</ValueIsValidInDefinition>
+              </SetAttribute>
+            </Group>
+          </AttributeSet>
+        </AttributeSetForEntity>
+        <ShortName>TIT-11122</ShortName>
+        <FullName>Temperature Transmitter Functional Location</FullName>
+        <Type>
+          <UUID>aea68bee-2129-48ca-ad26-fbb44fe162c1</UUID>
+          <ShortName>Transmitter, Temperature</ShortName>
+        </Type>
+        <RegistrationSite>
+          <UUID>3ebf2098-961e-45d2-b03b-4f5fbb8fa072</UUID>
+          <ShortName>Refinery A</ShortName>
+        </RegistrationSite>
+      </Segment>
+      <Segment>
+        <UUID>f945a940-95fe-0137-0ea9-22000a6f90e2</UUID>
+        <IDInInfoSource>SPB47E748BB2934390B8D0013876984935</IDInInfoSource>
+        <InfoSource>
+          <UUID>793f6bbb-f299-471b-80fe-7ffcafda307d</UUID>
+          <ShortName>Intergraph SmartPlant P and ID</ShortName>
+        </InfoSource>
+        <EffectiveStatusType>
+          <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+          <ShortName>Active</ShortName>
+        </EffectiveStatusType>
+        <AttributeSetForEntity>
+          <UUID>ad4d8ea0-a0fc-0137-a34e-22000a6f90e2</UUID>
+          <AttributeSet>
+            <UUID>303ed190-8094-0137-4662-22000b499058</UUID>
+            <IDInInfoSource>303ed190-8094-0137-4662-22000b499058</IDInInfoSource>
+            <InfoSource>
+              <UUID>15140710-f105-0136-05b6-22000a8abbb4</UUID>
+              <ShortName>Yokogawa Reference Data Library</ShortName>
+            </InfoSource>
+            <EffectiveStatusType>
+              <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+              <ShortName>Active</ShortName>
+            </EffectiveStatusType>
+            <ShortName>TIT-11121 Functional Requirements</ShortName>
+            <Type>
+              <UUID>c565d2e0-4183-0134-2e99-22000b1e87f7</UUID>
+              <ShortName>ISDD</ShortName>
+            </Type>
+          </AttributeSet>
+        </AttributeSetForEntity>
+        <ShortName>TIT-11121</ShortName>
+        <FullName>Temperature Transmitter Functional Location</FullName>
+        <Type>
+          <UUID>aea68bee-2129-48ca-ad26-fbb44fe162c1</UUID>
+          <ShortName>Transmitter, Temperature</ShortName>
+        </Type>
+        <RegistrationSite>
+          <UUID>3ebf2098-961e-45d2-b03b-4f5fbb8fa072</UUID>
+          <ShortName>Refinery A</ShortName>
+        </RegistrationSite>
+      </Segment>
+      <Segment>
+        <UUID>8383cfc1-ed01-4632-8752-0309cbe16fb1</UUID>
+        <IDInInfoSource>SP7778428480804958AD4228C0541CBEEE</IDInInfoSource>
+        <InfoSource>
+          <UUID>793f6bbb-f299-471b-80fe-7ffcafda307d</UUID>
+          <ShortName>Intergraph SmartPlant P and ID</ShortName>
+        </InfoSource>
+        <EffectiveStatusType>
+          <UUID>db4bf287-2374-4e9c-bd4b-fadaada24b99</UUID>
+          <ShortName>Active</ShortName>
+        </EffectiveStatusType>
+        <ShortName>EM-11110AA</ShortName>
+        <FullName>EM-11110AA</FullName>
+        <Type>
+          <UUID>25e3cecd-fb52-4eeb-a2a8-4364a9fba859</UUID>
+          <ShortName>Motor</ShortName>
+        </Type>
+        <RegistrationSite>
+          <UUID>3ebf2098-961e-45d2-b03b-4f5fbb8fa072</UUID>
+          <ShortName>Refinery A</ShortName>
+        </RegistrationSite>
+      </Segment>
+    </Segments>
+  </DataArea>
+</SyncSegments>
