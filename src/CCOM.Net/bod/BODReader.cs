@@ -76,58 +76,29 @@ public class BODReader
         }
     }
 
-    private ApplicationAreaType tryRecoverApplicationArea()
-    {
-        // Attempt to recover BOD header information by looking at at the text in the event of a syntactic error.
-        // TODO: how flexible should we be in trying to recover this info?
-        // TODO: what else should we attempt to recover?
-        var applicationArea = new ApplicationAreaType();
-        Match match;
-        var options = RegexOptions.ExplicitCapture;
-
-        match = Regex.Match(bodText, @"ApplicationArea(.|\n)+BODID[^>]*>(?<value>[^<]+)<([^:]+:)?BODID(.|\n)+ApplicationArea", options);
-        applicationArea.BODID = match.Success ? new IdentifierType() { Value = match.Groups[1].Value } : null;
-        
-        match = Regex.Match(bodText, @"ApplicationArea(.|\n)+CreationDateTime[^>]*>(?<value>[^<]+)<([^:]+:)?CreationDateTime(.|\n)+ApplicationArea", options);
-        applicationArea.CreationDateTime = match.Success ? match.Groups[1].Value : null;
-
-        match = Regex.Match(bodText, "ApplicationArea(.|\n)+Sender(.|\n)+LogicalID[^>]*>(?<value>[^<]+)<([^:]+:)?LogicalID(.|\n)+Sender(.|\n)+ApplicationArea", options);
-        if (match.Success)
-        {
-            applicationArea.Sender ??= new SenderType();
-            applicationArea.Sender.LogicalID = new IdentifierType() { Value = match.Groups[1].Value };
-        }
-
-        match = Regex.Match(bodText, "ApplicationArea(.|\n)+Sender(.|\n)+ConfirmationCode[^>]*>(?<value>[^<]+)<([^:]+:)?ConfirmationCode(.|\n)+Sender(.|\n)+ApplicationArea", options);
-        if (match.Success)
-        {
-            applicationArea.Sender ??= new SenderType();
-            applicationArea.Sender.ConfirmationCode = new ConfirmationResponseCodeType() { Value = match.Groups[1].Value };
-        }
-
-        return applicationArea;
-    }
-
-    private ApplicationAreaType readApplicationArea()
-    {
-        try
-        {
-            return new XmlSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Root!.Elements().First().CreateReader()) as ApplicationAreaType ?? new ApplicationAreaType();
-        }
-        catch (InvalidOperationException e)
-        {
-            Console.Error.WriteLine("No ApplicationArea when BOD expected: {0}", e);
-            // Valid XML but no ApplicationArea; should already be marked invalid, so return empty application area.
-            return _applicationArea ??= new ApplicationAreaType();
-        }
-    }
-
     public ResponseCodeType.ResponseCodeEnum RequiresConfirmation
     {
         get
         {
             return ApplicationArea.Sender?.ConfirmationCode?.ValueAsEnum()
                     ?? ResponseCodeType.ResponseCodeEnum.Never;
+        }
+    }
+
+    private VerbType? _verb = null;
+    public VerbType Verb
+    {
+        get
+        {
+            return _verb ??= readVerb();
+        }
+    }
+
+    public IEnumerable<XElement> Nouns
+    {
+        get
+        {
+            return dataAreaElement()?.Elements()?.Skip(1) ?? XElement.EmptySequence;
         }
     }
 
@@ -224,5 +195,95 @@ public class BODReader
         }
 
         return confirmBOD;
+    }
+
+    private ApplicationAreaType tryRecoverApplicationArea()
+    {
+        // Attempt to recover BOD header information by looking at at the text in the event of a syntactic error.
+        // TODO: how flexible should we be in trying to recover this info?
+        // TODO: what else should we attempt to recover?
+        var applicationArea = new ApplicationAreaType();
+        Match match;
+        var options = RegexOptions.ExplicitCapture;
+
+        match = Regex.Match(bodText, @"ApplicationArea(.|\n)+BODID[^>]*>(?<value>[^<]+)<([^:]+:)?BODID(.|\n)+ApplicationArea", options);
+        applicationArea.BODID = match.Success ? new IdentifierType() { Value = match.Groups[1].Value } : null;
+        
+        match = Regex.Match(bodText, @"ApplicationArea(.|\n)+CreationDateTime[^>]*>(?<value>[^<]+)<([^:]+:)?CreationDateTime(.|\n)+ApplicationArea", options);
+        applicationArea.CreationDateTime = match.Success ? match.Groups[1].Value : null;
+
+        match = Regex.Match(bodText, "ApplicationArea(.|\n)+Sender(.|\n)+LogicalID[^>]*>(?<value>[^<]+)<([^:]+:)?LogicalID(.|\n)+Sender(.|\n)+ApplicationArea", options);
+        if (match.Success)
+        {
+            applicationArea.Sender ??= new SenderType();
+            applicationArea.Sender.LogicalID = new IdentifierType() { Value = match.Groups[1].Value };
+        }
+
+        match = Regex.Match(bodText, "ApplicationArea(.|\n)+Sender(.|\n)+ConfirmationCode[^>]*>(?<value>[^<]+)<([^:]+:)?ConfirmationCode(.|\n)+Sender(.|\n)+ApplicationArea", options);
+        if (match.Success)
+        {
+            applicationArea.Sender ??= new SenderType();
+            applicationArea.Sender.ConfirmationCode = new ConfirmationResponseCodeType() { Value = match.Groups[1].Value };
+        }
+
+        return applicationArea;
+    }
+
+    private ApplicationAreaType readApplicationArea()
+    {
+        try
+        {
+            return deserializeOrDefault<ApplicationAreaType, ApplicationAreaType>(bodXml.Root!.Elements().First().CreateReader());
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.Error.WriteLine("No ApplicationArea when BOD expected: {0}", e);
+            // Valid XML but no ApplicationArea; should already be marked invalid, so return empty application area.
+            return _applicationArea ??= new ApplicationAreaType();
+        }
+    }
+
+    private XElement? dataAreaElement()
+    {
+        return bodXml.Root?.Elements().FirstOrDefault(x => x.Name.LocalName == "DataArea");
+    }
+
+    private VerbType readVerb()
+    {
+        var verbElement = dataAreaElement()?.Elements()?.FirstOrDefault();
+
+        var verbType = verbElement?.Name?.LocalName switch
+        {
+            "ResponseVerb" => typeof(ResponseVerbType),
+            "Show" => typeof(ShowType),
+            "Respond" => typeof(RespondType),
+            "Confirm" => typeof(ConfirmType),
+            "Acknowledge" => typeof(AcknowledgeType),
+            "RequestVerb" => typeof(RequestVerbType),
+            "Get" => typeof(GetType),
+            "ActionVerb" => typeof(ActionVerbType),
+            "Update" => typeof(UpdateType),
+            "Sync" => typeof(SyncType),
+            "Process" => typeof(ProcessType),
+            "Post" => typeof(PostType),
+            "Notify" => typeof(NotifyType),
+            "Load" => typeof(LoadType),
+            "Change" => typeof(ChangeType),
+            "Cancel" => typeof(CancelType),
+            _ => typeof(UnknownVerbType)
+        };
+
+        return deserializeOrDefault<VerbType, UnknownVerbType>(verbElement?.CreateReader(), verbType);
+    }
+
+    private T deserializeOrDefault<T, U>(XmlReader? reader, Type? t = null) where T : class where U : T, new()
+    {
+        if (reader is null) return new U();
+        return new XmlSerializer( t ?? typeof(T)).Deserialize(reader) as T ?? new U();
+    }
+
+    private class UnknownVerbType : VerbType
+    {
+        // A placeholder class to be returned when a BOD has no known VerbType.
     }
 }

@@ -183,8 +183,7 @@ public class BODReaderTest
         );
 
         Assert.False(reader.IsValid);
-        Assert.Equal(1, reader.ValidationErrors.Count());
-        Assert.Equal(expectedError, reader.ValidationErrors.First());
+        Assert.Single(reader.ValidationErrors, e => e.Equals(expectedError));
     }
 
     [Fact]
@@ -286,5 +285,32 @@ public class BODReaderTest
         Assert.Equal(expected.systemEnvironmentCode, confirmBOD.systemEnvironmentCode);
         Assert.Equal(expected.versionID, confirmBOD.versionID);
         Assert.Equivalent(expected.DataArea, confirmBOD.DataArea, true);
+    }
+
+    [Fact]
+    public void BodVerbTest()
+    {
+        BODReader reader = new BODReader(
+            $"{DATA_PATH}/example_bod_sync_segments.xml",
+            $"{BOD_SCHEMA_PATH}/Configuration/SyncSegments.xsd",
+            settings
+        );
+
+        Assert.True(reader.IsValid);
+        Assert.IsType<SyncType>(reader.Verb);
+    }
+
+    [Fact]
+    public void BodNounsTest()
+    {
+        BODReader reader = new BODReader(
+            $"{DATA_PATH}/example_bod_sync_segments.xml",
+            $"{BOD_SCHEMA_PATH}/Configuration/SyncSegments.xsd",
+            settings
+        );
+
+        Assert.True(reader.IsValid);
+        Assert.NotEmpty(reader.Nouns);
+        Assert.Equal("Segments", reader.Nouns.First().Name.LocalName);
     }
 }
