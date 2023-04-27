@@ -103,8 +103,17 @@ public class BODReader
     }
 
     public BODReader(string fileUri, string schemaUri, BODReaderSettings settings)
+        : this(new StreamReader(fileUri), schemaUri, settings)
+    { }
+
+    public BODReader(TextReader input, string schemaUri, BODReaderSettings settings)
     {
         _settings = settings;
+
+        // FIXME: this double handling will be a problem for large messages
+        var allContent = input.ReadToEnd();
+        input.Close();
+        var newInput = new StringReader(allContent);
 
         XmlReaderSettings xmlSettings = new XmlReaderSettings();
         xmlSettings.ValidationType = ValidationType.Schema;
@@ -126,9 +135,12 @@ public class BODReader
         xmlSettings.Schemas.Add(Oagis.IanaMimeMediaTypes.Namespace.URI, $"{_settings.SchemaPath}/BOD/OAGIS/CodeList_MIMEMediaTypeCode_IANA_7_04.xsd");
         xmlSettings.Schemas.Add(Oagis.UnitCode.Namespace.URI, $"{_settings.SchemaPath}/BOD/OAGIS/CodeList_UnitCode_UNECE_7_04.xsd");
         
-        xmlSettings.Schemas.Add(Ccom.Namespace.URI, schemaUri);
+        if (!String.IsNullOrWhiteSpace(schemaUri))
+        {
+            xmlSettings.Schemas.Add(Ccom.Namespace.URI, schemaUri);
+        }
 
-        XmlReader reader = XmlReader.Create(fileUri, xmlSettings);
+        XmlReader reader = XmlReader.Create(newInput, xmlSettings);
 
         try
         {
@@ -143,7 +155,7 @@ public class BODReader
                 new ValidationResult(XmlSeverityType.Error, e.Message, e.LineNumber, e.LinePosition)
             );
             bodXml = new XDocument();
-            bodText = File.ReadAllText(fileUri);
+            bodText = allContent;
         }
     }
 
@@ -160,7 +172,7 @@ public class BODReader
                 {
                     Value = Guid.NewGuid().ToString()
                 },
-                CreationDateTime = DateTime.UtcNow.ToString(),
+                CreationDateTime = DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"),
                 // TODO: sender ID, parameter or config?
             },
             DataArea = new ConfirmBODDataAreaType()
