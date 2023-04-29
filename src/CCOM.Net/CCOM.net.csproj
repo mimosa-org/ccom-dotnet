@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\..\XSD\**">
+      <LinkBase>XSD\</LinkBase>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.XmlSerializer.Generator" Version="6.0.0" />
   </ItemGroup>
 
