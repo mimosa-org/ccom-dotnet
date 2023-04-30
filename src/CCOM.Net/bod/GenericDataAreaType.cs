@@ -15,6 +15,8 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
     public string Namespace { get; init; }
     [XmlIgnore]
     public string Prefix { get; init; }
+    [XmlIgnore]
+    public string? NounName { get; init; }
 
     public GenericDataAreaType<TVerb, TNoun> DataArea { get; set; }
 
@@ -24,14 +26,16 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
         Name = "";
         Namespace = "";
         Prefix = "";
+        NounName = null;
         DataArea = new GenericDataAreaType<TVerb, TNoun>();
     }
 
-    public GenericBodType(string name, string ns, string prefix = "")
+    public GenericBodType(string name, string ns, string prefix = "", string? nounName = null)
     {
         Name = name;
         Namespace = ns;
         Prefix = prefix;
+        NounName = nounName;
         DataArea = new GenericDataAreaType<TVerb, TNoun>();
     }
 
@@ -66,8 +70,8 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
             attributes = new XmlAttributes();
             attributes.XmlElements.Add(
                 typeof(TNoun).IsAssignableTo(typeof(System.Collections.IEnumerable)) ?
-                new XmlElementAttribute(typeof(TNoun).GenericTypeArguments[0].Name.Replace("Type", ""), typeof(TNoun).GenericTypeArguments[0]) { Namespace = Namespace }
-                : new XmlElementAttribute(typeof(TNoun).Name.Replace("Type", ""), typeof(TNoun)) { Namespace = Namespace }
+                new XmlElementAttribute(NounName ?? Name.Replace(typeof(TVerb).Name.Replace("Type", ""), ""), typeof(TNoun).GenericTypeArguments[0]) { Namespace = Namespace }
+                : new XmlElementAttribute(NounName ?? Name.Replace(typeof(TVerb).Name.Replace("Type", ""), ""), typeof(TNoun)) { Namespace = Namespace }
             );
             attrOverrides.Add(DataArea.GetType(), "Noun", attributes);
 
