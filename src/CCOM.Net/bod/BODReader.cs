@@ -123,6 +123,8 @@ public class BODReader
 
         xmlSettings.Schemas.Add(Ccom.Cct.Namespace.URI, $"{_settings.SchemaPath}/CoreComponentType_2p0.xsd");
         xmlSettings.Schemas.Add(Ccom.Namespace.URI, $"{_settings.SchemaPath}/CCOM.xsd");
+        xmlSettings.Schemas.Add(Ccom.Namespace.URI, $"{_settings.SchemaPath}/BOD/Messages/CCOMQuery.xsd");
+        xmlSettings.Schemas.Add(Ccom.Namespace.URI, $"{_settings.SchemaPath}/BOD/Messages/CCOMElements.xsd");
         xmlSettings.Schemas.Add(Oagis.Namespace.URI, $"{_settings.SchemaPath}/BOD/OAGIS/Meta.xsd");
         xmlSettings.Schemas.Add(Oagis.Namespace.URI, $"{_settings.SchemaPath}/BOD/OAGIS/Fields.xsd");
         xmlSettings.Schemas.Add(Oagis.Namespace.URI, $"{_settings.SchemaPath}/BOD/OAGIS/BOD.xsd");
