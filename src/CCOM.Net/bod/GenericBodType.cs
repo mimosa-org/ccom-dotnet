@@ -1,5 +1,7 @@
 using Oagis;
+using System.Text.Json.Serialization;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace CommonBOD;
@@ -9,12 +11,16 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
     where TVerb : VerbType, new()
     where TNoun : class, new()
 {
+    [JsonIgnore]
     [XmlIgnore]
     public string Name { get; init; }
+    [JsonIgnore]
     [XmlIgnore]
-    public string Namespace { get; init; }
+    public override string Namespace { get; init; }
+    [JsonIgnore]
     [XmlIgnore]
     public string Prefix { get; init; }
+    [JsonIgnore]
     [XmlIgnore]
     public string? NounName { get; init; }
 
@@ -22,7 +28,6 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
 
     public GenericBodType()
     {
-        // TODO: how to ensure we capture the bod info on Deserialization?
         Name = "";
         Namespace = "";
         Prefix = "";
@@ -39,11 +44,33 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
         DataArea = new GenericDataAreaType<TVerb, TNoun>();
     }
 
+    public GenericBodType(XDocument source, string name, string ns, string prefix = "", string? nounName = null)
+        : this(name, ns, prefix, nounName)
+    {
+        var other = Deserialize<GenericBodType<TVerb, TNoun>>(source, GetSerializer);
+        if (other is not null)
+        {
+            languageCode = other.languageCode;
+            releaseID = other.releaseID;
+            versionID = other.versionID;
+            systemEnvironmentCode = other.systemEnvironmentCode;
+            ApplicationArea = other.ApplicationArea;
+            DataArea = other.DataArea;
+        }
+    }
+
+    public override XmlSerializer GetSerializer()
+    {
+        return CreateSerializer();
+    }
+
     public XmlSerializer CreateSerializer(Type[]? extraTypes = null)
     {
         return new XmlSerializer(this.GetType(), XmlAttributeOverrides, extraTypes, null, Namespace);
     }
 
+    [JsonIgnore]
+    [XmlIgnore]
     public XmlAttributeOverrides XmlAttributeOverrides
     {
         get
@@ -79,13 +106,15 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
         }
     }
 
-    public XmlSerializerNamespaces Namespaces
+    [JsonIgnore]
+    [XmlIgnore]
+    override public XmlSerializerNamespaces Namespaces
     {
         get
         {
             return new XmlSerializerNamespaces(new[]
             {
-                new XmlQualifiedName("oa", Oagis.Namespace.URI),
+                new XmlQualifiedName("oa" == Prefix ? "oa1" : "oa", Oagis.Namespace.URI),
                 new XmlQualifiedName(Prefix, Namespace),
             });
         }
