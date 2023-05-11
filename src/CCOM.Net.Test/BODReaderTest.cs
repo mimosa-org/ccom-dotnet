@@ -2,12 +2,21 @@ using System.Xml.Schema;
 using CommonBOD;
 using Oagis;
 
+using CCOM.Net.Test.Fixture;
+
 namespace CCOM.Net.Test;
 
-public class BODReaderTest
+public class BODReaderTest : IClassFixture<BODExamples>
 {
+    BODExamples examples;
+
+    public BODReaderTest(BODExamples fixture)
+    {
+        examples = fixture;
+    }
+
     const string DATA_PATH = "./../../../../../data";
-    const string BASE_SCHEMA_PATH = "./../../../../../XSD";
+    const string BASE_SCHEMA_PATH = "./XSD";
     const string BOD_SCHEMA_PATH = $"{BASE_SCHEMA_PATH}/BOD/Messages";
 
     readonly BODReaderSettings settings = new BODReaderSettings()
@@ -312,5 +321,94 @@ public class BODReaderTest
         Assert.True(reader.IsValid);
         Assert.NotEmpty(reader.Nouns);
         Assert.Equal("Segments", reader.Nouns.First().Name.LocalName);
+    }
+
+    [Fact]
+    public void BodDeserializeIsNullWhenInvalid()
+    {
+        BODReader reader = new BODReader(
+            $"{DATA_PATH}/example_bod_syntax_error.xml",
+            $"{BOD_SCHEMA_PATH}/Configuration/SyncSegments.xsd",
+            settings
+        );
+
+        Assert.False(reader.IsValid);
+        Assert.Null(reader.AsBod<GenericBodType<SyncType, List<Ccom.Segments>>>());
+    }
+
+    [Fact]
+    public void BodDeserializeTest()
+    {
+        BODReader reader = new BODReader(
+            $"{DATA_PATH}/example_bod_sync_segments.xml",
+            $"{BOD_SCHEMA_PATH}/Configuration/SyncSegments.xsd",
+            settings
+        );
+
+        Assert.True(reader.IsValid);
+
+        var bod = reader.AsBod<GenericBodType<SyncType, List<Ccom.Segments>>>();
+
+        Assert.NotNull(bod);
+        Assert.Single(bod.DataArea.Noun);
+        Assert.Equal(3, bod.DataArea.Noun.First().Segment.Count());
+        Assert.Equal("e766da80-9453-0137-32bf-22000b499058", bod.DataArea.Noun.First().Segment.First().UUID.Value);
+    }
+
+    [Fact]
+    public void BodDeserializeConfirmBODTest()
+    {
+        var appArea = examples.GenerateApplicationAreaFields();
+        var source = new StringReader(examples.ConfirmBOD(appArea.BodId, appArea.SenderId, appArea.CreationDateTime));
+
+        BODReader reader = new BODReader(source, "", settings);
+
+        Assert.True(reader.IsValid);
+
+        var bod = reader.AsBod<ConfirmBODType>();
+
+        Assert.NotNull(bod);
+        Assert.Single(bod.DataArea.BOD);
+        Assert.Equal("Example", bod.DataArea.BOD.First().Description.First().Value);
+    }
+
+    [Fact]
+    public void BodDeserializeGenericSubclassTest()
+    {
+        // var appArea = examples.GenerateApplicationAreaFields();
+        // var source = new StringReader(examples.ConfirmBOD(appArea.BodId, appArea.SenderId, appArea.CreationDateTime));
+        var source = new StringReader(examples.SyncSegments());
+
+        BODReader reader = new BODReader(source, $"{BOD_SCHEMA_PATH}/Configuration/SyncSegments.xsd", settings);
+
+        Assert.True(reader.IsValid);
+
+        var bod = reader.AsBod<SyncSegmentsBODType>();
+
+        Assert.NotNull(bod);
+        Assert.Single(bod.DataArea.Noun);
+        Assert.Equal(3, bod.DataArea.Noun.First().Segment.Count());
+        Assert.Equal("e766da80-9453-0137-32bf-22000b499058", bod.DataArea.Noun.First().Segment.First().UUID.Value);
+    }
+
+    // GenericBodType does not currently support nested lists for the nouns and
+    // requires a class to be defined with appopriate XML serializer annotations.
+    [Fact(Skip = "Nested lists not yet supported")]
+    public void BodDeserializeUnspecifiedNounTest()
+    {
+        BODReader reader = new BODReader(
+            $"{DATA_PATH}/example_bod_sync_segments.xml",
+            $"{BOD_SCHEMA_PATH}/Configuration/SyncSegments.xsd",
+            settings
+        );
+
+        Assert.True(reader.IsValid);
+
+        var bod = reader.AsBod<GenericBodType<SyncType, List<List<Ccom.Segment>>>>();
+
+        Assert.NotNull(bod);
+        Assert.Single(bod.DataArea.Noun);
+        Assert.Equal(3, bod.DataArea.Noun.First().Count());
+        Assert.Equal("e766da80-9453-0137-32bf-22000b499058", bod.DataArea.Noun.First().First().UUID.Value);
     }
 }

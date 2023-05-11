@@ -6,8 +6,21 @@ using System.Xml.Serialization;
 
 namespace CommonBOD;
 
+/// <summary>
+/// Marker interface that can be used when the generic parameters are inaccessible.
+/// </summary>
+public interface GenericBodType
+{
+}
+
+/// <summary>
+/// BOD Type that can represent any BOD using generics to specify the VerbType and 
+/// Noun content type.
+/// </summary>
+/// <typeparam name="TVerb">The VerbType of the BOD (e.g., GetType, ShowType, SyncType)</typeparam>
+/// <typeparam name="TNoun">The the type of content comprising the nouns of the DataArea</typeparam>
 [Serializable]
-public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType
+public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType, GenericBodType
     where TVerb : VerbType, new()
     where TNoun : class, new()
 {

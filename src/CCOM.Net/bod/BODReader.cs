@@ -14,6 +14,7 @@ public class BODReader
 
     private XDocument bodXml { get; init; }
     private string bodText { get; init; } // keeps the original text if the BOD is invalid
+    private BusinessObjectDocumentType? bod { get; set; }
 
     public bool IsValid { get; private set; } = true;
 
@@ -158,6 +159,33 @@ public class BODReader
             );
             bodXml = new XDocument();
             bodText = allContent;
+            bod = new BusinessObjectDocumentType();
+        }
+    }
+
+    /// <summary>
+    /// Returns the read BOD as the deserialized BOD type (or null if wrong type or not valid).
+    /// </summary>
+    /// <remarks>
+    /// If the BODReader reports IsValid == false, this method will return null.
+    /// </remarks>
+    /// <typeparam name="T">The expected BOD type</typeparam>
+    /// <returns>The deserialized BOD, or null</returns>
+    public T? AsBod<T>() where T : BusinessObjectDocumentType, new()
+    {
+        if (!IsValid) return null;
+        if (bod is not null) return bod as T;
+
+        if (typeof(T).IsAssignableTo(typeof(GenericBodType)) 
+            && (typeof(T).Name == "GenericBodType" // avoid doing constructor lookup twice if simple case
+                || typeof(T).GetConstructor(new[] { typeof(XDocument), typeof(string), typeof(string), typeof(string), typeof(string) }) is not null))
+        {
+            bod = Activator.CreateInstance(typeof(T), bodXml, SimpleName, Ccom.Namespace.URI, "ccom", Nouns.FirstOrDefault()?.Name.LocalName) as BusinessObjectDocumentType;
+            return (T?)bod;
+        }
+        else
+        {
+            return (T?)(bod = BusinessObjectDocumentType.Deserialize<T>(bodXml));
         }
     }
 
