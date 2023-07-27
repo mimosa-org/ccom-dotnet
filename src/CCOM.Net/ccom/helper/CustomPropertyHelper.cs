@@ -38,7 +38,7 @@ public class CustomPropertyHelper
             {
                 Item = new TextType
                 {
-                    Value = value.ToString()
+                    Value = value != null ? value.ToString() : ""
                 }
             }
         };
