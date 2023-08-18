@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:oa="http://www.openapplications.org/oagis/9"
+	xmlns="http://www.mimosa.org/ccom4"
+	targetNamespace="http://www.mimosa.org/ccom4"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
+	<xs:include schemaLocation="../CCOMElements.xsd"/>
+	<xs:element name="RespondWorkOrders">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+Response to modification workorders which include update and change work order BODs.
+    If the modification is accepted as-is then no content is returned,
+    If the system alters the requested modification then the modified entity is returned,
+    If an error occurs - no RespondWorkOrders will be returned so it is recommended that 
+    the confirmationCode of the request is set to OnError or Always.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="oa:BusinessObjectDocumentType">
+					<xs:sequence>
+						<xs:element name="DataArea">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element ref="oa:Respond"/>
+									<xs:element name="WorkOrders" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Requester" type="Agent" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="WorkOrder" type="WorkOrder" minOccurs="0" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
