@@ -107,4 +107,33 @@ public class OagisSerializationTest
             readBOD.DataArea.BOD[0].BODSuccessMessage.NounSuccessMessage[0].ProcessMessage[0].Description[0].Value
         );
     }
+
+    [Fact]
+    public void ReadApplicationBODWithConfirmationCodeSerializationTest()
+    {
+        XElement? bodXml = null;
+        using (TextReader reader = new StreamReader($"{DATA_PATH}/example_bod_sync_segments.xml"))
+        {
+            bodXml = XElement.Load(reader);
+            Assert.NotNull(bodXml);
+        }
+        var expected = new ApplicationAreaType()
+        {
+            BODID = new IdentifierType() { Value = "11c696bc-2a2c-4c13-bff5-1c97d55494ba" },
+            CreationDateTime = "2019-09-13T04:21:21Z",
+            Sender = new SenderType()
+            {
+                LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" },
+                ConfirmationCode = new ConfirmationResponseCodeType() { Value = "Always"}
+            }
+        };
+
+        var o = new XmlSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Elements().First().CreateReader()) as ApplicationAreaType;
+
+        Assert.Equal(expected.BODID.Value, o?.BODID.Value);
+        Assert.Equal(expected.CreationDateTime, o?.CreationDateTime);
+        Assert.Equal(expected.Sender.LogicalID.Value, o?.Sender.LogicalID.Value);
+        Assert.Equal(expected.Sender.ConfirmationCode.Value, o?.Sender.ConfirmationCode.Value);
+    }
+
 }

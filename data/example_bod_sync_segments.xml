@@ -8,6 +8,7 @@
   <oa:ApplicationArea>
     <oa:Sender>
       <oa:LogicalID>ba201587-fd83-4d8a-acb3-426ac0c0b9f3</oa:LogicalID> <!-- Owner Operator SDAIR -->
+      <oa:ConfirmationCode>Always</oa:ConfirmationCode>
     </oa:Sender>
     <oa:CreationDateTime>2019-09-13T04:21:21Z</oa:CreationDateTime>
     <oa:BODID>11c696bc-2a2c-4c13-bff5-1c97d55494ba</oa:BODID>
