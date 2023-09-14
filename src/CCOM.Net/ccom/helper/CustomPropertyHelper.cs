@@ -46,6 +46,44 @@ public class CustomPropertyHelper
         return property;
     }
 
+    public static Property CreateDateTimeProperty(string shortName, object value)
+    {
+        var property = new Property
+        {
+            UUID = new Ccom.UUID(autogen: true),
+            ShortName = new[] {
+                new Ccom.TextType() {
+                    Value = shortName
+                    }},
+            ValueContent = new ValueContent
+            {
+                Item = new UTCDateTime
+                {
+                    Value = value != null ? value.ToString() : ""
+                }
+            }
+        };
+
+        return property;
+    }
+
+    public static Property CreateBoolProperty(string shortName, object value)
+    {
+        var property = new Property
+        {
+            UUID = new Ccom.UUID(autogen: true),
+            ShortName = new[] {
+                new Ccom.TextType() {
+                    Value = shortName
+                    }},
+            ValueContent = new ValueContent
+            {
+                Item = value
+            }
+        };
+
+        return property;
+    }
     public static string GetTextPropertyValue(object property)
     {
         return ((Ccom.TextType) property).Value; 
@@ -54,5 +92,15 @@ public class CustomPropertyHelper
     public static string GetNumericPropertyValue(object property)
     {
         return ((Ccom.NumericType) property).Value; 
+    }
+
+    public static string GetDateTimePropertyValue(object property)
+    {
+        return ((Ccom.UTCDateTime) property).Value; 
+    }
+
+    public static bool GetBoolPropertyValue(object property)
+    {
+        return ((bool) property); 
     }
 }
