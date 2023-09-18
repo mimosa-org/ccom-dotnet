@@ -9,13 +9,14 @@
 	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
 	<xs:include schemaLocation="../CCOMElements.xsd"/>
 
-	<xs:element name="SyncWorkStatus">
+	<xs:element name="RespondSegments">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">
-Synchronizes information about work statuses.
-
-This is typically used to send status updates of WorkOrders in progress WorkStatuses, so does not have 
-provision for additional context, on the assumption that it is already known by subscribed systems.
+Response to modification segments which include update segment BODs.
+If the modification is accepted as-is then no content is returned,
+If the system alters the requested modification then the modified entity is returned,
+If an error occurs - no RespondSegment will be returned so it is recommended that
+the confirmationCode of the request is set to OnError or Always.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
@@ -25,11 +26,12 @@ provision for additional context, on the assumption that it is already known by 
 						<xs:element name="DataArea">
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element ref="oa:Sync"/>
-									<xs:element name="WorkStatus" minOccurs="0" maxOccurs="unbounded">
+									<xs:element ref="oa:Respond"/>
+									<xs:element name="Segments" minOccurs="0" maxOccurs="unbounded">
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="WorkStatus" type="WorkStatus" minOccurs="0" maxOccurs="unbounded"/>
+												<xs:element name="Requester" type="Agent" minOccurs="0" maxOccurs="1"/>
+												<xs:element name="Segment" type="Segment" minOccurs="0" maxOccurs="unbounded"/>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
@@ -41,5 +43,5 @@ provision for additional context, on the assumption that it is already known by 
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-
+	
 </xs:schema>
