@@ -2,6 +2,8 @@ using System.Xml.Serialization;
 using System.Xml.Linq;
 using Ccom;
 using Oagis;
+using System.Xml.XPath;
+using System.Xml;
 
 namespace CCOM.Net.Test;
 
@@ -124,7 +126,7 @@ public class OagisSerializationTest
             Sender = new SenderType()
             {
                 LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" },
-                ConfirmationCode = new ConfirmationResponseCodeType() { Value = "Always"}
+                ConfirmationCode = new ConfirmationResponseCodeType() { Value = "Always" }
             }
         };
 
@@ -134,6 +136,43 @@ public class OagisSerializationTest
         Assert.Equal(expected.CreationDateTime, o?.CreationDateTime);
         Assert.Equal(expected.Sender.LogicalID.Value, o?.Sender.LogicalID.Value);
         Assert.Equal(expected.Sender.ConfirmationCode.Value, o?.Sender.ConfirmationCode.Value);
+    }
+
+    [Theory]
+    [InlineData("Always")]
+    [InlineData("OnError")]
+    [InlineData("Never")]
+    public void SerializeConfirmationCodeValueTest(string confirmationValue)
+    {
+        var expected = new ApplicationAreaType()
+        {
+            BODID = new IdentifierType() { Value = "11c696bc-2a2c-4c13-bff5-1c97d55494ba" },
+            CreationDateTime = "2019-09-13T04:21:21Z",
+            Sender = new SenderType()
+            {
+                LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" },
+                ConfirmationCode = new ConfirmationResponseCodeType() { Value = confirmationValue }
+            }
+        };
+
+        var serializer = new XmlSerializer(typeof(ApplicationAreaType));
+        XDocument doc = new();
+        using (var writer = doc.CreateWriter())
+        {
+            serializer.Serialize(writer, expected);
+            writer.Flush();
+        }
+
+        // Ensure it is written into the XML
+        var namespaces = new XmlNamespaceManager(doc.CreateReader().NameTable);
+        namespaces.AddNamespace("oa", Oagis.Namespace.URI);
+        var codes = doc.XPathSelectElements($"//oa:ConfirmationCode", namespaces);
+        XElement confirmationCodeElement = Assert.Single(codes);
+        Assert.Equal(confirmationValue, confirmationCodeElement.Value);
+
+        // Ensure it is deserialized correctly
+        var appArea = serializer.Deserialize(doc.CreateReader()) as ApplicationAreaType;
+        Assert.Equal(expected.Sender.ConfirmationCode.Value, appArea?.Sender.ConfirmationCode.Value);
     }
 
 }

@@ -12,7 +12,7 @@ public class CustomPropertyHelper
             ShortName = new[] {
                 new Ccom.TextType() {
                     Value = shortName
-                    }},
+                }},
             ValueContent = new ValueContent
             {
                 Item = new NumericType
