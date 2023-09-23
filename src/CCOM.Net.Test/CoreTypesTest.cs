@@ -1,5 +1,7 @@
 
 using System.Numerics;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using Ccom;
 
 namespace CCOM.Net.Test;
@@ -212,5 +214,50 @@ public class CoreTypesTest
         Assert.IsType<UUID>(uuid.Item);
         Assert.IsType<UUID>(uuidImplicit.Item);
         Assert.IsType<XML>(xml.Item);
+    }
+
+    [Fact]
+    public void ValueContentSerializationTest()
+    {
+        var expectations = new (ValueContent Value, string ElementName)[]
+        {
+            (true, "Boolean"),
+            (10, "Number"),
+            (10.1D, "Number"),
+            (new Percentage(), "Percentage"),
+            (new Probability(), "Probability"),
+            ("a simple string", "Text"),
+            (new Uri("https://example.com"), "URI"),
+            (DateTime.UtcNow, "UTCDateTime"),
+            (DateTimeOffset.Now, "UTCDateTime"),
+            (Guid.NewGuid(), "UUID"),
+            (new BinaryData(), "BinaryData"),
+            (new BinaryObject(), "BinaryObject"),
+            (new Coordinate(), "Coordinate"),
+            (new EnumerationItem(), "EnumerationItem"),
+            (Measure.Create(10, new UnitOfMeasure()), "Measure"),
+            (new MultiParameter(), "MultiParameter"),
+            (new XML(), "XML"),
+            (new ValueContent { Item = "string" }, ""), // Invalid content (check throws)
+        };
+
+        var serializer = new XmlSerializer(typeof(ValueContent));
+        foreach (var (Value, ElementName) in expectations)
+        {
+            var doc = new XDocument();
+            using (var writer = doc.CreateWriter())
+            {
+                if (string.IsNullOrEmpty(ElementName))
+                {
+                    Assert.Throws<InvalidOperationException>(() => serializer.Serialize(writer, Value));
+                    continue;
+                }
+                else
+                {
+                    serializer.Serialize(writer, Value);
+                }
+            }
+            Assert.Equal(ElementName, Assert.Single(doc.Root?.Elements() ?? Enumerable.Empty<XElement>()).Name.LocalName);
+        }
     }
 }
