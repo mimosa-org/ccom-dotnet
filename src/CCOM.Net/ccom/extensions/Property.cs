@@ -33,17 +33,7 @@ public partial class Property
     public T? GetValue<T>()
     {
         if (ValueContent is null) return default;
-        if (ValueContent.Item is T i) return i;
-        try
-        {
-            // Try explicit runtime cast (e.g., for int, string, etc.)
-            dynamic item = ValueContent.Item;
-            return (T)item;
-        }
-        catch (RuntimeBinderException)
-        {
-            return default;
-        }
+        return ValueContent.As<T>();
     }
 
     // TODO Add additional parameters, such as description, etc. to make it easy
