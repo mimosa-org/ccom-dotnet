@@ -1,9 +1,51 @@
 using Ccom;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace Ccom;
 
 public partial class Property
 {
+    public bool IsBinaryData => ValueContent?.Item is BinaryData;
+    public bool IsBinaryObject => ValueContent?.Item is BinaryObject;
+    public bool IsBoolean => ValueContent?.Item is bool;
+    public bool IsCoordinate => ValueContent?.Item is Coordinate;
+    public bool IsEnumerationItem => ValueContent?.Item is EnumerationItem;
+    public bool IsMeasure => ValueContent?.Item is Measure;
+    public bool IsMultiParameter => ValueContent?.Item is MultiParameter;
+    public bool IsNumber => ValueContent?.Item?.GetType() == typeof(NumericType); // exclude the subclasses
+    public bool IsPercentage => ValueContent?.Item is Percentage;
+    public bool IsProbability => ValueContent?.Item is Probability;
+    public bool IsText => ValueContent?.Item is TextType;
+    public bool IsURI => ValueContent?.Item is URI;
+    public bool IsUTCDateTime => ValueContent?.Item is UTCDateTime;
+    public bool IsUUID => ValueContent?.Item is UUID;
+    public bool IsXML => ValueContent?.Item is XML;
+
+    /// <summary>
+    /// Returns the value (i.e., ValueContent.Item) of the Property as the
+    /// specified type or null if the type does not match (applying conversion
+    /// operators if available, such as TextType -> string).
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type to be returned (as defined by the ValueContent.Item and possible
+    /// conversion operators)
+    /// </typeparam>
+    public T? GetValue<T>()
+    {
+        if (ValueContent is null) return default;
+        if (ValueContent.Item is T i) return i;
+        try
+        {
+            // Try explicit runtime cast (e.g., for int, string, etc.)
+            dynamic item = ValueContent.Item;
+            return (T)item;
+        }
+        catch (RuntimeBinderException)
+        {
+            return default;
+        }
+    }
+
     // TODO Add additional parameters, such as description, etc. to make it easy
     // to create a more specified property object.
 

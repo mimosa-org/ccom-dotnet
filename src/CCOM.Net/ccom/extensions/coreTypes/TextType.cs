@@ -8,4 +8,6 @@ public partial class TextType
     {
         return new TextType() { Value = value };
     }
+
+    public static explicit operator string(TextType value) => value.Value;
 }

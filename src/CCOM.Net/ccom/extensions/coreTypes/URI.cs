@@ -51,4 +51,6 @@ public partial class URI
     }
 
     public static implicit operator Ccom.URI(System.Uri uri) => Create(uri);
+
+    public static explicit operator System.Uri(Ccom.URI uri) => new(uri.Value);
 }

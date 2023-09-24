@@ -1,3 +1,4 @@
+using System.Globalization;
 using Ccom;
 using CommonBOD;
 
@@ -35,6 +36,24 @@ public partial class UTCDateTime
             locHrDeltaFromUTC = value.Offset.Hours,
             locHrDeltaFromUTCFieldSpecified = value.Offset > TimeSpan.Zero,
             locMinDeltaFromUTC = value.Offset > TimeSpan.Zero ? value.Offset.Minutes.ToString() : null
-    };
+        };
+    }
+
+    public static explicit operator DateTime(UTCDateTime value)
+    {
+        if (value.locHrDeltaFromUTCFieldSpecified) return ((DateTimeOffset)value).UtcDateTime;
+        return DateTime.Parse(value.Value, CultureInfo.InvariantCulture).ToUniversalTime();
+    }
+
+    public static explicit operator DateTimeOffset(UTCDateTime value)
+    {
+        var offset = new TimeSpan(
+            value.locHrDeltaFromUTCFieldSpecified ? value.locHrDeltaFromUTC : 0,
+            int.Parse(value.locMinDeltaFromUTC ?? "0"),
+            0
+        );
+
+        var dateTime = DateTimeOffset.Parse(value.Value, CultureInfo.InvariantCulture);
+        return dateTime.ToOffset(offset);
     }
 }

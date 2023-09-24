@@ -55,6 +55,7 @@ namespace Ccom {
         }
 
         public static implicit operator UUID(Guid value) => Create(value);
+        public static explicit operator Guid(UUID value) => Guid.Parse(value.Value);
     }
 
     public partial class Entity {
