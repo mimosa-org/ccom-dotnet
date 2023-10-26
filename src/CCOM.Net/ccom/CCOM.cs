@@ -836,7 +836,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class CriticalityScaleType : BaseType {
+    public partial class CriticalityScaleType : BaseType, IEntity<CriticalityScaleType> {
         
         private NumericType minimumField;
         
@@ -990,7 +990,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class BaseType : Entity {
+    public abstract partial class BaseType : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -1129,7 +1129,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertySetDefinitionForType : Entity {
+    public partial class PropertySetDefinitionForType : Entity, IEntity<PropertySetDefinitionForType>, IRelationship {
         
         private PropertySetDefinition itemField;
         
@@ -1179,7 +1179,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertySetDefinition : Entity {
+    public partial class PropertySetDefinition : Entity, IEntity<PropertySetDefinition>, INameable {
         
         private TextType[] shortNameField;
         
@@ -1365,7 +1365,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertySetType : BaseType {
+    public partial class PropertySetType : BaseType, IEntity<PropertySetType> {
     }
     
     /// <remarks/>
@@ -1374,7 +1374,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeSetType : PropertySetType {
+    public partial class AttributeSetType : PropertySetType, IEntity<AttributeSetType> {
     }
     
     /// <remarks/>
@@ -1384,7 +1384,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertyDefinition : Entity {
+    public partial class PropertyDefinition : Entity, IEntity<PropertyDefinition>, INameable {
         
         private TextType[] shortNameField;
         
@@ -1495,7 +1495,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertyType : BaseType {
+    public partial class PropertyType : BaseType, IEntity<PropertyType> {
         
         private ValueClass valueClassField;
         
@@ -1596,7 +1596,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Enumeration : BaseType {
+    public partial class Enumeration : BaseType, IEntity<Enumeration> {
         
         private EnumerationItem[] enumerationItemField;
         
@@ -1618,7 +1618,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EnumerationItem : Entity {
+    public partial class EnumerationItem : Entity, IEntity<EnumerationItem>, INameable {
         
         private TextType[] shortNameField;
         
@@ -1678,7 +1678,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MultiParameterType : BaseType {
+    public partial class MultiParameterType : BaseType, IEntity<MultiParameterType> {
         
         private PropertyDefinition[] itemsField;
         
@@ -1729,7 +1729,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class UOMQuantity : BaseType {
+    public partial class UOMQuantity : BaseType, IEntity<UOMQuantity> {
         
         private UnitOfMeasure[] unitOfMeasureField;
         
@@ -1763,7 +1763,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class UnitOfMeasure : BaseType {
+    public partial class UnitOfMeasure : BaseType, IEntity<UnitOfMeasure> {
         
         private NumericType conversionScaleField;
         
@@ -1808,7 +1808,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeType : PropertyType {
+    public partial class AttributeType : PropertyType, IEntity<AttributeType> {
     }
     
     /// <remarks/>
@@ -1898,7 +1898,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class StandardDataType : BaseType {
+    public partial class StandardDataType : BaseType, IEntity<StandardDataType> {
     }
     
     /// <remarks/>
@@ -2040,7 +2040,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class BLOBDataType : BaseType {
+    public partial class BLOBDataType : BaseType, IEntity<BLOBDataType> {
     }
     
     /// <remarks/>
@@ -2268,7 +2268,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeDefinition : PropertyDefinition {
+    public partial class AttributeDefinition : PropertyDefinition, IEntity<AttributeDefinition> {
     }
     
     /// <remarks/>
@@ -2291,7 +2291,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertyGroupDefinition : Entity {
+    public partial class PropertyGroupDefinition : Entity, IEntity<PropertyGroupDefinition>, INameable {
         
         private TextType[] shortNameField;
         
@@ -2431,7 +2431,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeGroupDefinition : PropertyGroupDefinition {
+    public partial class AttributeGroupDefinition : PropertyGroupDefinition, IEntity<AttributeGroupDefinition> {
     }
     
     /// <remarks/>
@@ -2441,7 +2441,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertySetDefinitionForModel : Entity {
+    public partial class PropertySetDefinitionForModel : Entity, IEntity<PropertySetDefinitionForModel>, IRelationship {
         
         private PropertySetDefinition itemField;
         
@@ -2503,7 +2503,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Model : Entity {
+    public partial class Model : Entity, IEntity<Model>, INameable {
         
         private TextType[] shortNameField;
         
@@ -2810,7 +2810,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetType : BaseType {
+    public partial class AssetType : BaseType, IEntity<AssetType> {
         
         private MaterialMasterItem[] materialMasterItemField;
         
@@ -2910,7 +2910,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MaterialMasterItem : LogisticResource {
+    public partial class MaterialMasterItem : LogisticResource, IEntity<MaterialMasterItem> {
         
         private AssetType assetTypeField;
         
@@ -2944,7 +2944,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ModelForMaterialMasterItem : Entity {
+    public partial class ModelForMaterialMasterItem : Entity, IEntity<ModelForMaterialMasterItem>, IRelationship {
         
         private Model modelField;
         
@@ -2979,7 +2979,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LogisticResource : Entity {
+    public partial class LogisticResource : Entity, IEntity<LogisticResource>, INameable {
         
         private TextType[] shortNameField;
         
@@ -3065,7 +3065,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LogisticResourceType : BaseType {
+    public partial class LogisticResourceType : BaseType, IEntity<LogisticResourceType> {
     }
     
     /// <remarks/>
@@ -3074,7 +3074,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LogisticResourceComponent : Entity {
+    public partial class LogisticResourceComponent : Entity, IEntity<LogisticResourceComponent>, IRelationship {
         
         private LogisticResource parentField;
         
@@ -3119,7 +3119,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MaterialItem : LogisticResource {
+    public partial class MaterialItem : LogisticResource, IEntity<MaterialItem> {
         
         private Entity itemField;
         
@@ -3172,7 +3172,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Asset : Entity {
+    public partial class Asset : Entity, IEntity<Asset>, INameable {
         
         private TextType[] shortNameField;
         
@@ -3642,7 +3642,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Site : Segment {
+    public partial class Site : Segment, IEntity<Site> {
         
         private Organization registrationOrganizationField;
         
@@ -3728,7 +3728,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Organization : Agent {
+    public partial class Organization : Agent, IEntity<Organization> {
         
         private Site[] registeredSiteField;
         
@@ -3752,7 +3752,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Agent : Entity {
+    public partial class Agent : Entity, IEntity<Agent>, INameable {
         
         private TextType[] shortNameField;
         
@@ -3838,7 +3838,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentType : BaseType {
+    public partial class AgentType : BaseType, IEntity<AgentType> {
     }
     
     /// <remarks/>
@@ -3847,7 +3847,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrganizationType : AgentType {
+    public partial class OrganizationType : AgentType, IEntity<OrganizationType> {
     }
     
     /// <remarks/>
@@ -3856,7 +3856,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRole : Entity {
+    public partial class AgentRole : Entity, IEntity<AgentRole>, INameable {
         
         private TextType[] shortNameField;
         
@@ -4006,7 +4006,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleType : BaseType {
+    public partial class AgentRoleType : BaseType, IEntity<AgentRoleType> {
         
         private NetworkForAgentRoleType[] networkForAgentRoleTypeField;
         
@@ -4028,7 +4028,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class NetworkForAgentRoleType : Entity {
+    public partial class NetworkForAgentRoleType : Entity, IEntity<NetworkForAgentRoleType>, IRelationship {
         
         private Network networkField;
         
@@ -4068,7 +4068,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class Network : Entity {
+    public abstract partial class Network : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -4194,7 +4194,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class NetworkForSegment : Entity {
+    public partial class NetworkForSegment : Entity, IEntity<NetworkForSegment>, IRelationship {
         
         private Network networkField;
         
@@ -4228,7 +4228,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Segment : Entity {
+    public partial class Segment : Entity, IEntity<Segment>, INameable {
         
         private TextType[] shortNameField;
         
@@ -4701,7 +4701,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SegmentType : BaseType {
+    public partial class SegmentType : BaseType, IEntity<SegmentType> {
         
         private bool isMobileField;
         
@@ -4826,7 +4826,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetTypeForSegmentType : Entity {
+    public partial class AssetTypeForSegmentType : Entity, IEntity<AssetTypeForSegmentType>, IRelationship {
         
         private AssetType assetTypeField;
         
@@ -4871,7 +4871,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Taxonomy : TypeNetwork {
+    public partial class Taxonomy : TypeNetwork, IEntity<Taxonomy> {
         
         private CCOMClass cCOMClassField;
         
@@ -4904,7 +4904,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class CCOMClass : Entity {
+    public partial class CCOMClass : Entity, IEntity<CCOMClass>, INameable {
         
         private TextType[] shortNameField;
         
@@ -5020,7 +5020,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LifecycleStatusKindForType : Entity {
+    public partial class LifecycleStatusKindForType : Entity, IEntity<LifecycleStatusKindForType>, IRelationship {
         
         private LifecycleStatusKind lifecycleStatusKindField;
         
@@ -5055,7 +5055,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LifecycleStatusKind : BaseType {
+    public partial class LifecycleStatusKind : BaseType, IEntity<LifecycleStatusKind> {
         
         private LifecycleStatusType[] includedStatusField;
         
@@ -5077,7 +5077,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LifecycleStatusType : Entity {
+    public partial class LifecycleStatusType : Entity, IEntity<LifecycleStatusType>, INameable {
         
         private TextType[] shortNameField;
         
@@ -5137,7 +5137,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TaxonomySet : Entity {
+    public partial class TaxonomySet : Entity, IEntity<TaxonomySet>, INameable {
         
         private TextType[] shortNameField;
         
@@ -5222,7 +5222,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TypeConnection : Entity {
+    public partial class TypeConnection : Entity, IEntity<TypeConnection>, IRelationship {
         
         private TypeNetwork networkField;
         
@@ -5279,7 +5279,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class BreakdownStructureTemplate : TypeNetwork {
+    public partial class BreakdownStructureTemplate : TypeNetwork, IEntity<BreakdownStructureTemplate> {
     }
     
     /// <remarks/>
@@ -5288,7 +5288,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Function : Entity {
+    public partial class Function : Entity, IEntity<Function>, INameable {
         
         private TextType[] shortNameField;
         
@@ -5362,7 +5362,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class FunctionAffectedByEvent : Entity {
+    public partial class FunctionAffectedByEvent : Entity, IEntity<FunctionAffectedByEvent>, IRelationship {
         
         private Function functionField;
         
@@ -5404,7 +5404,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class Event : Entity {
+    public abstract partial class Event : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -5541,7 +5541,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EventType : BaseType {
+    public partial class EventType : BaseType, IEntity<EventType> {
         
         private SolutionPackage[] solutionPackageField;
         
@@ -5563,7 +5563,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SolutionPackage : Work {
+    public partial class SolutionPackage : Work, IEntity<SolutionPackage> {
         
         private SolutionPackageType typeField;
         
@@ -5714,7 +5714,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SolutionPackageType : BaseType {
+    public partial class SolutionPackageType : BaseType, IEntity<SolutionPackageType> {
     }
     
     /// <remarks/>
@@ -5723,7 +5723,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SolutionPackageHierarchy : Entity {
+    public partial class SolutionPackageHierarchy : Entity, IEntity<SolutionPackageHierarchy>, IRelationship {
         
         private SolutionPackage parentField;
         
@@ -5768,7 +5768,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedList : Entity {
+    public partial class OrderedList : Entity, IEntity<OrderedList>, INameable {
         
         private TextType[] shortNameField;
         
@@ -5945,7 +5945,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedListType : BaseType {
+    public partial class OrderedListType : BaseType, IEntity<OrderedListType> {
     }
     
     /// <remarks/>
@@ -5954,7 +5954,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedListHierarchy : Entity {
+    public partial class OrderedListHierarchy : Entity, IEntity<OrderedListHierarchy>, IRelationship {
         
         private OrderedList parentField;
         
@@ -6002,7 +6002,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class OrderedItem : Entity {
+    public abstract partial class OrderedItem : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -6074,7 +6074,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedMeasLocationWithUOMItem : OrderedItem {
+    public partial class OrderedMeasLocationWithUOMItem : OrderedItem, IEntity<OrderedMeasLocationWithUOMItem> {
         
         private NumericType channelField;
         
@@ -6132,7 +6132,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementLocation : Entity {
+    public partial class MeasurementLocation : Entity, IEntity<MeasurementLocation>, INameable {
         
         private TextType[] shortNameField;
         
@@ -6516,7 +6516,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementLocationType : BaseType {
+    public partial class MeasurementLocationType : BaseType, IEntity<MeasurementLocationType> {
         
         private UOMQuantity uOMQuantityField;
         
@@ -6550,7 +6550,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TransducerAxisDirectionType : BaseType {
+    public partial class TransducerAxisDirectionType : BaseType, IEntity<TransducerAxisDirectionType> {
     }
     
     /// <remarks/>
@@ -6559,7 +6559,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class CalculationType : BaseType {
+    public partial class CalculationType : BaseType, IEntity<CalculationType> {
     }
     
     /// <remarks/>
@@ -6568,7 +6568,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementSource : Asset {
+    public partial class MeasurementSource : Asset, IEntity<MeasurementSource> {
     }
     
     /// <remarks/>
@@ -6577,7 +6577,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementSourceType : AssetType {
+    public partial class MeasurementSourceType : AssetType, IEntity<MeasurementSourceType> {
     }
     
     /// <remarks/>
@@ -6586,7 +6586,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Transducer : Asset {
+    public partial class Transducer : Asset, IEntity<Transducer> {
         
         private Measure outputAmplitudeField;
         
@@ -6656,7 +6656,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TransducerType : AssetType {
+    public partial class TransducerType : AssetType, IEntity<TransducerType> {
     }
     
     /// <remarks/>
@@ -6665,7 +6665,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementLocationAssociation : Entity {
+    public partial class MeasurementLocationAssociation : Entity, IEntity<MeasurementLocationAssociation>, IRelationship {
         
         private MeasurementLocation relatedMeasurementLocationField;
         
@@ -6688,7 +6688,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementLocationRegion : Region {
+    public partial class MeasurementLocationRegion : Region, IEntity<MeasurementLocationRegion> {
         
         private MeasurementLocation measurementLocationField;
         
@@ -6737,7 +6737,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class Region : Entity {
+    public abstract partial class Region : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -6944,7 +6944,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RegionType : BaseType {
+    public partial class RegionType : BaseType, IEntity<RegionType> {
         
         private SeverityLevelType severityLevelTypeField;
         
@@ -6965,7 +6965,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SeverityLevelType : BaseType {
+    public partial class SeverityLevelType : BaseType, IEntity<SeverityLevelType> {
         
         private NumericType severityScaleField;
         
@@ -6999,7 +6999,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestComponentRegion : Region {
+    public partial class TestComponentRegion : Region, IEntity<TestComponentRegion> {
         
         private TestComponent testComponentField;
         
@@ -7020,7 +7020,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestComponent : Measurement {
+    public partial class TestComponent : Measurement, IEntity<TestComponent> {
         
         private TestComponentType typeField;
         
@@ -7079,7 +7079,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestComponentType : BaseType {
+    public partial class TestComponentType : BaseType, IEntity<TestComponentType> {
     }
     
     /// <remarks/>
@@ -7088,7 +7088,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Test : Measurement {
+    public partial class Test : Measurement, IEntity<Test> {
         
         private TestType typeField;
         
@@ -7171,7 +7171,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestType : BaseType {
+    public partial class TestType : BaseType, IEntity<TestType> {
     }
     
     /// <remarks/>
@@ -7180,7 +7180,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Sample : Measurement {
+    public partial class Sample : Measurement, IEntity<Sample> {
         
         private Agent samplerField;
         
@@ -7239,7 +7239,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SampleHierarchy : Entity {
+    public partial class SampleHierarchy : Entity, IEntity<SampleHierarchy>, IRelationship {
         
         private Sample parentField;
         
@@ -7293,7 +7293,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class Measurement : Entity {
+    public abstract partial class Measurement : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -7525,7 +7525,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class DataQualityType : BaseType {
+    public partial class DataQualityType : BaseType, IEntity<DataQualityType> {
     }
     
     /// <remarks/>
@@ -7534,7 +7534,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementAssociation : Entity {
+    public partial class MeasurementAssociation : Entity, IEntity<MeasurementAssociation>, IRelationship {
         
         private Measurement measurementField;
         
@@ -7567,7 +7567,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TriggeredRegionMeasurement : Entity {
+    public partial class TriggeredRegionMeasurement : Entity, IEntity<TriggeredRegionMeasurement>, IRelationship {
         
         private MeasurementLocationTriggeredRegion measurementLocationTriggeredRegionField;
         
@@ -7613,7 +7613,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementLocationTriggeredRegion : TimestampedEvent {
+    public partial class MeasurementLocationTriggeredRegion : TimestampedEvent, IEntity<MeasurementLocationTriggeredRegion> {
         
         private MeasurementLocation measurementLocationField;
         
@@ -7698,7 +7698,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TriggeredRegionTestComponent : Entity {
+    public partial class TriggeredRegionTestComponent : Entity, IEntity<TriggeredRegionTestComponent>, IRelationship {
         
         private MeasurementLocationTriggeredRegion measurementLocationTriggeredRegionField;
         
@@ -7873,7 +7873,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class GeoPosition : Entity {
+    public partial class GeoPosition : Entity, IEntity<GeoPosition>, INameable {
         
         private TextType[] shortNameField;
         
@@ -7934,7 +7934,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class GPSLocation : Entity {
+    public partial class GPSLocation : Entity, IEntity<GPSLocation> {
         
         private NumericType orderField;
         
@@ -8027,7 +8027,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class GPSDatumType : BaseType {
+    public partial class GPSDatumType : BaseType, IEntity<GPSDatumType> {
     }
     
     /// <remarks/>
@@ -8036,7 +8036,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class GPSPrecisionType : BaseType {
+    public partial class GPSPrecisionType : BaseType, IEntity<GPSPrecisionType> {
     }
     
     /// <remarks/>
@@ -8045,7 +8045,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class GPSElevationType : BaseType {
+    public partial class GPSElevationType : BaseType, IEntity<GPSElevationType> {
     }
     
     /// <remarks/>
@@ -8056,7 +8056,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Request : Entity {
+    public partial class Request : Entity, IEntity<Request>, INameable {
         
         private TextType[] shortNameField;
         
@@ -8229,7 +8229,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RequestType : BaseType {
+    public partial class RequestType : BaseType, IEntity<RequestType> {
     }
     
     /// <remarks/>
@@ -8238,7 +8238,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PriorityLevelType : BaseType {
+    public partial class PriorityLevelType : BaseType, IEntity<PriorityLevelType> {
         
         private NumericType priorityScaleField;
         
@@ -8259,7 +8259,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntry : Entity {
+    public partial class EngineeringStudyEntry : Entity, IEntity<EngineeringStudyEntry>, INameable {
         
         private TextType[] shortNameField;
         
@@ -8447,7 +8447,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntryType : BaseType {
+    public partial class EngineeringStudyEntryType : BaseType, IEntity<EngineeringStudyEntryType> {
     }
     
     /// <remarks/>
@@ -8456,7 +8456,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudy : Entity {
+    public partial class EngineeringStudy : Entity, IEntity<EngineeringStudy>, INameable {
         
         private TextType[] shortNameField;
         
@@ -8566,7 +8566,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyType : BaseType {
+    public partial class EngineeringStudyType : BaseType, IEntity<EngineeringStudyType> {
     }
     
     /// <remarks/>
@@ -8575,7 +8575,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntryForSegmentType : Entity {
+    public partial class EngineeringStudyEntryForSegmentType : Entity, IEntity<EngineeringStudyEntryForSegmentType>, IRelationship {
         
         private EngineeringStudyEntry engineeringStudyEntryField;
         
@@ -8608,7 +8608,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntryForAssetType : Entity {
+    public partial class EngineeringStudyEntryForAssetType : Entity, IEntity<EngineeringStudyEntryForAssetType>, IRelationship {
         
         private EngineeringStudyEntry engineeringStudyEntryField;
         
@@ -8641,7 +8641,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntryForModel : Entity {
+    public partial class EngineeringStudyEntryForModel : Entity, IEntity<EngineeringStudyEntryForModel>, IRelationship {
         
         private EngineeringStudyEntry engineeringStudyEntryField;
         
@@ -8674,7 +8674,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntryForSegment : Entity {
+    public partial class EngineeringStudyEntryForSegment : Entity, IEntity<EngineeringStudyEntryForSegment>, IRelationship {
         
         private EngineeringStudyEntry engineeringStudyEntryField;
         
@@ -8707,7 +8707,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EngineeringStudyEntryForAsset : Entity {
+    public partial class EngineeringStudyEntryForAsset : Entity, IEntity<EngineeringStudyEntryForAsset>, IRelationship {
         
         private EngineeringStudyEntry engineeringStudyEntryField;
         
@@ -8740,7 +8740,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RequestChild : Entity {
+    public partial class RequestChild : Entity, IEntity<RequestChild>, IRelationship {
         
         private Request parentField;
         
@@ -8785,7 +8785,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RequestForInformation : Request {
+    public partial class RequestForInformation : Request, IEntity<RequestForInformation> {
         
         private UTCDateTime respondByField;
         
@@ -8818,7 +8818,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RequestForWork : Request {
+    public partial class RequestForWork : Request, IEntity<RequestForWork> {
         
         private Entity itemField;
         
@@ -8988,7 +8988,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkManagementType : BaseType {
+    public partial class WorkManagementType : BaseType, IEntity<WorkManagementType> {
     }
     
     /// <remarks/>
@@ -8997,7 +8997,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkTaskType : BaseType {
+    public partial class WorkTaskType : BaseType, IEntity<WorkTaskType> {
         
         private WorkManagementType workManagementTypeField;
         
@@ -9018,7 +9018,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Recommendation : Entity {
+    public partial class Recommendation : Entity, IEntity<Recommendation>, INameable {
         
         private TextType[] shortNameField;
         
@@ -9174,7 +9174,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RecommendationFromEvent : Entity {
+    public partial class RecommendationFromEvent : Entity, IEntity<RecommendationFromEvent>, IRelationship {
         
         private Recommendation recommendationField;
         
@@ -9207,7 +9207,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RecommendationFromHealthAssessment : Entity {
+    public partial class RecommendationFromHealthAssessment : Entity, IEntity<RecommendationFromHealthAssessment>, IRelationship {
         
         private Recommendation recommendationField;
         
@@ -9240,7 +9240,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class HealthAssessment : Assessment {
+    public partial class HealthAssessment : Assessment, IEntity<HealthAssessment> {
         
         private NumericType healthLevelPreciseField;
         
@@ -9323,7 +9323,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class HealthLevelType : BaseType {
+    public partial class HealthLevelType : BaseType, IEntity<HealthLevelType> {
         
         private NumericType healthScaleField;
         
@@ -9344,7 +9344,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ChangePatternType : BaseType {
+    public partial class ChangePatternType : BaseType, IEntity<ChangePatternType> {
     }
     
     /// <remarks/>
@@ -9357,7 +9357,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class Assessment : Entity {
+    public abstract partial class Assessment : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -9442,7 +9442,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleWithAssessment : Entity {
+    public partial class AgentRoleWithAssessment : Entity, IEntity<AgentRoleWithAssessment>, IRelationship {
         
         private AgentRole agentRoleField;
         
@@ -9475,7 +9475,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Audit : Assessment {
+    public partial class Audit : Assessment, IEntity<Audit> {
         
         private DataQualityType dataQualityTypeField;
         
@@ -9496,7 +9496,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkStatus : Assessment {
+    public partial class WorkStatus : Assessment, IEntity<WorkStatus> {
         
         private WorkStatusType typeField;
         
@@ -9529,7 +9529,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkStatusType : BaseType {
+    public partial class WorkStatusType : BaseType, IEntity<WorkStatusType> {
     }
     
     /// <remarks/>
@@ -9678,7 +9678,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class CompletedWork : CalendaredWork {
+    public partial class CompletedWork : CalendaredWork, IEntity<CompletedWork> {
         
         private OrderedList[] usedOrderedListField;
         
@@ -9747,7 +9747,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class Work : Entity {
+    public abstract partial class Work : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -9844,7 +9844,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleWithWork : Entity {
+    public partial class AgentRoleWithWork : Entity, IEntity<AgentRoleWithWork>, IRelationship {
         
         private AgentRole agentRoleField;
         
@@ -9877,7 +9877,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SolutionPackageStep : Work {
+    public partial class SolutionPackageStep : Work, IEntity<SolutionPackageStep> {
         
         private NumericType orderField;
         
@@ -9953,7 +9953,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkStep : CalendaredWork {
+    public partial class WorkStep : CalendaredWork, IEntity<WorkStep> {
         
         private WorkOrder workOrderField;
         
@@ -10024,7 +10024,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkOrder : ActiveWork {
+    public partial class WorkOrder : ActiveWork, IEntity<WorkOrder> {
         
         private Cycle triggeringCycleField;
         
@@ -10110,7 +10110,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Cycle : Entity {
+    public partial class Cycle : Entity, IEntity<Cycle> {
         
         private Measure repeatIntervalField;
         
@@ -10143,7 +10143,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkRequest : ActiveWork {
+    public partial class WorkRequest : ActiveWork, IEntity<WorkRequest> {
         
         private WorkOrder workOrderField;
         
@@ -10177,7 +10177,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RecommendationWorkRequest : Entity {
+    public partial class RecommendationWorkRequest : Entity, IEntity<RecommendationWorkRequest>, IRelationship {
         
         private Recommendation recommendationField;
         
@@ -10285,7 +10285,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WorkOrderHierarchy : Entity {
+    public partial class WorkOrderHierarchy : Entity, IEntity<WorkOrderHierarchy>, IRelationship {
         
         private WorkOrder parentField;
         
@@ -10330,7 +10330,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RecommendationWorkStep : Entity {
+    public partial class RecommendationWorkStep : Entity, IEntity<RecommendationWorkStep>, IRelationship {
         
         private Recommendation recommendationField;
         
@@ -10363,7 +10363,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RemainingLifeAssessment : Assessment {
+    public partial class RemainingLifeAssessment : Assessment, IEntity<RemainingLifeAssessment> {
         
         private Measure estimateField;
         
@@ -10408,7 +10408,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SubstantiatedByMeasurement : Entity {
+    public partial class SubstantiatedByMeasurement : Entity, IEntity<SubstantiatedByMeasurement>, IRelationship {
         
         private TextType[] shortNameField;
         
@@ -10484,7 +10484,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ActualEvent : TimestampedEvent {
+    public partial class ActualEvent : TimestampedEvent, IEntity<ActualEvent> {
         
         private SubstantiatedByMeasurement[] substantiatedByMeasurementField;
         
@@ -10506,7 +10506,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SegmentModelEvent : ActualEvent {
+    public partial class SegmentModelEvent : ActualEvent, IEntity<SegmentModelEvent> {
         
         private Segment segmentField;
         
@@ -10539,7 +10539,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetSegmentEvent : ActualEvent {
+    public partial class AssetSegmentEvent : ActualEvent, IEntity<AssetSegmentEvent> {
         
         private Asset assetField;
         
@@ -10572,7 +10572,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetOwnerEvent : ActualEvent {
+    public partial class AssetOwnerEvent : ActualEvent, IEntity<AssetOwnerEvent> {
         
         private Asset assetField;
         
@@ -10665,7 +10665,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PurchaseConditionType : BaseType {
+    public partial class PurchaseConditionType : BaseType, IEntity<PurchaseConditionType> {
     }
     
     /// <remarks/>
@@ -10674,7 +10674,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ReadinessType : BaseType {
+    public partial class ReadinessType : BaseType, IEntity<ReadinessType> {
     }
     
     /// <remarks/>
@@ -10683,7 +10683,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetModelEvent : ActualEvent {
+    public partial class AssetModelEvent : ActualEvent, IEntity<AssetModelEvent> {
         
         private Asset assetField;
         
@@ -10716,7 +10716,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ProposedEvent : TimestampedEvent {
+    public partial class ProposedEvent : TimestampedEvent, IEntity<ProposedEvent> {
         
         private SeverityLevelType severityLevelTypeField;
         
@@ -10799,7 +10799,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Evidence : Entity {
+    public partial class Evidence : Entity, IEntity<Evidence>, INameable {
         
         private TextType[] shortNameField;
         
@@ -10861,7 +10861,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ProposedEventForHypotheticalEvent : Entity {
+    public partial class ProposedEventForHypotheticalEvent : Entity, IEntity<ProposedEventForHypotheticalEvent>, INameable {
         
         private TextType[] shortNameField;
         
@@ -10933,7 +10933,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class HypotheticalEvent : Event {
+    public partial class HypotheticalEvent : Event, IEntity<HypotheticalEvent> {
         
         private SeverityLevelType severityLevelTypeField;
         
@@ -11006,7 +11006,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Document : InfoSource {
+    public partial class Document : InfoSource, IEntity<Document> {
         
         private string languageField;
         
@@ -11104,7 +11104,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EntityContent : Entity {
+    public partial class EntityContent : Entity, IEntity<EntityContent>, IRelationship {
         
         private Entity entityField;
         
@@ -11125,7 +11125,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class DocumentForAsset : Entity {
+    public partial class DocumentForAsset : Entity, IEntity<DocumentForAsset>, IRelationship {
         
         private Document documentField;
         
@@ -11158,7 +11158,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class DocumentForModel : Entity {
+    public partial class DocumentForModel : Entity, IEntity<DocumentForModel>, IRelationship {
         
         private Document documentField;
         
@@ -11191,7 +11191,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class DocumentForSegment : Entity {
+    public partial class DocumentForSegment : Entity, IEntity<DocumentForSegment>, IRelationship {
         
         private Document documentField;
         
@@ -11225,7 +11225,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class InfoSource : Entity {
+    public partial class InfoSource : Entity, IEntity<InfoSource>, INameable {
         
         private TextType[] shortNameField;
         
@@ -11311,7 +11311,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class InfoSourceType : BaseType {
+    public partial class InfoSourceType : BaseType, IEntity<InfoSourceType> {
     }
     
     /// <remarks/>
@@ -11320,7 +11320,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class DocumentType : InfoSourceType {
+    public partial class DocumentType : InfoSourceType, IEntity<DocumentType> {
     }
     
     /// <remarks/>
@@ -11329,7 +11329,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class GridTriggeredRegion : Entity {
+    public partial class GridTriggeredRegion : Entity, IEntity<GridTriggeredRegion>, IRelationship {
         
         private Coordinate resolutionField;
         
@@ -11399,7 +11399,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class HighlightType : BaseType {
+    public partial class HighlightType : BaseType, IEntity<HighlightType> {
     }
     
     /// <remarks/>
@@ -11408,7 +11408,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class VectorMeasurement : Measurement {
+    public partial class VectorMeasurement : Measurement, IEntity<VectorMeasurement> {
         
         private VectorSetup vectorSetupField;
         
@@ -11477,7 +11477,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class VectorSetup : SignalProcessSetup {
+    public partial class VectorSetup : SignalProcessSetup, IEntity<VectorSetup> {
         
         private PostScalingType postScalingTypeField;
         
@@ -11534,7 +11534,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PostScalingType : BaseType {
+    public partial class PostScalingType : BaseType, IEntity<PostScalingType> {
     }
     
     /// <remarks/>
@@ -11543,7 +11543,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SourceDetectorType : BaseType {
+    public partial class SourceDetectorType : BaseType, IEntity<SourceDetectorType> {
     }
     
     /// <remarks/>
@@ -11556,7 +11556,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class SignalProcessSetup : Entity {
+    public abstract partial class SignalProcessSetup : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -11616,7 +11616,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SignalProcessStream : Entity {
+    public partial class SignalProcessStream : Entity, IEntity<SignalProcessStream>, INameable {
         
         private TextType[] shortNameField;
         
@@ -11677,7 +11677,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SignalProcessBlockInStream : Entity {
+    public partial class SignalProcessBlockInStream : Entity, IEntity<SignalProcessBlockInStream>, IRelationship {
         
         private SignalProcessStream streamField;
         
@@ -11722,7 +11722,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SignalProcessBlock : Entity {
+    public partial class SignalProcessBlock : Entity, IEntity<SignalProcessBlock>, INameable {
         
         private TextType[] shortNameField;
         
@@ -11795,7 +11795,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SignalProcessBlockType : BaseType {
+    public partial class SignalProcessBlockType : BaseType, IEntity<SignalProcessBlockType> {
     }
     
     /// <remarks/>
@@ -11804,7 +11804,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TimeWaveformSetup : SignalProcessSetup {
+    public partial class TimeWaveformSetup : SignalProcessSetup, IEntity<TimeWaveformSetup> {
         
         private Measure startOffsetField;
         
@@ -11946,7 +11946,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class WindowType : BaseType {
+    public partial class WindowType : BaseType, IEntity<WindowType> {
         
         private NumericType pFMultiplierField;
         
@@ -11967,7 +11967,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AverageType : BaseType {
+    public partial class AverageType : BaseType, IEntity<AverageType> {
     }
     
     /// <remarks/>
@@ -11976,7 +11976,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AverageWeightType : BaseType {
+    public partial class AverageWeightType : BaseType, IEntity<AverageWeightType> {
     }
     
     /// <remarks/>
@@ -11985,7 +11985,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AverageSynchType : BaseType {
+    public partial class AverageSynchType : BaseType, IEntity<AverageSynchType> {
     }
     
     /// <remarks/>
@@ -11994,7 +11994,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class FFTSetup : SignalProcessSetup {
+    public partial class FFTSetup : SignalProcessSetup, IEntity<FFTSetup> {
         
         private PostScalingType postScalingTypeField;
         
@@ -12148,7 +12148,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class CPBSetup : SignalProcessSetup {
+    public partial class CPBSetup : SignalProcessSetup, IEntity<CPBSetup> {
         
         private PostScalingType postScalingTypeField;
         
@@ -12265,7 +12265,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TimeWaveformMeasurement : Measurement {
+    public partial class TimeWaveformMeasurement : Measurement, IEntity<TimeWaveformMeasurement> {
         
         private TimeWaveformSetup timeWaveformSetupField;
         
@@ -12322,7 +12322,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SingleDataMeasurement : Measurement {
+    public partial class SingleDataMeasurement : Measurement, IEntity<SingleDataMeasurement> {
         
         private ValueContent dataField;
         
@@ -12356,7 +12356,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeasurementGrid : Entity {
+    public partial class MeasurementGrid : Entity, IEntity<MeasurementGrid> {
         
         private Measurement measurementField;
         
@@ -12413,7 +12413,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OffsetArrayMeasurement : Measurement {
+    public partial class OffsetArrayMeasurement : Measurement, IEntity<OffsetArrayMeasurement> {
         
         private NumericType countField;
         
@@ -12458,7 +12458,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class FFTMeasurement : Measurement {
+    public partial class FFTMeasurement : Measurement, IEntity<FFTMeasurement> {
         
         private FFTSetup fFTSetupField;
         
@@ -12527,7 +12527,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class CPBMeasurement : Measurement {
+    public partial class CPBMeasurement : Measurement, IEntity<CPBMeasurement> {
         
         private CPBSetup cPBSetupField;
         
@@ -12584,7 +12584,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestGroup : Entity {
+    public partial class TestGroup : Entity, IEntity<TestGroup>, INameable {
         
         private TextType[] shortNameField;
         
@@ -12657,7 +12657,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestGroupComponent : Entity {
+    public partial class TestGroupComponent : Entity, IEntity<TestGroupComponent>, IRelationship {
         
         private NumericType orderField;
         
@@ -12702,7 +12702,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class VectorRegion : MeasurementLocationRegion {
+    public partial class VectorRegion : MeasurementLocationRegion, IEntity<VectorRegion> {
         
         private VectorSetup vectorSetupField;
         
@@ -12723,7 +12723,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class TestComponentTypeRegion : MeasurementLocationRegion {
+    public partial class TestComponentTypeRegion : MeasurementLocationRegion, IEntity<TestComponentTypeRegion> {
         
         private TestType testTypeField;
         
@@ -12768,7 +12768,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedMeasLocationWithUOMItemSignalProcessSetup : Entity {
+    public partial class OrderedMeasLocationWithUOMItemSignalProcessSetup : Entity, IEntity<OrderedMeasLocationWithUOMItemSignalProcessSetup>, IRelationship {
         
         private OrderedMeasLocationWithUOMItem orderedMeasLocationWithUOMItemField;
         
@@ -12801,7 +12801,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedLogisticResourceItem : OrderedItem {
+    public partial class OrderedLogisticResourceItem : OrderedItem, IEntity<OrderedLogisticResourceItem> {
         
         private LogisticResource logisticResourceField;
         
@@ -12834,7 +12834,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedEntityItem : OrderedItem {
+    public partial class OrderedEntityItem : OrderedItem, IEntity<OrderedEntityItem> {
         
         private Entity itemField;
         
@@ -12856,7 +12856,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EventLink : Entity {
+    public partial class EventLink : Entity, IEntity<EventLink>, IRelationship {
         
         private Event causeEventField;
         
@@ -12901,7 +12901,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleWithEvent : Entity {
+    public partial class AgentRoleWithEvent : Entity, IEntity<AgentRoleWithEvent>, IRelationship {
         
         private AgentRole agentRoleField;
         
@@ -12934,7 +12934,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SiteType : SegmentType {
+    public partial class SiteType : SegmentType, IEntity<SiteType> {
     }
     
     /// <remarks/>
@@ -12943,7 +12943,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SegmentComponent : Entity {
+    public partial class SegmentComponent : Entity, IEntity<SegmentComponent>, IRelationship {
         
         private Segment parentField;
         
@@ -12988,7 +12988,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LifecycleStatusHistory : Entity {
+    public partial class LifecycleStatusHistory : Entity, IEntity<LifecycleStatusHistory>, IRelationship {
         
         private Entity entityField;
         
@@ -13033,7 +13033,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MaterialItemOnSegment : Entity {
+    public partial class MaterialItemOnSegment : Entity, IEntity<MaterialItemOnSegment>, IRelationship {
         
         private MaterialItem materialItemField;
         
@@ -13066,7 +13066,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleWithSegment : Entity {
+    public partial class AgentRoleWithSegment : Entity, IEntity<AgentRoleWithSegment>, IRelationship {
         
         private AgentRole agentRoleField;
         
@@ -13099,7 +13099,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SegmentConnection : Entity {
+    public partial class SegmentConnection : Entity, IEntity<SegmentConnection>, IRelationship {
         
         private ConnectionType typeField;
         
@@ -13168,7 +13168,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ConnectionType : BaseType {
+    public partial class ConnectionType : BaseType, IEntity<ConnectionType> {
     }
     
     /// <remarks/>
@@ -13201,7 +13201,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SegmentMesh : SegmentNetwork {
+    public partial class SegmentMesh : SegmentNetwork, IEntity<SegmentMesh> {
         
         private MeshType typeField;
         
@@ -13222,7 +13222,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class MeshType : BaseType {
+    public partial class MeshType : BaseType, IEntity<MeshType> {
     }
     
     /// <remarks/>
@@ -13231,7 +13231,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class BreakdownStructure : SegmentNetwork {
+    public partial class BreakdownStructure : SegmentNetwork, IEntity<BreakdownStructure> {
         
         private BreakdownStructureType typeField;
         
@@ -13265,7 +13265,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class BreakdownStructureType : BaseType {
+    public partial class BreakdownStructureType : BaseType, IEntity<BreakdownStructureType> {
     }
     
     /// <remarks/>
@@ -13274,7 +13274,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedListForSegment : Entity {
+    public partial class OrderedListForSegment : Entity, IEntity<OrderedListForSegment>, IRelationship {
         
         private OrderedList orderedListField;
         
@@ -13297,7 +13297,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class AmbiguitySet : Entity {
+    public abstract partial class AmbiguitySet : Entity, INameable {
         
         private TextType[] shortNameField;
         
@@ -13384,7 +13384,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AmbiguitySetType : BaseType {
+    public partial class AmbiguitySetType : BaseType, IEntity<AmbiguitySetType> {
     }
     
     /// <remarks/>
@@ -13395,7 +13395,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public abstract partial class LogicalConnector : Entity {
+    public abstract partial class LogicalConnector : Entity, IRelationship {
         
         private LogicalConnectorType typeField;
         
@@ -13465,7 +13465,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class LogicalConnectorType : BaseType {
+    public partial class LogicalConnectorType : BaseType, IEntity<LogicalConnectorType> {
     }
     
     /// <remarks/>
@@ -13474,7 +13474,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ProposedEventLogicalConnector : LogicalConnector {
+    public partial class ProposedEventLogicalConnector : LogicalConnector, IEntity<ProposedEventLogicalConnector> {
         
         private ProposedEvent leafProposedEventField;
         
@@ -13495,7 +13495,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class HypotheticalEventLogicalConnector : LogicalConnector {
+    public partial class HypotheticalEventLogicalConnector : LogicalConnector, IEntity<HypotheticalEventLogicalConnector> {
         
         private HypotheticalEvent leafHypotheticalEventField;
         
@@ -13516,7 +13516,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ProposedEventAmbiguitySet : AmbiguitySet {
+    public partial class ProposedEventAmbiguitySet : AmbiguitySet, IEntity<ProposedEventAmbiguitySet> {
         
         private UTCDateTime startField;
         
@@ -13574,7 +13574,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class HypotheticalEventAmbiguitySet : AmbiguitySet {
+    public partial class HypotheticalEventAmbiguitySet : AmbiguitySet, IEntity<HypotheticalEventAmbiguitySet> {
     }
     
     /// <remarks/>
@@ -13583,7 +13583,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class NetworkForModel : Entity {
+    public partial class NetworkForModel : Entity, IEntity<NetworkForModel>, IRelationship {
         
         private Network networkField;
         
@@ -13616,7 +13616,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class NetworkForAsset : Entity {
+    public partial class NetworkForAsset : Entity, IEntity<NetworkForAsset>, IRelationship {
         
         private Network networkField;
         
@@ -13649,7 +13649,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class NetworkHierarchy : Entity {
+    public partial class NetworkHierarchy : Entity, IEntity<NetworkHierarchy>, IRelationship {
         
         private Network parentField;
         
@@ -13694,7 +13694,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetMesh : Network {
+    public partial class AssetMesh : Network, IEntity<AssetMesh> {
         
         private MeshType typeField;
         
@@ -13728,7 +13728,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetConnection : Entity {
+    public partial class AssetConnection : Entity, IEntity<AssetConnection>, IRelationship {
         
         private ConnectionType typeField;
         
@@ -13797,7 +13797,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleWithAgent : Entity {
+    public partial class AgentRoleWithAgent : Entity, IEntity<AgentRoleWithAgent>, IRelationship {
         
         private AgentRole agentRoleField;
         
@@ -13830,7 +13830,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AgentRoleWithAsset : Entity {
+    public partial class AgentRoleWithAsset : Entity, IEntity<AgentRoleWithAsset>, IRelationship {
         
         private AgentRole agentRoleField;
         
@@ -13863,7 +13863,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Manufacturer : Agent {
+    public partial class Manufacturer : Agent, IEntity<Manufacturer> {
         
         private Model[] manufacturedModelField;
         
@@ -13898,7 +13898,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AssetComponent : Entity {
+    public partial class AssetComponent : Entity, IEntity<AssetComponent>, IRelationship {
         
         private Asset parentField;
         
@@ -13943,7 +13943,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedListForAsset : Entity {
+    public partial class OrderedListForAsset : Entity, IEntity<OrderedListForAsset>, IRelationship {
         
         private OrderedList orderedListField;
         
@@ -13964,7 +13964,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ModelRevision : Entity {
+    public partial class ModelRevision : Entity, IEntity<ModelRevision>, IRelationship {
         
         private Model parentField;
         
@@ -14009,7 +14009,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class ModelVariant : Entity {
+    public partial class ModelVariant : Entity, IEntity<ModelVariant>, IRelationship {
         
         private Model parentField;
         
@@ -14042,7 +14042,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OrderedListForModel : Entity {
+    public partial class OrderedListForModel : Entity, IEntity<OrderedListForModel>, IRelationship {
         
         private OrderedList orderedListField;
         
@@ -14076,7 +14076,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeSetDefinitionForModel : PropertySetDefinitionForModel {
+    public partial class AttributeSetDefinitionForModel : PropertySetDefinitionForModel, IEntity<AttributeSetDefinitionForModel> {
     }
     
     /// <remarks/>
@@ -14111,7 +14111,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeSetDefinition : PropertySetDefinition {
+    public partial class AttributeSetDefinition : PropertySetDefinition, IEntity<AttributeSetDefinition> {
     }
     
     /// <remarks/>
@@ -14133,7 +14133,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeSetDefinitionForType : PropertySetDefinitionForType {
+    public partial class AttributeSetDefinitionForType : PropertySetDefinitionForType, IEntity<AttributeSetDefinitionForType> {
     }
     
     /// <remarks/>
@@ -14155,7 +14155,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OSACBMFunctionBlockType : BaseType {
+    public partial class OSACBMFunctionBlockType : BaseType, IEntity<OSACBMFunctionBlockType> {
     }
     
     /// <remarks/>
@@ -14164,7 +14164,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class OSACBMDataType : BaseType {
+    public partial class OSACBMDataType : BaseType, IEntity<OSACBMDataType> {
     }
     
     /// <remarks/>
@@ -14173,7 +14173,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AlgorithmProcessType : BaseType {
+    public partial class AlgorithmProcessType : BaseType, IEntity<AlgorithmProcessType> {
     }
     
     /// <remarks/>
@@ -14182,7 +14182,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class SignalProcessStreamType : BaseType {
+    public partial class SignalProcessStreamType : BaseType, IEntity<SignalProcessStreamType> {
     }
     
     /// <remarks/>
@@ -14191,7 +14191,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EffectiveStatusType : BaseType {
+    public partial class EffectiveStatusType : BaseType, IEntity<EffectiveStatusType> {
     }
     
     /// <remarks/>
@@ -14200,7 +14200,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class EffectiveStatus : Entity {
+    public partial class EffectiveStatus : Entity, IEntity<EffectiveStatus>, IRelationship {
         
         private EffectiveStatusType typeField;
         
@@ -14234,7 +14234,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Property : Entity {
+    public partial class Property : Entity, IEntity<Property>, INameable {
         
         private TextType[] shortNameField;
         
@@ -14337,7 +14337,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Attribute : Property {
+    public partial class Attribute : Property, IEntity<Attribute> {
     }
     
     /// <remarks/>
@@ -14360,7 +14360,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertySetForEntity : Entity {
+    public partial class PropertySetForEntity : Entity, IEntity<PropertySetForEntity>, IRelationship {
         
         private PropertySet itemField;
         
@@ -14410,7 +14410,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertySet : Entity {
+    public partial class PropertySet : Entity, IEntity<PropertySet>, INameable {
         
         private TextType[] shortNameField;
         
@@ -14538,7 +14538,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PropertyGroup : Entity {
+    public partial class PropertyGroup : Entity, IEntity<PropertyGroup>, INameable {
         
         private TextType[] shortNameField;
         
@@ -14665,7 +14665,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeGroup : PropertyGroup {
+    public partial class AttributeGroup : PropertyGroup, IEntity<AttributeGroup> {
     }
     
     /// <remarks/>
@@ -14674,7 +14674,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeSet : PropertySet {
+    public partial class AttributeSet : PropertySet, IEntity<AttributeSet> {
     }
     
     /// <remarks/>
@@ -14696,7 +14696,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class AttributeSetForEntity : PropertySetForEntity {
+    public partial class AttributeSetForEntity : PropertySetForEntity, IEntity<AttributeSetForEntity> {
     }
     
     /// <remarks/>
@@ -14718,7 +14718,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class RegionValidDuringEventType : Entity {
+    public partial class RegionValidDuringEventType : Entity, IEntity<RegionValidDuringEventType>, IRelationship {
         
         private Region regionField;
         
@@ -14751,7 +14751,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Port : Entity {
+    public partial class Port : Entity, IEntity<Port>, IRelationship {
         
         private OSACBMFunctionBlockType oSACBMFunctionBlockTypeField;
         
@@ -14826,7 +14826,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class PortIO : Entity {
+    public partial class PortIO : Entity, IEntity<PortIO>, INameable {
         
         private TextType[] shortNameField;
         
@@ -14922,7 +14922,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Algorithm : Entity {
+    public partial class Algorithm : Entity, IEntity<Algorithm>, INameable {
         
         private TextType[] shortNameField;
         
@@ -15083,7 +15083,7 @@ namespace Ccom {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.mimosa.org/ccom4")]
-    public partial class Equivalency : Entity {
+    public partial class Equivalency : Entity, IEntity<Equivalency>, IRelationship {
         
         private Entity entity1Field;
         
