@@ -84,6 +84,7 @@ public class CustomPropertyHelper
 
         return property;
     }
+    
     public static string GetTextPropertyValue(object property)
     {
         return ((Ccom.TextType) property).Value; 

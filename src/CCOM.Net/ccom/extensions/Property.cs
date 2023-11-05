@@ -66,13 +66,13 @@ public partial class Property
     /// <param name="valueContent">The ValueContent for the Property (implicit conversions apply)</param>
     /// <param name="type">(optional) The PropertyType for the property, mutually exclusive with defintion</param>
     /// <param name="definition">(optional) The PropertyDefinition for the property, mutually exclusive with type</param>
-    public static Property Create(string shortName, ValueContent valueContent,
+    public static Property Create(string shortName, ValueContent valueContent, UUID? uuid = null,
         PropertyType? type = null, PropertyDefinition? definition = null)
     {
         // TODO: throw exception if the type/definiiton does not match the ValueContent?
         return new Property
         {
-            UUID = UUID.Create(),
+            UUID = uuid ?? UUID.Create(),
             ShortName = new TextType[]
             {
                 shortName
