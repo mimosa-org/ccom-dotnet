@@ -10,16 +10,16 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
     [XmlIgnore]
     public Entity? this[int index]
     {
-        get => index >= Count ? null : index >= PropertyDefinitions.Length ? Group[index - PropertyDefinitions.Length] : PropertyDefinitions[index];
+        get => index >= Count ? null : index >= (PropertyDefinitions?.Length ?? 0) ? Group[index - (PropertyDefinitions?.Length ?? 0)] : PropertyDefinitions?[index];
         set
         {
-            if (index >= PropertyDefinitions.Length)
+            if (index >= (PropertyDefinitions?.Length ?? 0))
             {
-                Group[index - PropertyDefinitions.Length] = (PropertyGroupDefinition)value!;
+                Group[index - (PropertyDefinitions?.Length ?? 0)] = (PropertyGroupDefinition)value!;
             }
             else
             {
-                PropertyDefinitions[index] = (PropertyDefinition)value!;
+                PropertyDefinitions![index] = (PropertyDefinition)value!;
             }
         }
     }
@@ -35,7 +35,7 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
     }
 
     [XmlIgnore]
-    public int Count => PropertyDefinitions.Length + Group.Length;
+    public int Count => (PropertyDefinitions?.Length ?? 0) + (Group?.Length ?? 0);
 
     public void Add(PropertyDefinition newChild)
     {
@@ -112,5 +112,35 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
             Type = type.ToReference(parentInfoSource: infoSource ?? new InfoSource()),
             Parent = parentSet
         };
+    }
+
+    public PropertySet InstantiatePropertySet(UUID? uuid = null, InfoSource? infoSource = null,
+        PropertyGroupDefinition.UUIDProvider? uuidProvider = null, 
+        PropertyGroupDefinition.GroupUUIDProvider? groupUUIDProvider = null, 
+        PropertyDefinition.ValueProvider? valueProvider = null)
+    {
+        uuidProvider ??= PropertyGroupDefinition.DefaultUUIDProvider;
+        groupUUIDProvider ??= PropertyGroupDefinition.DefaultGroupUUIDProvider;
+
+        var propertySet = PropertySet.Create(
+            ShortName.FirstOrDefault("<unknown>").Value,
+            Type,
+            uuid: uuid,
+            infoSource: infoSource,
+            definition: this
+        );
+
+        propertySet.SetProperties = PropertyDefinitions?.Select(definition =>
+            definition.InstantiateProperty(uuid: uuidProvider(definition, propertySet), parentSet: propertySet, valueProvider: valueProvider)
+        ).ToArray() ?? Array.Empty<Property>();
+        propertySet.SetPropertiesName = new ItemsChoiceType6[propertySet.SetProperties.Length];
+        Array.Fill(propertySet.SetPropertiesName, ItemsChoiceType6.SetProperty);
+
+        propertySet.Group = Group?.Select(definition =>
+            definition.InstantiateGroup(uuid: groupUUIDProvider(definition, propertySet), parentSet: propertySet, 
+                    uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider)
+        ).ToArray() ?? Array.Empty<PropertyGroup>();
+
+        return propertySet;
     }
 }

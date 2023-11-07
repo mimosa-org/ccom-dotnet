@@ -81,4 +81,23 @@ public partial class PropertyDefinition : ICompositionChild<PropertyGroupDefinit
             Parent = parentGroup ?? parentSet as Entity
         };
     }
+
+    public Property InstantiateProperty(UUID? uuid = null, PropertyGroup? parentGroup = null, PropertySet? parentSet = null,
+        ValueProvider? valueProvider = null)
+    {
+        valueProvider ??= (definition, uuid, parent) => definition.DefaultValue.FirstOrDefault(definition.Type?.DefaultValue() ?? new ValueContent());
+        var property = Property.Create(
+            ShortName.FirstOrDefault("<unknown>").Value,
+            valueProvider(this, uuid, parentGroup ?? parentSet as Entity),
+            uuid: uuid,
+            definition: this,
+            parentGroup:
+            parentGroup,
+            parentSet: parentSet
+        );
+        property.Order = new() { format = Order.format, Value = Order.Value };
+        return property;
+    }
+
+    public delegate ValueContent ValueProvider(PropertyDefinition definition, UUID? propertyId, Entity? parent);
 }

@@ -10,16 +10,16 @@ public partial class PropertySet : ICompositionParent<Property>, ICompositionPar
     [XmlIgnore]
     public Entity? this[int index]
     {
-        get => index >= Count ? null : index >= SetProperties.Length ? Group[index - SetProperties.Length] : SetProperties[index];
+        get => index >= Count ? null : index >= (SetProperties?.Length ?? 0) ? Group[index - (SetProperties?.Length ?? 0)] : SetProperties?[index];
         set
         {
-            if (index >= SetProperties.Length)
+            if (index >= (SetProperties?.Length ?? 0))
             {
-                Group[index - SetProperties.Length] = (PropertyGroup)value!;
+                Group[index - (SetProperties?.Length ?? 0)] = (PropertyGroup)value!;
             }
             else
             {
-                SetProperties[index] = (Property)value!;
+                SetProperties![index] = (Property)value!;
             }
         }
     }
@@ -35,7 +35,7 @@ public partial class PropertySet : ICompositionParent<Property>, ICompositionPar
     }
 
     [XmlIgnore]
-    public int Count => SetProperties.Length + Group.Length;
+    public int Count => (SetProperties?.Length ?? 0) + (Group?.Length ?? 0);
 
     public void Add(Property newChild)
     {

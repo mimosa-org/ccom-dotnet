@@ -11,16 +11,16 @@ public partial class PropertyGroupDefinition
     [XmlIgnore]
     public Entity? this[int index]
     {
-        get => index >= Count ? null : index >= PropertyDefinitions.Length ? Group[index - PropertyDefinitions.Length] : PropertyDefinitions[index];
+        get => index >= Count ? null : index >= (PropertyDefinitions?.Length ?? 0) ? Group[index - (PropertyDefinitions?.Length ?? 0)] : PropertyDefinitions?[index];
         set
         {
-            if (index >= PropertyDefinitions.Length)
+            if (index >= (PropertyDefinitions?.Length ?? 0))
             {
-                Group[index - PropertyDefinitions.Length] = (PropertyGroupDefinition)value!;
+                Group[index - (PropertyDefinitions?.Length ?? 0)] = (PropertyGroupDefinition)value!;
             }
             else
             {
-                PropertyDefinitions[index] = (PropertyDefinition)value!;
+                PropertyDefinitions![index] = (PropertyDefinition)value!;
             }
         }
     }
@@ -36,7 +36,7 @@ public partial class PropertyGroupDefinition
     }
 
     [XmlIgnore]
-    public int Count => PropertyDefinitions.Length + Group.Length;
+    public int Count => (PropertyDefinitions?.Length ?? 0) + (Group?.Length ?? 0);
 
     /// <summary>
     /// Returns the parent PropertyGroupDefinition or PropertySetDefinition. (Not serialized)
@@ -140,4 +140,39 @@ public partial class PropertyGroupDefinition
             Parent = parentGroup ?? parentSet as Entity
         };
     }
+
+    public PropertyGroup InstantiateGroup(UUID? uuid = null, PropertyGroup? parentGroup = null, PropertySet? parentSet = null,
+        UUIDProvider? uuidProvider = null, GroupUUIDProvider? groupUUIDProvider = null, PropertyDefinition.ValueProvider? valueProvider = null)
+    {
+        uuidProvider ??= DefaultUUIDProvider;
+        groupUUIDProvider ??= DefaultGroupUUIDProvider;
+
+        var group = PropertyGroup.Create(
+            ShortName.FirstOrDefault("<unknown>").Value,
+            uuid: uuid,
+            definition: this,
+            parentGroup: parentGroup,
+            parentSet: parentSet
+        );
+        group.Order = new() { format = Order.format, Value = Order.Value };
+
+        group.SetProperties = PropertyDefinitions?.Select(definition => 
+            definition.InstantiateProperty(uuid: uuidProvider(definition, group), parentGroup: group, parentSet: parentSet, valueProvider: valueProvider)
+        ).ToArray() ?? Array.Empty<Property>();
+        group.SetPropertiesName = new ItemsChoiceType7[group.SetProperties.Length];
+        Array.Fill(group.SetPropertiesName, ItemsChoiceType7.SetProperty);
+
+        group.Group = Group?.Select(definition =>
+            definition.InstantiateGroup(uuid: groupUUIDProvider(definition, group), parentGroup: group, parentSet: parentSet, 
+                    uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider)
+        ).ToArray() ?? Array.Empty<PropertyGroup>();
+
+        return group;
+    }
+
+    public delegate UUID UUIDProvider(PropertyDefinition definition, Entity? parent);
+    public delegate UUID GroupUUIDProvider(PropertyGroupDefinition definition, Entity? parent);
+
+    public static readonly UUIDProvider DefaultUUIDProvider = (_, _) => UUID.Create();
+    public static readonly GroupUUIDProvider DefaultGroupUUIDProvider = (_, _) => UUID.Create();
 }
