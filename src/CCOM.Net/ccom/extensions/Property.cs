@@ -1,9 +1,8 @@
-using Ccom;
-using Microsoft.CSharp.RuntimeBinder;
+using System.Xml.Serialization;
 
 namespace Ccom;
 
-public partial class Property
+public partial class Property : ICompositionChild<PropertyGroup>, ICompositionChild<PropertySet>, ICompositionChild
 {
     public bool IsBinaryData => ValueContent?.Item is BinaryData;
     public bool IsBinaryObject => ValueContent?.Item is BinaryObject;
@@ -36,6 +35,24 @@ public partial class Property
         return ValueContent.As<T>();
     }
 
+    /// <summary>
+    /// Returns the parent PropertyGroup or PropertySet. (Not serialized)
+    /// </summary>
+    [XmlIgnore]
+    public Entity? Parent { get; set; }
+
+    [XmlIgnore]
+    public InfoSource? IndirectInfoSource => Parent is ICompositionChild asChild ? Parent.InfoSource ?? asChild.IndirectInfoSource : Parent?.InfoSource;
+
+    [XmlIgnore]
+    PropertyGroup? ICompositionChild<PropertyGroup>.Parent => Parent as PropertyGroup;
+
+    [XmlIgnore]
+    PropertySet? ICompositionChild<PropertySet>.Parent => Parent as PropertySet;
+
+    [XmlIgnore]
+    public Entity? Root => Parent is ICompositionChild asChild ? asChild.Root : Parent;
+
     // TODO Add additional parameters, such as description, etc. to make it easy
     // to create a more specified property object.
 
@@ -64,21 +81,32 @@ public partial class Property
     /// </remarks>
     /// <param name="shortName">The ShortName of the Property</param>
     /// <param name="valueContent">The ValueContent for the Property (implicit conversions apply)</param>
+    /// <param name="uuid">(optional)Specific UUID of the Property</param>
     /// <param name="type">(optional) The PropertyType for the property, mutually exclusive with defintion</param>
     /// <param name="definition">(optional) The PropertyDefinition for the property, mutually exclusive with type</param>
+    /// <param name="parentGroup">(optional) The PropertyGroup that is the parent of the property</param>
+    /// <param name="parentSet">(optional) The PropertySet that is the parent of the property</param>
+    /// <param name="implicitInfoSource">(optional) Whether the property definition's info source is to be implicitly inherited. Default: true</param>
     public static Property Create(string shortName, ValueContent valueContent, UUID? uuid = null,
-        PropertyType? type = null, PropertyDefinition? definition = null)
+        PropertyType? type = null, PropertyDefinition? definition = null,
+        PropertyGroup? parentGroup = null, PropertySet? parentSet = null,
+        bool implicitInfoSource = true)
     {
+        var parentInfoSource = parentGroup?.InfoSource ?? parentSet?.InfoSource;
+
         // TODO: throw exception if the type/definiiton does not match the ValueContent?
         return new Property
         {
             UUID = uuid ?? UUID.Create(),
+            InfoSource = implicitInfoSource ? null : parentInfoSource,
             ShortName = new TextType[]
             {
                 shortName
             },
             ValueContent = valueContent,
-            TypeOrDefinition = (Entity)definition! ?? type
-        };
+            TypeOrDefinition = definition?.ToReference(parentInfoSource: parentInfoSource ?? new InfoSource())
+                                ?? type?.ToReference(parentInfoSource: parentInfoSource ?? new InfoSource()) as Entity,
+            Parent = parentGroup ?? parentSet as Entity,
+    };
     }
 }
