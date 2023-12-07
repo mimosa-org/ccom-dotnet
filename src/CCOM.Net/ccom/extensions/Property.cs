@@ -107,6 +107,6 @@ public partial class Property : ICompositionChild<PropertyGroup>, ICompositionCh
             TypeOrDefinition = definition?.ToReference(parentInfoSource: parentInfoSource ?? new InfoSource())
                                 ?? type?.ToReference(parentInfoSource: parentInfoSource ?? new InfoSource()) as Entity,
             Parent = parentGroup ?? parentSet as Entity,
-    };
+        };
     }
 }
