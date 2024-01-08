@@ -101,6 +101,18 @@ namespace Ccom {
             }
             return copy;
         }
+
+        public static bool HasShortName(this Entity? entity, string name)
+        {
+            if (entity is INameable nameable) return nameable.ShortName?.Any(sn => sn.Value == name) ?? false;
+            else return false;
+        }
+
+        public static bool HasFullName(this Entity? entity, string name)
+        {
+            if (entity is INameable nameable) return nameable.FullName?.Any(fn => fn.Value == name) ?? false;
+            else return false;
+        }
     }
 
     public interface INameable

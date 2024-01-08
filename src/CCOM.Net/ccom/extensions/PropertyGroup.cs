@@ -74,6 +74,11 @@ public partial class PropertyGroup
 
     public void Add(Property newChild)
     {
+        if (SetProperties is null)
+        {
+            SetProperties = new Property[0];
+            SetPropertiesName = new ItemsChoiceType7[0];
+        }
         var oldSize = SetProperties.Length;
         Array.Resize(ref itemsField, oldSize + 1);
         SetProperties[oldSize] = newChild;
@@ -83,8 +88,8 @@ public partial class PropertyGroup
 
     public void AddAll(IEnumerable<Property> newChildren)
     {
-        SetProperties = SetProperties.Concat(newChildren).ToArray();
-        var choiceType = SetPropertiesName.FirstOrDefault(ItemsChoiceType7.SetProperty));
+        SetProperties = (SetProperties?.Concat(newChildren) ?? newChildren).ToArray();
+        var choiceType = SetPropertiesName?.FirstOrDefault(ItemsChoiceType7.SetProperty) ?? ItemsChoiceType7.SetProperty;
         SetPropertiesName = new ItemsChoiceType7[SetProperties.Length];
         Array.Fill(SetPropertiesName, choiceType);
     }
