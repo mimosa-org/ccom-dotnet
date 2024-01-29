@@ -39,14 +39,17 @@ public partial class UTCDateTime
         };
     }
 
-    public static explicit operator DateTime(UTCDateTime value)
+    public static explicit operator DateTime(UTCDateTime? value)
     {
+        if (value is null) return DateTime.MinValue;
         if (value.locHrDeltaFromUTCFieldSpecified) return ((DateTimeOffset)value).UtcDateTime;
         return DateTime.Parse(value.Value, CultureInfo.InvariantCulture).ToUniversalTime();
     }
 
-    public static explicit operator DateTimeOffset(UTCDateTime value)
+    public static explicit operator DateTimeOffset(UTCDateTime? value)
     {
+        if (value is null) return DateTimeOffset.MinValue;
+
         var offset = new TimeSpan(
             value.locHrDeltaFromUTCFieldSpecified ? value.locHrDeltaFromUTC : 0,
             int.Parse(value.locMinDeltaFromUTC ?? "0"),
