@@ -34,8 +34,8 @@ public partial class UTCDateTime
         {
             Value = value.ToXsDateTimeString(),
             locHrDeltaFromUTC = value.Offset.Hours,
-            locHrDeltaFromUTCFieldSpecified = value.Offset > TimeSpan.Zero,
-            locMinDeltaFromUTC = value.Offset > TimeSpan.Zero ? value.Offset.Minutes.ToString() : null
+            locHrDeltaFromUTCFieldSpecified = value.Offset != TimeSpan.Zero,
+            locMinDeltaFromUTC = value.Offset != TimeSpan.Zero ? value.Offset.Minutes.ToString() : null
         };
     }
 

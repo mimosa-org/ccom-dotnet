@@ -102,6 +102,20 @@ namespace Ccom {
             return copy;
         }
 
+        /// <summary>
+        /// Overload of ToReference<T> for PrioriryLevelType that always includes the PriorityScale property.
+        /// </summary>
+        /// <param name="entity">The entity being copied</param>
+        /// <param name="minimal">True to ensure only necessary information is included</param>
+        /// <param name="parentInfoSource">Used to decide whether the InfoSource of entity can be excluded</param>
+        /// <returns>A copy of the entity with minimalistic information that can be serialised as a reference</returns>
+        public static PriorityLevelType ToReference(this PriorityLevelType entity, bool minimal = false, InfoSource? parentInfoSource = null)
+        {
+            var reference = ToReference<PriorityLevelType>(entity, minimal, parentInfoSource);
+            reference.PriorityScale = (int)entity.PriorityScale;
+            return reference;
+        }
+
         public static bool HasShortName(this Entity? entity, string name)
         {
             if (entity is INameable nameable) return nameable.ShortName?.Any(sn => sn.Value == name) ?? false;
