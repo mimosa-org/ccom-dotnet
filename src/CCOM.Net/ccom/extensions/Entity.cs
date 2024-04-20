@@ -91,7 +91,7 @@ namespace Ccom {
             {
                 UUID = entity.UUID,
                 IDInInfoSource = minimal ? null : entity.IDInInfoSource,
-                InfoSource = parentInfoSource is not null && parentInfoSource.UUID.Value != entity.InfoSource?.UUID.Value
+                InfoSource = parentInfoSource is not null && parentInfoSource.UUID?.Value != entity.InfoSource?.UUID?.Value
                     ? entity.InfoSource?.ToReference(minimal: true)
                     : minimal || entity.IDInInfoSource is null ? null : entity.InfoSource?.ToReference(minimal: true),
             };
