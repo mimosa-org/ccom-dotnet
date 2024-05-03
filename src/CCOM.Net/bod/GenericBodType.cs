@@ -1,3 +1,4 @@
+using Ccom.Xml.Serialization;
 using Oagis;
 using System.Text.Json.Serialization;
 using System.Xml;
@@ -79,7 +80,7 @@ public class GenericBodType<TVerb, TNoun> : BusinessObjectDocumentType, GenericB
 
     public XmlSerializer CreateSerializer(Type[]? extraTypes = null)
     {
-        return new XmlSerializer(this.GetType(), XmlAttributeOverrides, extraTypes, null, Namespace);
+        return new XmlCallbackSerializer(this.GetType(), XmlAttributeOverrides, extraTypes!, null!, Namespace);
     }
 
     [JsonIgnore]

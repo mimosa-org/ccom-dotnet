@@ -2,9 +2,9 @@ using System;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 using System.Xml.Linq;
 using Oagis;
+using Ccom.Xml.Serialization;
 
 namespace CommonBOD;
 
@@ -321,7 +321,7 @@ public class BODReader
     private T deserializeOrDefault<T, U>(XmlReader? reader, Type? t = null) where T : class where U : T, new()
     {
         if (reader is null) return new U();
-        return new XmlSerializer( t ?? typeof(T)).Deserialize(reader) as T ?? new U();
+        return new XmlCallbackSerializer( t ?? typeof(T)).Deserialize(reader) as T ?? new U();
     }
 
     private class UnknownVerbType : VerbType

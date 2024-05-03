@@ -1,5 +1,5 @@
 using Ccom;
-using System.Xml.Serialization;
+using Ccom.Xml.Serialization;
 using System.Xml.Linq;
 
 namespace CCOM.Net.Test;
@@ -60,7 +60,7 @@ public class PropertySetTest
             Array.Fill(g.SetPropertiesName, ItemsChoiceType7.SetProperty);
         }
 
-        var serializer = new XmlSerializer(typeof(PropertySet));
+        var serializer = new XmlCallbackSerializer(typeof(PropertySet));
         var doc = new XDocument();
         using (var writer = doc.CreateWriter()) {
             serializer.Serialize(writer, propertySet);
@@ -139,7 +139,7 @@ public class PropertySetTest
                     </PropertyDefinition>
                 </Group>
             </PropertySetDefinition>";
-        var serializer = new XmlSerializer(typeof(PropertySetDefinition), Namespace.URI);
+        var serializer = new XmlCallbackSerializer(typeof(PropertySetDefinition), Namespace.URI);
         var reader = new StringReader(propertyDefintionXml);
         var propertySetDefinition = serializer.Deserialize(reader) as PropertySetDefinition;
 

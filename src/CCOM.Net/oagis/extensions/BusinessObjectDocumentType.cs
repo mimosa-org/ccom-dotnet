@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Ccom.Xml.Serialization;
 
 namespace Oagis;
 
@@ -43,7 +44,7 @@ public partial class BusinessObjectDocumentType
 
     virtual public XmlSerializer GetSerializer()
     {
-        return new XmlSerializer(this.GetType(), Namespace);
+        return new XmlCallbackSerializer(this.GetType(), Namespace);
     }
 
     [JsonIgnore]

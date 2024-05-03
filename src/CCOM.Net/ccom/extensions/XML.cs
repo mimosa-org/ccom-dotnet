@@ -1,8 +1,8 @@
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace Ccom;
+using Xml.Serialization;
 
 public partial class XML
 {
@@ -26,7 +26,7 @@ public partial class XML
 
     public IEnumerable<T> GetContent<T>() where T : class
     {
-        var serializer = new XmlSerializer(typeof(T), Ccom.Namespace.URI);
+        var serializer = new XmlCallbackSerializer(typeof(T), Ccom.Namespace.URI);
         return AnyContent.Select(e =>
         {
             var reader = new XmlNodeReader(e);
@@ -36,7 +36,7 @@ public partial class XML
 
     public void SetContent<T>(IEnumerable<T> items) where T : class
     {
-        var serializer = new XmlSerializer(typeof(T), Ccom.Namespace.URI);
+        var serializer = new XmlCallbackSerializer(typeof(T), Ccom.Namespace.URI);
         AnyContent = items.Select(e =>
         {
             var doc = new XDocument();

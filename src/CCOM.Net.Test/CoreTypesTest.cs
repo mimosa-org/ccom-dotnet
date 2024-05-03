@@ -1,8 +1,8 @@
 
 using System.Numerics;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using Ccom;
+using Ccom.Xml.Serialization;
 
 namespace CCOM.Net.Test;
 
@@ -241,7 +241,7 @@ public class CoreTypesTest
             (new ValueContent { Item = "string" }, ""), // Invalid content (check throws)
         };
 
-        var serializer = new XmlSerializer(typeof(ValueContent));
+        var serializer = new XmlCallbackSerializer(typeof(ValueContent));
         foreach (var (Value, ElementName) in expectations)
         {
             var doc = new XDocument();

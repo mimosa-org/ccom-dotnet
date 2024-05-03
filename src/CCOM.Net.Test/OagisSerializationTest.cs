@@ -1,6 +1,7 @@
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using Ccom;
+using Ccom.Xml.Serialization;
 using Oagis;
 using System.Xml.XPath;
 using System.Xml;
@@ -26,7 +27,7 @@ public class OagisSerializationTest
             }
         };
 
-        // XmlSerializer s = new XmlSerializer(typeof(CCOMData), Ccom.Namespace.URI);
+        // XmlCallbackSerializers = new XmlCallbackSerializer(typeof(CCOMData), Ccom.Namespace.URI);
         XElement? bodXml = null;
         using (TextReader reader = new StreamReader($"{DATA_PATH}/example_bod_sync_segments.xml"))
         {
@@ -37,7 +38,7 @@ public class OagisSerializationTest
 
         Assert.Equal("SyncSegments", bodXml.Name.LocalName);
 
-        var o = new XmlSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Elements().First().CreateReader()) as ApplicationAreaType;
+        var o = new XmlCallbackSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Elements().First().CreateReader()) as ApplicationAreaType;
         Assert.Equal(expected.BODID.Value, o?.BODID.Value);
         Assert.Equal(expected.CreationDateTime, o?.CreationDateTime);
         Assert.Equal(expected.Sender.LogicalID.Value, o?.Sender.LogicalID.Value);
@@ -46,7 +47,7 @@ public class OagisSerializationTest
         Assert.NotNull(dataArea);
         Assert.Equal(Ccom.Namespace.XNAMESPACE, dataArea.Name.Namespace);
 
-        var verb = new XmlSerializer(typeof(SyncType)).Deserialize(dataArea.Elements().First().CreateReader()) as VerbType;
+        var verb = new XmlCallbackSerializer(typeof(SyncType)).Deserialize(dataArea.Elements().First().CreateReader()) as VerbType;
         Assert.IsType<SyncType>(verb);
 
         var nouns = from noun in dataArea.Elements()
@@ -97,7 +98,7 @@ public class OagisSerializationTest
             },
         };
 
-        var serializer = new XmlSerializer(typeof(ConfirmBODType));
+        var serializer = new XmlCallbackSerializer(typeof(ConfirmBODType));
         var xml = new StringWriter();
         serializer.Serialize(xml, confirmBOD);
 
@@ -130,7 +131,7 @@ public class OagisSerializationTest
             }
         };
 
-        var o = new XmlSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Elements().First().CreateReader()) as ApplicationAreaType;
+        var o = new XmlCallbackSerializer(typeof(ApplicationAreaType)).Deserialize(bodXml.Elements().First().CreateReader()) as ApplicationAreaType;
 
         Assert.Equal(expected.BODID.Value, o?.BODID.Value);
         Assert.Equal(expected.CreationDateTime, o?.CreationDateTime);
@@ -155,7 +156,7 @@ public class OagisSerializationTest
             }
         };
 
-        var serializer = new XmlSerializer(typeof(ApplicationAreaType));
+        var serializer = new XmlCallbackSerializer(typeof(ApplicationAreaType));
         XDocument doc = new();
         using (var writer = doc.CreateWriter())
         {

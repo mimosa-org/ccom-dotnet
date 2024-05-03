@@ -1,4 +1,4 @@
-﻿// The following is the same as:
+// The following is the same as:
 // namespace CcomExample
 // {
 //     class Program
@@ -15,11 +15,12 @@
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using Ccom;
+using Ccom.Xml.Serialization;
 
 const string CCOM_NAMESPACE = "http://www.mimosa.org/ccom4";
 
 // Serialiser for the CCOMData root element, so basically everything.
-XmlSerializer s = new XmlSerializer(typeof(CCOMData), CCOM_NAMESPACE);
+XmlCallbackSerializer s = new XmlCallbackSerializer(typeof(CCOMData), CCOM_NAMESPACE);
 
 Console.WriteLine("Reading/Writing example CCOM data file");
 
