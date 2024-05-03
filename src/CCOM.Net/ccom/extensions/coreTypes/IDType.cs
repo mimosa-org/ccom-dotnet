@@ -9,5 +9,5 @@ public partial class IDType
         return value is null ? null! : new IDType() { Value = value };
     }
 
-    public static implicit operator string(IDType value) => value?.Value!;
+    public static implicit operator string(IDType? value) => value?.Value!;
 }

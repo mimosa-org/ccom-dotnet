@@ -64,8 +64,8 @@ public partial class PropertyGroupDefinition
     [OnDeserialized]
     public void RepairChildren(StreamingContext streamingContext)
     {
-        _ = PropertyDefinitions.Select(p => p.Parent = this);
-        _ = Group.Select(g => g.Parent = this);
+        foreach (var p in PropertyDefinitions ?? Array.Empty<PropertyDefinition>()) p.Parent = this;
+        foreach (var g in Group ?? Array.Empty<PropertyGroupDefinition>()) g.Parent = this;
     }
 
     IEnumerable<PropertyGroupDefinition> ICompositionParent<PropertyGroupDefinition>.GetChildren() => Group;
@@ -154,18 +154,24 @@ public partial class PropertyGroupDefinition
             parentGroup: parentGroup,
             parentSet: parentSet
         );
-        group.Order = new() { format = Order.format, Value = Order.Value };
+        group.Order = Order is null ? null : new() { format = Order.format, Value = Order.Value };
 
-        group.SetProperties = PropertyDefinitions?.Select(definition => 
+        group.SetProperties = PropertyDefinitions?.Select(definition => definition.IsActive ?
             definition.InstantiateProperty(uuid: uuidProvider(definition, group), parentGroup: group, parentSet: parentSet, valueProvider: valueProvider)
-        ).ToArray() ?? Array.Empty<Property>();
+            : null
+        )
+        .OfType<Property>() // exclude the nulls
+        .ToArray() ?? Array.Empty<Property>();
         group.SetPropertiesName = new ItemsChoiceType7[group.SetProperties.Length];
         Array.Fill(group.SetPropertiesName, ItemsChoiceType7.SetProperty);
 
-        group.Group = Group?.Select(definition =>
+        group.Group = Group?.Select(definition => definition.IsActive ?
             definition.InstantiateGroup(uuid: groupUUIDProvider(definition, group), parentGroup: group, parentSet: parentSet, 
                     uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider)
-        ).ToArray() ?? Array.Empty<PropertyGroup>();
+            : null
+        )
+        .OfType<PropertyGroup>() // exclude the nulls
+        .ToArray() ?? Array.Empty<PropertyGroup>();
 
         return group;
     }

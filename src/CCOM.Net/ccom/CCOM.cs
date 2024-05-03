@@ -1,4 +1,4 @@
-﻿// This auto-generated file has been modified to correct some errors introduced
+// This auto-generated file has been modified to correct some errors introduced
 // by the 'xsd' tool.
 
 //------------------------------------------------------------------------------

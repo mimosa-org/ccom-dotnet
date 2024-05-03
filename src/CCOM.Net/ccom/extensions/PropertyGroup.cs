@@ -64,8 +64,8 @@ public partial class PropertyGroup
     [OnDeserialized]
     public void RepairChildren(StreamingContext streamingContext)
     {
-        _ = SetProperties.Select(p => p.Parent = this);
-        _ = Group.Select(g => g.Parent = this);
+        foreach (var p in SetProperties ?? Array.Empty<Property>()) p.Parent = this;
+        foreach (var g in Group ?? Array.Empty<PropertyGroup>()) g.Parent = this;
     }
 
     IEnumerable<PropertyGroup> ICompositionParent<PropertyGroup>.GetChildren() => Group;

@@ -95,7 +95,7 @@ public partial class PropertyDefinition : ICompositionChild<PropertyGroupDefinit
             parentGroup,
             parentSet: parentSet
         );
-        property.Order = new() { format = Order.format, Value = Order.Value };
+        property.Order = Order is null ? null : new() { format = Order.format, Value = Order.Value };
         return property;
     }
 

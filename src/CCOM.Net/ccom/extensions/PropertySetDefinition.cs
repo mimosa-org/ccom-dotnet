@@ -73,8 +73,8 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
     [OnDeserialized]
     public void RepairChildren(StreamingContext streamingContext)
     {
-        _ = PropertyDefinitions.Select(p => p.Parent = this);
-        _ = Group.Select(g => g.Parent = this);
+        foreach (var p in PropertyDefinitions ?? Array.Empty<PropertyDefinition>()) p.Parent = this;
+        foreach (var g in Group ?? Array.Empty<PropertyGroupDefinition>()) g.Parent = this;
     }
 
     IEnumerable<PropertyDefinition> ICompositionParent<PropertyDefinition>.GetChildren() => PropertyDefinitions;
@@ -130,17 +130,74 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
             definition: this
         );
 
-        propertySet.SetProperties = PropertyDefinitions?.Select(definition =>
+        propertySet.SetProperties = PropertyDefinitions?.Select(definition => definition.IsActive ? 
             definition.InstantiateProperty(uuid: uuidProvider(definition, propertySet), parentSet: propertySet, valueProvider: valueProvider)
-        ).ToArray() ?? Array.Empty<Property>();
+            : null
+        )
+        .OfType<Property>() // exclude the nulls
+        .ToArray() ?? Array.Empty<Property>();
         propertySet.SetPropertiesName = new ItemsChoiceType6[propertySet.SetProperties.Length];
         Array.Fill(propertySet.SetPropertiesName, ItemsChoiceType6.SetProperty);
 
-        propertySet.Group = Group?.Select(definition =>
+        propertySet.Group = Group?.Select(definition => definition.IsActive ?
             definition.InstantiateGroup(uuid: groupUUIDProvider(definition, propertySet), parentSet: propertySet, 
                     uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider)
-        ).ToArray() ?? Array.Empty<PropertyGroup>();
+            : null
+        )
+        .OfType<PropertyGroup>() // exclude the nulls
+        .ToArray() ?? Array.Empty<PropertyGroup>();
+
+        // Instantiate the parent (if any) and merge
+        if (Parent is not null)
+        {
+            var parentSet = Parent.InstantiatePropertySet(propertySet.UUID, infoSource, uuidProvider, groupUUIDProvider, valueProvider);
+            MergeSet(propertySet, parentSet);
+        }
+
+        // TODO: Instantiate included definitions (if any) and merge
+
+        propertySet.RepairChildren(new StreamingContext()); // Update parent/child relations
 
         return propertySet;
+    }
+
+    private static PropertySet MergeSet(PropertySet target, PropertySet source)
+    {
+        target.SetProperties = (source.SetProperties ?? Array.Empty<Property>()).Concat(target.SetProperties ?? Array.Empty<Property>()).ToArray();
+        target.SetPropertiesName = Enumerable.Repeat(ItemsChoiceType6.SetProperty, target.SetProperties.Length).ToArray();
+
+        var groupsToMerge = source.Group?.Select(sourceG => (Source: sourceG, Target: target.Group.SingleOrDefault(targetG => targetG.ShortName.Any(sn => sourceG.HasShortName((string)sn))) ))
+            .Where(pair => pair.Target is not null);
+        var sourceGroupsToAdd = source.Group?.Except(groupsToMerge?.Select(pair => pair.Source) ?? Array.Empty<PropertyGroup>()) ?? Array.Empty<PropertyGroup>();
+        
+        target.Group = sourceGroupsToAdd.Concat(target.Group ?? Array.Empty<PropertyGroup>()).ToArray();
+
+        foreach (var (Source, Target) in groupsToMerge ?? Array.Empty<(PropertyGroup, PropertyGroup)>())
+        {
+            MergeGroup(Target!, Source);
+        }
+
+        return target;
+    }
+
+    private static PropertyGroup MergeGroup(PropertyGroup target, PropertyGroup source)
+    {
+        target.SetProperties = (source.SetProperties ?? Array.Empty<Property>()).Concat(target.SetProperties ?? Array.Empty<Property>()).ToArray();
+        target.SetPropertiesName = Enumerable.Repeat(ItemsChoiceType7.SetProperty, target.SetProperties.Length).ToArray();
+
+        var groupsToMerge = source.Group?.Select(sourceG => (Source: sourceG, Target: target.Group.SingleOrDefault(targetG => targetG.ShortName.Any(sn => sourceG.HasShortName((string)sn))) ))
+            .Where(pair => pair.Target is not null);
+        var sourceGroupsToAdd = source.Group?.Except(groupsToMerge?.Select(pair => pair.Source) ?? Array.Empty<PropertyGroup>()) ?? Array.Empty<PropertyGroup>();
+
+        target.Group = sourceGroupsToAdd.Concat(target.Group ?? Array.Empty<PropertyGroup>()).ToArray();
+
+        foreach (var (Source, Target) in groupsToMerge ?? Array.Empty<(PropertyGroup, PropertyGroup)>())
+        {
+            MergeGroup(Target!, Source);
+        }
+
+        target.RepairChildren(new StreamingContext());
+
+        return target;
     }
 }
