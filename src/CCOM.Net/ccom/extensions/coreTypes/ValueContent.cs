@@ -57,73 +57,78 @@ public partial class ValueContent
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(bool value)
+    public static implicit operator ValueContent(bool? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(Coordinate value)
+    public static implicit operator ValueContent(Coordinate? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(EnumerationItem value)
+    public static implicit operator ValueContent(EnumerationItem? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(Measure value)
+    public static implicit operator ValueContent(Measure? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(MultiParameter value)
+    public static implicit operator ValueContent((NumericType? v, UnitOfMeasure uom) value)
+    {
+        return value.v is null ? new() : new() { Item = Measure.Create(value.v, value.uom) };
+    }
+
+    public static implicit operator ValueContent(MultiParameter? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(short value)
+    public static implicit operator ValueContent(short? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
-    public static implicit operator ValueContent(int value)
+    public static implicit operator ValueContent(int? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
-    public static implicit operator ValueContent(long value)
+    public static implicit operator ValueContent(long? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
-    public static implicit operator ValueContent(BigInteger value)
+    public static implicit operator ValueContent(BigInteger? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
-    public static implicit operator ValueContent(float value)
+    public static implicit operator ValueContent(float? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
-    public static implicit operator ValueContent(double value)
+    public static implicit operator ValueContent(double? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
-    public static implicit operator ValueContent(decimal value)
+    public static implicit operator ValueContent(decimal? value)
     {
-        return new ValueContent() { Item = (NumericType)value };
+        return new ValueContent() { Item = (NumericType?)value };
     }
 
     // Includes Percentage and Probability types
-    public static implicit operator ValueContent(NumericType value)
+    public static implicit operator ValueContent(NumericType? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(string value)
+    public static implicit operator ValueContent(string? value)
     {
         return new ValueContent() { Item = (TextType)value };
     }
@@ -133,42 +138,50 @@ public partial class ValueContent
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(System.Uri value)
+    public static implicit operator ValueContent(System.Uri? value)
     {
         return new ValueContent() { Item = (Ccom.URI)value };
     }
 
-    public static implicit operator ValueContent(Ccom.URI value)
+    public static implicit operator ValueContent(Ccom.URI? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(DateTime value)
+    public static implicit operator ValueContent(DateTime? value)
     {
-        return new ValueContent() { Item = (UTCDateTime)value };
+        return new ValueContent() { Item = value is null ? null : (UTCDateTime)value };
     }
 
-    public static implicit operator ValueContent(DateTimeOffset value)
+    public static implicit operator ValueContent((DateTime? datetime, TimeSpan offset) value)
     {
-        return new ValueContent() { Item = (UTCDateTime)value };
+        return value.datetime is null ? new() : new()
+        {
+            Item = (UTCDateTime)new DateTimeOffset((DateTime)value.datetime, value.offset)
+        };
     }
 
-    public static implicit operator ValueContent(UTCDateTime value)
+    public static implicit operator ValueContent(DateTimeOffset? value)
+    {
+        return new ValueContent() { Item = value is null ? null : (UTCDateTime)value };
+    }
+
+    public static implicit operator ValueContent(UTCDateTime? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(Guid value)
+    public static implicit operator ValueContent(Guid? value)
     {
         return new ValueContent() { Item = (UUID)value };
     }
 
-    public static implicit operator ValueContent(UUID value)
+    public static implicit operator ValueContent(UUID? value)
     {
         return new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(XML value)
+    public static implicit operator ValueContent(XML? value)
     {
         return new ValueContent() { Item = value };
     }

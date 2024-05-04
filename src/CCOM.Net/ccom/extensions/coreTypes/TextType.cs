@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using Ccom;
 
 namespace Ccom;
 
+[DebuggerDisplay("'{Value}'")]
 public partial class TextType
 {
     public static implicit operator TextType(string? value)

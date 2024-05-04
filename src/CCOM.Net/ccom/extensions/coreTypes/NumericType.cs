@@ -80,6 +80,7 @@ public partial class NumericType
     }
 
 
+    public static explicit operator short?(NumericType? value) => value is null ? null : (short)value;
     public static explicit operator short(NumericType value)
     {
         if (short.TryParse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo, out var val))
@@ -90,6 +91,7 @@ public partial class NumericType
         // Not a negative exponent interferring, so raise the normal exception
         return short.Parse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo);
     }
+    public static explicit operator int?(NumericType? value) => value is null ? null : (int)value;
     public static explicit operator int(NumericType value)
     {
         if (int.TryParse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo, out var val))
@@ -100,6 +102,7 @@ public partial class NumericType
         // Not a negative exponent interferring, so raise the normal exception
         return int.Parse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo);
     }
+    public static explicit operator long?(NumericType? value) => value is null ? null : (long)value;
     public static explicit operator long(NumericType value)
     {
         if (long.TryParse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo, out var val))
@@ -110,6 +113,7 @@ public partial class NumericType
         // Not a negative exponent interferring, so raise the normal exception
         return long.Parse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo);
     }
+    public static explicit operator BigInteger?(NumericType? value) => value is null ? null : (BigInteger)value;
     public static explicit operator BigInteger(NumericType value)
     {
         if (BigInteger.TryParse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo, out var val))
@@ -120,8 +124,11 @@ public partial class NumericType
         // Not a negative exponent interferring, so raise the normal exception
         return BigInteger.Parse(value.Value, NumberStyles.Float, NumberFormatInfo.InvariantInfo);
     }
+    public static explicit operator float?(NumericType? value) => value is null ? null : (float)value;
     public static explicit operator float(NumericType value) => float.Parse(value.Value, NumberFormatInfo.InvariantInfo);
+    public static explicit operator double?(NumericType? value) => value is null ? null : (double)value;
     public static explicit operator double(NumericType value) => double.Parse(value.Value, NumberFormatInfo.InvariantInfo);
+    public static explicit operator decimal?(NumericType? value) => value is null ? null : (decimal)value;
     public static explicit operator decimal(NumericType value) => decimal.Parse(value.Value, NumberStyles.Number | NumberStyles.AllowExponent , NumberFormatInfo.InvariantInfo);
 
     private static readonly char[] EXPONENT_SEPARATORS = new [] { 'e', 'E' };

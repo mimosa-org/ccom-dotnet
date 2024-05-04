@@ -58,7 +58,8 @@ public partial class PropertyGroupDefinition
 
     public IEnumerable<Entity> GetChildren()
     {
-        return PropertyDefinitions.Cast<Entity>().Concat(Group);
+        return (PropertyDefinitions?.Cast<Entity>() ?? Array.Empty<Entity>())
+                .Concat(Group ?? Array.Empty<Entity>()).ToArray();
     }
 
     [OnDeserialized]
@@ -142,10 +143,12 @@ public partial class PropertyGroupDefinition
     }
 
     public PropertyGroup InstantiateGroup(UUID? uuid = null, PropertyGroup? parentGroup = null, PropertySet? parentSet = null,
-        UUIDProvider? uuidProvider = null, GroupUUIDProvider? groupUUIDProvider = null, PropertyDefinition.ValueProvider? valueProvider = null)
+        UUIDProvider? uuidProvider = null, GroupUUIDProvider? groupUUIDProvider = null, PropertyDefinition.ValueProvider? valueProvider = null,
+        Func<Entity, bool>? includeIfPredicate = null)
     {
         uuidProvider ??= DefaultUUIDProvider;
         groupUUIDProvider ??= DefaultGroupUUIDProvider;
+        includeIfPredicate ??= e => e.IsActive;
 
         var group = PropertyGroup.Create(
             ShortName.FirstOrDefault("<unknown>").Value,
@@ -156,21 +159,21 @@ public partial class PropertyGroupDefinition
         );
         group.Order = Order is null ? null : new() { format = Order.format, Value = Order.Value };
 
-        group.SetProperties = PropertyDefinitions?.Select(definition => definition.IsActive ?
+        group.SetProperties = PropertyDefinitions?.Where(definition => includeIfPredicate(definition))
+        .OrderBy(definition => (int?)definition.Order ?? int.MaxValue)
+        .Select(definition =>
             definition.InstantiateProperty(uuid: uuidProvider(definition, group), parentGroup: group, parentSet: parentSet, valueProvider: valueProvider)
-            : null
         )
-        .OfType<Property>() // exclude the nulls
         .ToArray() ?? Array.Empty<Property>();
         group.SetPropertiesName = new ItemsChoiceType7[group.SetProperties.Length];
         Array.Fill(group.SetPropertiesName, ItemsChoiceType7.SetProperty);
 
-        group.Group = Group?.Select(definition => definition.IsActive ?
+        group.Group = Group?.Where(definition => includeIfPredicate(definition))
+        .Select(definition =>
             definition.InstantiateGroup(uuid: groupUUIDProvider(definition, group), parentGroup: group, parentSet: parentSet, 
-                    uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider)
-            : null
+                    uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider,
+                    includeIfPredicate: includeIfPredicate)
         )
-        .OfType<PropertyGroup>() // exclude the nulls
         .ToArray() ?? Array.Empty<PropertyGroup>();
 
         return group;

@@ -34,7 +34,7 @@ public partial class XML
         }).OfType<T>();
     }
 
-    public void SetContent<T>(IEnumerable<T> items) where T : class
+    public XML SetContent<T>(IEnumerable<T> items) where T : class
     {
         var serializer = new XmlCallbackSerializer(typeof(T), Ccom.Namespace.URI);
         AnyContent = items.Select(e =>
@@ -48,5 +48,6 @@ public partial class XML
             xmlDoc.Load(doc.CreateReader());
             return xmlDoc.FirstChild;
         }).OfType<XmlNode>().ToArray();
+        return this;
     }
 }

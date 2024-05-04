@@ -54,7 +54,7 @@ namespace Ccom {
             return new UUID() { Value = value };
         }
 
-        public static implicit operator UUID(Guid value) => Create(value);
+        public static implicit operator UUID(Guid? value) => value is null ? null! : Create((Guid)value);
         public static explicit operator Guid(UUID value) => Guid.Parse(value.Value);
     }
 

@@ -67,7 +67,8 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
 
     public IEnumerable<Entity> GetChildren()
     {
-        return PropertyDefinitions.Cast<Entity>().Concat(Group);
+        return (PropertyDefinitions?.Cast<Entity>() ?? Array.Empty<Entity>())
+                .Concat(Group ?? Array.Empty<Entity>()).ToArray();
     }
 
     [OnDeserialized]
@@ -117,10 +118,12 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
     public PropertySet InstantiatePropertySet(UUID? uuid = null, InfoSource? infoSource = null,
         PropertyGroupDefinition.UUIDProvider? uuidProvider = null, 
         PropertyGroupDefinition.GroupUUIDProvider? groupUUIDProvider = null, 
-        PropertyDefinition.ValueProvider? valueProvider = null)
+        PropertyDefinition.ValueProvider? valueProvider = null,
+        Func<Entity, bool>? includeIfPredicate = null)
     {
         uuidProvider ??= PropertyGroupDefinition.DefaultUUIDProvider;
         groupUUIDProvider ??= PropertyGroupDefinition.DefaultGroupUUIDProvider;
+        includeIfPredicate ??= e => e.IsActive;
 
         var propertySet = PropertySet.Create(
             ShortName.FirstOrDefault("<unknown>").Value,
@@ -130,27 +133,27 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
             definition: this
         );
 
-        propertySet.SetProperties = PropertyDefinitions?.Select(definition => definition.IsActive ? 
+        propertySet.SetProperties = PropertyDefinitions?.Where(definition => includeIfPredicate(definition))
+        .OrderBy(definition => (int?)definition.Order ?? int.MaxValue)
+        .Select(definition =>
             definition.InstantiateProperty(uuid: uuidProvider(definition, propertySet), parentSet: propertySet, valueProvider: valueProvider)
-            : null
         )
-        .OfType<Property>() // exclude the nulls
         .ToArray() ?? Array.Empty<Property>();
         propertySet.SetPropertiesName = new ItemsChoiceType6[propertySet.SetProperties.Length];
         Array.Fill(propertySet.SetPropertiesName, ItemsChoiceType6.SetProperty);
 
-        propertySet.Group = Group?.Select(definition => definition.IsActive ?
+        propertySet.Group = Group?.Where(definition => includeIfPredicate(definition))
+        .Select(definition =>
             definition.InstantiateGroup(uuid: groupUUIDProvider(definition, propertySet), parentSet: propertySet, 
-                    uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider)
-            : null
+                    uuidProvider: uuidProvider, groupUUIDProvider: groupUUIDProvider, valueProvider: valueProvider, 
+                    includeIfPredicate: includeIfPredicate)
         )
-        .OfType<PropertyGroup>() // exclude the nulls
         .ToArray() ?? Array.Empty<PropertyGroup>();
 
         // Instantiate the parent (if any) and merge
         if (Parent is not null)
         {
-            var parentSet = Parent.InstantiatePropertySet(propertySet.UUID, infoSource, uuidProvider, groupUUIDProvider, valueProvider);
+            var parentSet = Parent.InstantiatePropertySet(propertySet.UUID, infoSource, uuidProvider, groupUUIDProvider, valueProvider, includeIfPredicate);
             MergeSet(propertySet, parentSet);
         }
 
@@ -167,8 +170,8 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
         target.SetPropertiesName = Enumerable.Repeat(ItemsChoiceType6.SetProperty, target.SetProperties.Length).ToArray();
 
         var groupsToMerge = source.Group?.Select(sourceG => (Source: sourceG, Target: target.Group.SingleOrDefault(targetG => targetG.ShortName.Any(sn => sourceG.HasShortName((string)sn))) ))
-            .Where(pair => pair.Target is not null);
-        var sourceGroupsToAdd = source.Group?.Except(groupsToMerge?.Select(pair => pair.Source) ?? Array.Empty<PropertyGroup>()) ?? Array.Empty<PropertyGroup>();
+            .Where(pair => pair.Target is not null).ToArray();
+        var sourceGroupsToAdd = source.Group?.Except(groupsToMerge?.Select(pair => pair.Source).ToArray() ?? Array.Empty<PropertyGroup>()) ?? Array.Empty<PropertyGroup>();
         
         target.Group = sourceGroupsToAdd.Concat(target.Group ?? Array.Empty<PropertyGroup>()).ToArray();
 
@@ -186,8 +189,10 @@ public partial class PropertySetDefinition : ICompositionParent<PropertyDefiniti
         target.SetPropertiesName = Enumerable.Repeat(ItemsChoiceType7.SetProperty, target.SetProperties.Length).ToArray();
 
         var groupsToMerge = source.Group?.Select(sourceG => (Source: sourceG, Target: target.Group.SingleOrDefault(targetG => targetG.ShortName.Any(sn => sourceG.HasShortName((string)sn))) ))
-            .Where(pair => pair.Target is not null);
-        var sourceGroupsToAdd = source.Group?.Except(groupsToMerge?.Select(pair => pair.Source) ?? Array.Empty<PropertyGroup>()) ?? Array.Empty<PropertyGroup>();
+            .Where(pair => pair.Target is not null).ToArray()
+            ?? Array.Empty<(PropertyGroup, PropertyGroup)>();
+        var sourceGroupsToAdd = source.Group?.Except(groupsToMerge.Select(pair => pair.Source).ToArray())
+            ?? Array.Empty<PropertyGroup>();
 
         target.Group = sourceGroupsToAdd.Concat(target.Group ?? Array.Empty<PropertyGroup>()).ToArray();
 

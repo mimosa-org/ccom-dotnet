@@ -50,7 +50,7 @@ public partial class URI
         return Create(new Uri(uri, UriKind.RelativeOrAbsolute));
     }
 
-    public static implicit operator Ccom.URI(System.Uri uri) => Create(uri);
+    public static implicit operator Ccom.URI(System.Uri? uri) => uri is null ? null! : Create(uri);
 
-    public static explicit operator System.Uri(Ccom.URI uri) => new(uri.Value);
+    public static explicit operator System.Uri(Ccom.URI? uri) => uri is null ? null! : new(uri.Value);
 }
