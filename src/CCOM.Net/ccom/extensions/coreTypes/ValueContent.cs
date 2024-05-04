@@ -47,115 +47,115 @@ public partial class ValueContent
         }
     }
 
-    public static implicit operator ValueContent(BinaryData value)
+    public static implicit operator ValueContent(BinaryData? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
-    public static implicit operator ValueContent(BinaryObject value)
+    public static implicit operator ValueContent(BinaryObject? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(bool? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(Coordinate? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(EnumerationItem? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(Measure? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent((NumericType? v, UnitOfMeasure uom) value)
     {
-        return value.v is null ? new() : new() { Item = Measure.Create(value.v, value.uom) };
+        return value.v is null ? null! : new() { Item = Measure.Create(value.v, value.uom) };
     }
 
     public static implicit operator ValueContent(MultiParameter? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(short? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     public static implicit operator ValueContent(int? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     public static implicit operator ValueContent(long? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     public static implicit operator ValueContent(BigInteger? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     public static implicit operator ValueContent(float? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     public static implicit operator ValueContent(double? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     public static implicit operator ValueContent(decimal? value)
     {
-        return new ValueContent() { Item = (NumericType?)value };
+        return value is null ? null! : new ValueContent() { Item = (NumericType)value };
     }
 
     // Includes Percentage and Probability types
     public static implicit operator ValueContent(NumericType? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(string? value)
     {
-        return new ValueContent() { Item = (TextType)value };
+        return value is null ? null! : new ValueContent() { Item = (TextType)value };
     }
 
-    public static implicit operator ValueContent(TextType value)
+    public static implicit operator ValueContent(TextType? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(System.Uri? value)
     {
-        return new ValueContent() { Item = (Ccom.URI)value };
+        return value is null ? null! : new ValueContent() { Item = (Ccom.URI)value };
     }
 
     public static implicit operator ValueContent(Ccom.URI? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(DateTime? value)
     {
-        return new ValueContent() { Item = value is null ? null : (UTCDateTime)value };
+        return value is null ? null! : new ValueContent() { Item = (UTCDateTime)value };
     }
 
     public static implicit operator ValueContent((DateTime? datetime, TimeSpan offset) value)
     {
-        return value.datetime is null ? new() : new()
+        return value.datetime is null ? null! : new()
         {
             Item = (UTCDateTime)new DateTimeOffset((DateTime)value.datetime, value.offset)
         };
@@ -163,26 +163,26 @@ public partial class ValueContent
 
     public static implicit operator ValueContent(DateTimeOffset? value)
     {
-        return new ValueContent() { Item = value is null ? null : (UTCDateTime)value };
+        return value is null ? null! : new ValueContent() { Item = (UTCDateTime)value };
     }
 
     public static implicit operator ValueContent(UTCDateTime? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(Guid? value)
     {
-        return new ValueContent() { Item = (UUID)value };
+        return value is null ? null! : new ValueContent() { Item = (UUID)value };
     }
 
     public static implicit operator ValueContent(UUID? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 
     public static implicit operator ValueContent(XML? value)
     {
-        return new ValueContent() { Item = value };
+        return value is null ? null! : new ValueContent() { Item = value };
     }
 }
