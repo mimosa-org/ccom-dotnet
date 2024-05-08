@@ -5,7 +5,6 @@ using System.Xml.Schema;
 using System.Xml.Linq;
 using Oagis;
 using Ccom.Xml.Serialization;
-
 namespace CommonBOD;
 
 public class BODReader
@@ -189,7 +188,7 @@ public class BODReader
         }
     }
 
-    public ConfirmBODType GenerateConfirmBOD()
+    public ConfirmBODType GenerateConfirmBOD(MessageType? msg = null)
     {
         var confirmBOD = new ConfirmBODType()
         {
@@ -222,6 +221,9 @@ public class BODReader
             {
                 confirmBOD.DataArea.BOD[0].BODSuccessMessage.WarningProcessMessage = ValidationErrors.Select(r => r.ToOagisMessage()).ToArray();
             }
+            SuccessMessageType successMsg = new();
+            successMsg.ProcessMessage = new MessageType[] { msg };
+            confirmBOD.DataArea.BOD[0].BODSuccessMessage.NounSuccessMessage = new SuccessMessageType[] { successMsg };
         }
         else
         {
