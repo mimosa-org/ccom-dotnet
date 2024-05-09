@@ -116,10 +116,27 @@ public class BODReader
         var newInput = new StringReader(allContent);
 
         XmlReaderSettings xmlSettings = new XmlReaderSettings();
-        xmlSettings.ValidationType = ValidationType.Schema;
-        xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => IsValid = IsValid && (e.Severity != XmlSeverityType.Error);
-        xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => ((List<ValidationResult>)ValidationErrors).Add(ValidationResult.FromValidationEventArgs(e));
-        xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => Console.WriteLine("{0}: {1}", e.Severity.ToString(), e.Message);
+        xmlSettings.ValidationType = _settings.PerformValidation switch
+        {
+           BODReaderSettings.ValidationSetting.Off => ValidationType.None,
+           _ => ValidationType.Schema 
+        };
+        if (_settings.PerformValidation == BODReaderSettings.ValidationSetting.ErrorsAsWarnings)
+        {
+            // Will always be valid with errors passed on as Warnings
+            IsValid = true;
+            xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e)
+             => ((List<ValidationResult>)ValidationErrors).Add(ValidationResult.FromValidationEventArgs(e) with { Severity = XmlSeverityType.Warning });
+            xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e)
+             => Console.WriteLine("{0} (Converted to warning): {1}", e.Severity.ToString(), e.Message);
+        }
+        else
+        {
+            // Standard validation, errors are passed on as errors and the IsValid == false if an error occurs
+            xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => IsValid = IsValid && (e.Severity != XmlSeverityType.Error);
+            xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => ((List<ValidationResult>)ValidationErrors).Add(ValidationResult.FromValidationEventArgs(e));
+            xmlSettings.ValidationEventHandler += (object? o, ValidationEventArgs e) => Console.WriteLine("{0}: {1}", e.Severity.ToString(), e.Message);
+        }
 
         xmlSettings.Schemas.Add(Ccom.Cct.Namespace.URI, $"{_settings.SchemaPath}/CoreComponentType_2p0.xsd");
         xmlSettings.Schemas.Add(Ccom.Namespace.URI, $"{_settings.SchemaPath}/CCOM.xsd");
