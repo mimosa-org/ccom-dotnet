@@ -238,8 +238,10 @@ public class BODReader
             {
                 confirmBOD.DataArea.BOD[0].BODSuccessMessage.WarningProcessMessage = ValidationErrors.Select(r => r.ToOagisMessage()).ToArray();
             }
-            SuccessMessageType successMsg = new();
-            successMsg.ProcessMessage = new MessageType[] { msg };
+            SuccessMessageType successMsg = new()
+            {
+                ProcessMessage = msg == null ? null : new MessageType[] { msg }
+            };
             confirmBOD.DataArea.BOD[0].BODSuccessMessage.NounSuccessMessage = new SuccessMessageType[] { successMsg };
         }
         else

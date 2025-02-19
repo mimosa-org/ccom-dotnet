@@ -133,6 +133,6 @@ public class BusinessObjectDocumentTypeTest
     <CreationDateTime>{creationTime.ToXsDateTimeString()}</CreationDateTime>
     <BODID>{bodid}</BODID>
   </ApplicationArea>
-</ConfirmBOD>";
+</ConfirmBOD>".ReplaceLineEndings();
     }
 }

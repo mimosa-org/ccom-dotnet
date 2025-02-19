@@ -127,24 +127,31 @@ public class CoreTypesTest
         var localOffset = localTimeZone.GetUtcOffset(localTime);
 
         var timeWithOffset = new DateTimeOffset(2023, 09, 23, 14, 19, 33, new TimeSpan(10, 0, 0));
+        var timeWithMinutesOffset = new DateTimeOffset(2023, 09, 23, 14, 19, 33, new TimeSpan(9, 30, 0));
 
         UTCDateTime fromUniversalTime = universalTime;
         UTCDateTime fromLocalTime = localTime;
         UTCDateTime fromTimeWithOffset = timeWithOffset;
+        UTCDateTime fromTimeWithMinutesOffset = timeWithMinutesOffset;
 
-        Assert.Equal("2023-09-23T14:19:33Z", fromUniversalTime.Value);
+        Assert.Equal("2023-09-23T14:19:33.0000000Z", fromUniversalTime.Value);
         Assert.False(fromUniversalTime.locHrDeltaFromUTCSpecified);
         Assert.Null(fromUniversalTime.locMinDeltaFromUTC);
 
-        Assert.Equal($"2023-09-{(14 - localOffset.TotalHours < 0 ? 22 : 23)}T{Math.Floor(14 - localOffset.TotalHours):00}:{(19 - localOffset.Minutes + 60) % 60:00}:33Z", fromLocalTime.Value);
+        Assert.Equal($"2023-09-{(14 - localOffset.TotalHours < 0 ? 22 : 23)}T{Math.Floor(14 - localOffset.TotalHours):00}:{(19 - localOffset.Minutes + 60) % 60:00}:33.0000000Z", fromLocalTime.Value);
         Assert.Equal(localOffset.Hours, fromLocalTime.locHrDeltaFromUTC);
         Assert.True(fromLocalTime.locHrDeltaFromUTCSpecified);
-        Assert.Equal(localOffset.Minutes.ToString(), fromLocalTime.locMinDeltaFromUTC);
+        Assert.Equal(localOffset.Minutes == 0 ? null : localOffset.Minutes.ToString(), fromLocalTime.locMinDeltaFromUTC);
 
-        Assert.Equal("2023-09-23T04:19:33Z", fromTimeWithOffset.Value);
+        Assert.Equal("2023-09-23T04:19:33.0000000Z", fromTimeWithOffset.Value);
         Assert.Equal(timeWithOffset.Offset.Hours, fromTimeWithOffset.locHrDeltaFromUTC);
         Assert.True(fromTimeWithOffset.locHrDeltaFromUTCSpecified);
-        Assert.Equal(timeWithOffset.Offset.Minutes.ToString(), fromTimeWithOffset.locMinDeltaFromUTC);
+        Assert.Null(fromTimeWithOffset.locMinDeltaFromUTC); // Zero value for minutes can be left out
+
+        Assert.Equal("2023-09-23T04:49:33.0000000Z", fromTimeWithMinutesOffset.Value);
+        Assert.Equal(timeWithMinutesOffset.Offset.Hours, fromTimeWithMinutesOffset.locHrDeltaFromUTC);
+        Assert.True(fromTimeWithMinutesOffset.locHrDeltaFromUTCSpecified);
+        Assert.Equal(timeWithMinutesOffset.Offset.Minutes.ToString(), fromTimeWithMinutesOffset.locMinDeltaFromUTC);
     }
 
     [Fact]

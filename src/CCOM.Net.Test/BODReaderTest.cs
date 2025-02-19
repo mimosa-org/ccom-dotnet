@@ -55,9 +55,15 @@ public class BODReaderTest : IClassFixture<BODExamples>
         Assert.Equal("SyncSegments", reader.SimpleName);
     }
 
-    [Fact]
-    public void GenerateConfirmBODForValidBODTest()
+    [Theory]
+    [InlineData(null)]
+    [InlineData("Success")]
+    public void GenerateConfirmBODForValidBODTest(string? message)
     {
+        var expectedMessage = message == null ? null : new MessageType
+        {
+            Description = new[] { new DescriptionType { Value = message } }
+        };
         var expected = new ConfirmBODType()
         {
             languageCode = "en-US",
@@ -82,13 +88,20 @@ public class BODReaderTest : IClassFixture<BODExamples>
                         CreationDateTime = "2019-09-13T04:21:21Z",
                         Sender = new SenderType()
                         {
-                            LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" }
+                            LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" },
+                            ConfirmationCode = new ConfirmationResponseCodeType { Value = "Always" },
                         }
                     }
                 },
-                BOD = new BODType[] {
+                BOD = new[] {
                     new BODType() {
-                        BODSuccessMessage = new BODSuccessMessageType()
+                        BODSuccessMessage = new BODSuccessMessageType {
+                            NounSuccessMessage = new[] {
+                                new SuccessMessageType {
+                                    ProcessMessage = message == null ? null : new[] { expectedMessage }
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -100,7 +113,7 @@ public class BODReaderTest : IClassFixture<BODExamples>
             settings
         );
 
-        var confirmBOD = reader.GenerateConfirmBOD();
+        var confirmBOD = reader.GenerateConfirmBOD(expectedMessage);
 
         Assert.Equal(expected.languageCode, confirmBOD.languageCode);
         Assert.Equal(expected.releaseID, confirmBOD.releaseID);
@@ -136,7 +149,8 @@ public class BODReaderTest : IClassFixture<BODExamples>
                         CreationDateTime = "2019-09-13T04:21:21Z",
                         Sender = new SenderType()
                         {
-                            LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" }
+                            LogicalID = new IdentifierType() { Value = "ba201587-fd83-4d8a-acb3-426ac0c0b9f3" },
+                            ConfirmationCode = new ConfirmationResponseCodeType { Value = "Always" },
                         }
                     }
                 },

@@ -195,9 +195,11 @@ public class PropertySetTest
                     (propertySet?[0] as PropertyGroup)?.GetChildren().Where(c => c is PropertyGroup).Last().UUID.Value);
 
         // Properties of top group
-        Assert.Equal(propertyUuidMappings[(Guid)(propertySetDefinition?[0] as PropertyGroupDefinition)?[0]?.UUID!].Value, 
-                    (propertySet?[0] as PropertyGroup)?.GetChildren().Where(c => c is Property).First().UUID.Value);
+        // Note, instantiation ensures collection order matches explicit 'Order' property, hence the property definition
+        // index is reversed compared to the Property instance order. See the example XML.
         Assert.Equal(propertyUuidMappings[(Guid)(propertySetDefinition?[0] as PropertyGroupDefinition)?[1]?.UUID!].Value, 
+                    (propertySet?[0] as PropertyGroup)?.GetChildren().Where(c => c is Property).First().UUID.Value);
+        Assert.Equal(propertyUuidMappings[(Guid)(propertySetDefinition?[0] as PropertyGroupDefinition)?[0]?.UUID!].Value, 
                     (propertySet?[0] as PropertyGroup)?.GetChildren().Where(c => c is Property).Last().UUID.Value);
     }
 }

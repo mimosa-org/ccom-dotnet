@@ -64,7 +64,7 @@ public class BODExamples : IDisposable
       <oa:Description>Example</oa:Description>
     </oa:BOD>
   </oa:DataArea>
-</oa:ConfirmBOD>";
+</oa:ConfirmBOD>".ReplaceLineEndings();
     }
 
     public string ConfirmBODNounRenamed(string bodid, string senderId, DateTime creationTime)
@@ -83,7 +83,7 @@ public class BODExamples : IDisposable
       <oa:Description>Example</oa:Description>
     </oa:BODResult>
   </oa:DataArea>
-</oa:ConfirmBOD>";
+</oa:ConfirmBOD>".ReplaceLineEndings();
     }
 
     public string SyncSegments()
