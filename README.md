@@ -35,10 +35,58 @@ xsd /parameters:config/GenerateCCOMClasses.xml
 xsd /parameters:config/GenerateOAGISClasses.xml
 ```
 
+## Getting/Publishing the NuGet package
+
+The NuGet package for the CCOM.Net library is currently being published via GitHub
+rather than [NuGet.org](https://www.nuget.org). To read or publish the package you
+will need to configure the NuGet registry for the CCOM.Net package.
+
+If you want to use the CCOM.Net package in your project:
+
+1. Copy the `github-mattys101` package source from [nuget.config](./nuget.config)
+   into the `nuget.config` file in your project.
+
+2. Note that the package should be publicly available so auth credentials should
+   not be required. However, if credentials are required:
+    1. Set the environment variable `GH_USERNAME` to your GitHub username
+    2. Set the environment variable `GH_TOKEN` to a GitHub Personal Access Token (classic)
+       that you have generated with `read:packages` permission.
+
+
+If you want to publish a new version of the CCOM.Net package to the NuGet registry:
+
+1. Set the environment variable `GH_USERNAME` to your GitHub username
+2. Set the environment variable `GH_TOKEN` to a GitHub Personal Access Token (classic)
+   that you have generated with `write:packages` permission.
+3. ```bat
+   dotnet pack --configuration Release
+   ```
+4. ```bat
+   dotnet nuget push "src/CCOM.Net/bin/Release/CCOM.Net.VERSION.nupkg" --api-key %GH_TOKEN% --source "github-mattys101"
+   ```
+   where `VERSION` is replaced with the version number being published.
+
+## Contributing
+
+The main repository for CCOM.Net is https://github.com/mattys101/CCOM.Net
+
+If you would like to contribute to development, please:
+1. Fork the repository
+2. Make your changes in a branch
+3. Create a pull request with a description of the new feature, bugfix, etc.
+   of the contribution.
+
+   > Note that not all pull requests will necessarily be merged into the main
+   > repository. If you like, you could first open an issue discussing the
+   > proposed change before implementing it. This will help ensure that any
+   > contributions align with the overall goals of the project.
+
+You may also open an issue, feature request, discussion, etc., in the repository's
+issue tracker if you like.
 
 ## Copyright
 
-Copyright (c) 2022 Matt Selway. All Rights Reserved.
+Copyright (c) 2025 Matt Selway. All Rights Reserved.
 
 The included CCOM XML Schema and CCOM BOD Schemas are Copyright MIMOSA: see [XSD/License.txt](XSD/License.txt) for details.
 
