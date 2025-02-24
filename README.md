@@ -43,7 +43,7 @@ will need to configure the NuGet registry for the CCOM.Net package.
 
 If you want to use the CCOM.Net package in your project:
 
-1. Copy the `github-mattys101` package source from [nuget.config](./nuget.config)
+1. Copy the `github-mimosa-org` package source from [nuget.config](./nuget.config)
    into the `nuget.config` file in your project.
 
 2. Note that the package should be publicly available so auth credentials should
@@ -62,13 +62,13 @@ If you want to publish a new version of the CCOM.Net package to the NuGet regist
    dotnet pack --configuration Release
    ```
 4. ```bat
-   dotnet nuget push "src/CCOM.Net/bin/Release/CCOM.Net.VERSION.nupkg" --api-key %GH_TOKEN% --source "github-mattys101"
+   dotnet nuget push "src/CCOM.Net/bin/Release/CCOM.Net.VERSION.nupkg" --api-key %GH_TOKEN% --source "github-mimosa-org"
    ```
    where `VERSION` is replaced with the version number being published.
 
 ## Contributing
 
-The main repository for CCOM.Net is https://github.com/mattys101/CCOM.Net
+The main repository for CCOM.Net is https://github.com/mimosa-org/ccom-dotnet
 
 If you would like to contribute to development, please:
 1. Fork the repository

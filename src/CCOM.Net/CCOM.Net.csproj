@@ -10,7 +10,7 @@
     <Version>0.1.0</Version>
     <Authors>Matt Selway</Authors>
     <Company>MIMOSA</Company>
-    <RepositoryUrl>https://github.com/mattys101/CCOM.Net.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mimosa-org/ccom-dotnet.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
