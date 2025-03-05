@@ -7,14 +7,14 @@
 
     <PackageId>CCOM.Net</PackageId>
     <Description>Basic C#/.Net library for (de)serialising MIMOSA CCOM XML content.</Description>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Matt Selway</Authors>
     <Company>MIMOSA</Company>
     <RepositoryUrl>https://github.com/mimosa-org/ccom-dotnet.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\..\XSD\**">
+    <Content Include="..\..\XSD\**" PackageCopyToOutput="true" PackagePath="contentFiles/any/any/XSD">
       <LinkBase>XSD\</LinkBase>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
