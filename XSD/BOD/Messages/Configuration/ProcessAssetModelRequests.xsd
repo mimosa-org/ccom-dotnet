@@ -8,8 +8,7 @@
 	attributeFormDefault="unqualified">
 
 	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
-	<xs:import namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2" schemaLocation="../../../XSD/CoreComponentType_2p0.xsd"/>
-	<xs:import namespace="http://www.mimosa.org/ccom4-isdd" schemaLocation="../../../ISDD/isdd.xsd"/>
+	<xs:import namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2" schemaLocation="../../../CoreComponentType_2p0.xsd"/>
 	<xs:include schemaLocation="../CCOMQuery.xsd"/>
 
 	<xs:element name="ProcessAssetModelRequests">
@@ -59,7 +58,6 @@ request is asking if the provided model/model data sheet is the correct one for 
 													<xs:complexType>
 														<xs:choice minOccurs="1" maxOccurs="1">
 															<xs:element name="ISDDPropertySet" type="PropertySet" minOccurs="1" maxOccurs="1"/>
-															<xs:element name="ISDDInstance" type="isdd:ISDDInstance" minOccurs="1" maxOccurs="1"/>
 														</xs:choice>
 													</xs:complexType>
 												</xs:element>
@@ -67,7 +65,6 @@ request is asking if the provided model/model data sheet is the correct one for 
 													<xs:complexType>
 														<xs:choice minOccurs="1" maxOccurs="1">
 															<xs:element name="ISDDPropertySet" type="PropertySet" minOccurs="1" maxOccurs="1"/>
-															<xs:element name="ISDDInstance" type="isdd:ISDDInstance" minOccurs="1" maxOccurs="1"/>
 														</xs:choice>
 													</xs:complexType>
 												</xs:element>

@@ -8,7 +8,7 @@
 	attributeFormDefault="unqualified">
 
 	<xs:import schemaLocation="../../OAGIS/Meta.xsd" namespace="http://www.openapplications.org/oagis/9"/>
-	<xs:import namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2" schemaLocation="../../../XSD/CoreComponentType_2p0.xsd"/>
+	<xs:import namespace="urn:un:unece:uncefact:documentation:standard:CoreComponentType:2" schemaLocation="../../../CoreComponentType_2p0.xsd"/>
 	<xs:include schemaLocation="../CCOMElements.xsd"/>
 
 	<xs:element name="ShowOrganizations">

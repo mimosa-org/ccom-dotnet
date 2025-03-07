@@ -7,7 +7,7 @@
 
     <PackageId>CCOM.Net</PackageId>
     <Description>Basic C#/.Net library for (de)serialising MIMOSA CCOM XML content.</Description>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <Authors>Matt Selway</Authors>
     <Company>MIMOSA</Company>
     <RepositoryUrl>https://github.com/mimosa-org/ccom-dotnet.git</RepositoryUrl>
@@ -21,11 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.XmlSerializer.Generator" Version="6.0.0" />
+    <PackageReference Include="Microsoft.XmlSerializer.Generator" Version="[6.0.0,)" />
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.XmlSerializer.Generator" Version="6.0.0" />
+    <DotNetCliToolReference Include="Microsoft.XmlSerializer.Generator" Version="[6.0.0,)" />
   </ItemGroup>
 
 </Project>
